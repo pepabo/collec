@@ -1,0 +1,13 @@
+language: ruby
+rvm:
+ - 2.4
+services:
+  - mysql
+bundler_args: "--without production --deployment"
+cache: bundler
+before_script:
+  - bundle exec rake db:create
+  - bundle exec rake db:migrate
+script:
+  - bundle exec rubocop
+  - bundle exec rake test
