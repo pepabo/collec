@@ -7,18 +7,28 @@ Things you may want to cover:
 
 * Ruby version
 
+- 2.4
+
 * System dependencies
+
+- mysqld
 
 * Configuration
 
 * Database creation
 
+```bash
+$ bin/rake db:create
+```
+
 * Database initialization
+
+```bash
+$ bin/rake db:migrate
+```
 
 * How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```bash
+$ bin/rake test
+```
