@@ -1,0 +1,38 @@
+AllCops:
+  TargetRubyVersion: 2.4
+  DisplayCopNames: true
+  DisabledByDefault: true
+
+Rails:
+  Enabled: true
+
+Style/HashSyntax:
+  Enabled: true
+
+# 日本語コメント許可
+Style/AsciiComments:
+  Enabled: false
+
+# 1行あたり220文字まで入力許可
+LineLength:
+  Max: 220
+
+# コメントは必ずしも必要ではない
+Style/Documentation:
+  Enabled: false
+
+# 数値を3桁区切りにしない
+Style/NumericLiterals:
+  Enabled: false
+
+# 後置rescueを許容
+Style/RescueModifier:
+  Enabled: false
+
+Style/RedundantReturn:
+  AllowMultipleReturnValues: false
+
+# 複雑度
+# http://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Metrics/PerceivedComplexity
+Metrics/PerceivedComplexity:
+  Max: 18
