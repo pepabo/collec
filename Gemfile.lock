@@ -49,6 +49,7 @@ GEM
     bootstrap (4.0.0.alpha6)
       autoprefixer-rails (>= 6.0.3)
       sass (>= 3.4.19)
+    bootstrap_form (2.7.0)
     builder (3.2.3)
     byebug (9.0.6)
     capybara (2.14.4)
@@ -236,6 +237,7 @@ PLATFORMS
 DEPENDENCIES
   awesome_print
   bootstrap (~> 4.0.0.alpha6)
+  bootstrap_form
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
