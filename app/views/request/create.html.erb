@@ -8,7 +8,6 @@
     <%= f.radio_button :form_type, 1, label: "Single button", checked: true %>
     <%= f.radio_button :form_type, 2, label: "Multi button", checked: false %>
     <%= f.radio_button :form_type, 3, label: "Toggle button", checked: false %>
-    <%= f.radio_button :form_type, 4, label: "Text field", checked: false %>
   <% end %>
   <%= f.datetime_select :due_at, label: { text: '対応期限' }, class: 'form-control', use_month_numbers: true, minute_step: 10 %>
   <%= f.form_group(:remind_times, label: { text: 'select remind times' }) do %>
