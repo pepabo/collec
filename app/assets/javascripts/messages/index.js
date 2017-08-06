@@ -1,3 +1,41 @@
+var messages = [
+  {
+    messages_id: 1,
+    message: '件名1',
+    deadline_at: '2017-01-11 00:00',
+    require_confirm: true,
+    remind_interval: 1
+  },
+  {
+    messages_id: 2,
+    message: '件名2',
+    deadline_at: '2017-10-11 00:00',
+    require_confirm: false,
+    remind_interval: 2
+  }
+]
+
+var messageButtons = [
+  { messages_id: 1, message_button_id: 1, name: "選択肢1", value: 1 },
+  { messages_id: 1, message_button_id: 2, name: "選択肢2", value: 2 },
+  { messages_id: 1, message_button_id: 3, name: "選択肢3", value: 3 },
+  { messages_id: 2, message_button_id: 4, name: "選択肢1", value: 1 },
+  { messages_id: 2, message_button_id: 5, name: "選択肢2", value: 2 }
+]
+
+var mentionedUsers = [
+  { messages_id: 1, mentioned_users_id: 1, mentioned_users: '@user1' },
+  { messages_id: 1, mentioned_users_id: 2, mentioned_users: '@user2' },
+  { messages_id: 2, mentioned_users_id: 3, mentioned_users: '@user1' },
+  { messages_id: 2, mentioned_users_id: 4, mentioned_users: '@user10' },
+  { messages_id: 2, mentioned_users_id: 5, mentioned_users: '@user100' }
+]
+
+var answers = [
+  { message_id:1, ansers_id: 1, mentioned_user_id:1, message_button_id:1 },
+  { message_id:2, ansers_id: 2, mentioned_user_id:5, message_button_id:1 }
+]
+
 Vue.component('messages-table', {
   template: '#messages-table-template',
   props: {
@@ -55,10 +93,7 @@ var messagesTable = new Vue({
   el: '#messages-table',
   data: {
     searchQuery: '',
-    gridColumns: ['subject', 'deadline_at'],
-    gridData: [
-      { subject: '件名1', deadline_at: "2017-01-01 00:00" },
-      { subject: '件名2', deadline_at: "2017-02-01 00:00" }
-    ]
+    gridColumns: ['message', 'deadline_at'],
+    gridData: messages
   }
 })
