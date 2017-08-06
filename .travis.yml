@@ -5,9 +5,8 @@ services:
   - mysql
 bundler_args: "--without production --deployment"
 cache: bundler
-before_install:
-  - mysql -e 'CREATE DATABASE IF NOT EXISTS answer_test;'
 before_script:
+  - bundle exec rails db:create
   - bundle exec rails db:migrate
 script:
   - bundle exec rubocop
