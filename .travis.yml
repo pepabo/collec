@@ -6,7 +6,6 @@ services:
 bundler_args: "--without production --deployment --path vendor/bundle"
 cache: bundler
 before_script:
-  - bin/spring stop
   - bin/rails db:create
   - bin/rails db:migrate
 script:
