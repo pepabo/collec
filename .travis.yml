@@ -6,11 +6,11 @@ services:
 bundler_args: "--without production --deployment"
 cache: bundler
 before_script:
-  - bundle exec rails db:create
-  - bundle exec rails db:migrate
+  - bin/rails db:create
+  - bin/rails db:migrate
 script:
   - bundle exec rubocop
-  - bundle exec rails test
+  - bin/rails test
 notifications:
   slack:
     secure: bdM5opGlMHHDCFwwyghC0mOboULrekA0uTkwn2PPsCXtPBAJiKH0VZ6yS8nIiJswH+tLAW6rnGEVNQBxmyA3+kDfWILcQFDZYvfVpjhKO6PNxyZBm6GXlakMeA+Wjvl1rMx881DE5VFbZXv7I9w+dguwwLNdPuEiYx0HqAyj+ALUweFe0MFiywKwyze0CvRyYDsZIPm9rCyXzbfWU8ctZkQHRl+ITQfRmwRiEc8Fh1eo/IlZDDkeJQ79WfrZnbHu5rVmu54FIcEo689BFJfmuxe8GR4lJitC/Xp7Z2dWaAVYwUEdA51qNVuE8QYEg6QjLl3Jm2e+Ur7gIpz+AERf8DAQLicgpoLMnqzODIkYnAS6NaTALWHJB0ae4/d4ZjlmdTD/3IYmNtGNtWPvjZDFXw19pz2XTDR+If1EypfWXqrfYy4zOH9+2K34VwC45/s4IE2QIaXiNXMnLMW1x0ivuAZUVjUih859k5KLWNWRsc4j/UEnh+xmF+wMfTCetLP2hz2qTU4tdCfTKPMRNsF5LmhPf+z9aEOdKSPTBhdCg8rVpJrrnQbkuDdJPpk21NSwIQYFMinPK0XViJWTe3PM031x11hSbl4P9pXrUi7Fjehjsj09HRq9//gyoMQH9gLlpU+UZ/MX52DML7vwAhT/ouiRhWGkRHOkpWFCarohOhM=
