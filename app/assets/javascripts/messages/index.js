@@ -36,8 +36,8 @@ var answers = [
   { message_id:2, ansers_id: 2, mentioned_user_id:5, message_button_id:1 }
 ]
 
-Vue.component('messages-table', {
-  template: '#messages-table-template',
+Vue.component('js-index__messages__list__table', {
+  template: '#js-index__messages__list__table-template',
   props: {
     data: Array,
     columns: Array,
@@ -90,7 +90,7 @@ Vue.component('messages-table', {
 })
 
 var messagesTable = new Vue({
-  el: '#messages-table',
+  el: '#js-index__messages__list__table',
   data: {
     searchQuery: '',
     gridColumns: ['message', 'deadline_at'],
