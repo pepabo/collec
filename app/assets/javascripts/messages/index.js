@@ -1,15 +1,64 @@
-// テストデータ
-messages = {
-  [
-    "message_id": 1,
-    "title": "件名1",
-    "create_at": "2017-07-01 10:00",
-    "deadline_at": "2017-08-01 10:00"
-  ],
-  [
-    "message_id": 2,
-    "title": "件名2",
-    "create_at": "2017-08-05 10:00",
-    "deadline_at": "2017-08-10 10:00"
-  ]
-}
+Vue.component('messages-table', {
+  template: '#messages-table-template',
+  props: {
+    data: Array,
+    columns: Array,
+    filterKey: String
+  },
+  data: function () {
+    var sortOrders = {}
+    this.columns.forEach(function (key) {
+      sortOrders[key] = 1
+    })
+    return {
+      sortKey: '',
+      sortOrders: sortOrders
+    }
+  },
+  computed: {
+    filteredData: function () {
+      var sortKey = this.sortKey
+      var filterKey = this.filterKey && this.filterKey.toLowerCase()
+      var order = this.sortOrders[sortKey] || 1
+      var data = this.data
+      if (filterKey) {
+        data = data.filter(function (row) {
+          return Object.keys(row).some(function (key) {
+            return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+          })
+        })
+      }
+      if (sortKey) {
+        data = data.slice().sort(function (a, b) {
+          a = a[sortKey]
+          b = b[sortKey]
+          return (a === b ? 0 : a > b ? 1 : -1) * order
+        })
+      }
+      return data
+    }
+  },
+  filters: {
+    capitalize: function (str) {
+      return str.charAt(0).toUpperCase() + str.slice(1)
+    }
+  },
+  methods: {
+    sortBy: function (key) {
+      this.sortKey = key
+      this.sortOrders[key] = this.sortOrders[key] * -1
+    }
+  }
+})
+
+var messagesTable = new Vue({
+  el: '#messages-table',
+  data: {
+    searchQuery: '',
+    gridColumns: ['subject', 'deadline_at'],
+    gridData: [
+      { subject: '件名1', deadline_at: "2017-01-01 00:00" },
+      { subject: '件名2', deadline_at: "2017-02-01 00:00" }
+    ]
+  }
+})

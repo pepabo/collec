@@ -1,20 +1,39 @@
+<script type="text/x-template" id="messages-table-template">
+  <table class="table">
+    <thead>
+      <tr>
+        <th v-for="key in columns"
+          @click="sortBy(key)"
+          :class="{ active: sortKey == key }">
+          {{ key | capitalize }}
+          <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
+          </span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="entry in filteredData">
+        <td v-for="key in columns">
+          {{entry[key]}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</script>
 
 <div class="row">
   <div class="col">
-    <table class="table table-">
-      <tr>
-        <td>
-          件名1
-        </td>
-      </tr>
-      <tr>
-        <td>
-          件名2
-        </td>
-      </tr>
-    </table>
+    <div id="messages-table">
+      <messages-table
+        :data="gridData"
+        :columns="gridColumns"
+        :filter-key="searchQuery">
+      </messages-table>
+    </div>
   </div>
   <div class="col">
-    rate
   </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.2/vue.min.js"></script>
+<%= javascript_include_tag "messages/index" %>
