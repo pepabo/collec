@@ -45,6 +45,11 @@ module.exports = {
   ],
 
   resolve: {
+    alias: {
+      // テンプレートをコンパイルさせるために必要
+      // ref: https://jp.vuejs.org/v2/guide/installation.html#ランタイム-コンパイラとランタイム限定の違い
+      'vue$': 'vue/dist/vue.esm.js'
+    },
     extensions: settings.extensions,
     modules: resolvedModules
   },
