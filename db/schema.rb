@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170806081504) do
+ActiveRecord::Schema.define(version: 20170807134426) do
+
+  create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id"
+    t.text "message", comment: "依頼文"
+    t.datetime "dut_at", comment: "対応期限日"
+    t.boolean "require_confirm", default: false, comment: "確認用ポップアップフラグ 0: 無し 1: 有り"
+    t.integer "remind_interval", comment: "リマインド間隔"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "slack_id"
@@ -20,4 +31,5 @@ ActiveRecord::Schema.define(version: 20170806081504) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "messages", "users"
 end
