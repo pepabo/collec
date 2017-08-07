@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170807135208) do
+ActiveRecord::Schema.define(version: 20170807135658) do
 
   create_table "mentioned_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "message_id"
@@ -18,6 +18,15 @@ ActiveRecord::Schema.define(version: 20170807135208) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["message_id"], name: "index_mentioned_users_on_message_id"
+  end
+
+  create_table "message_buttons", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "message_id"
+    t.string "name", comment: "ユーザーが入力したボタン名"
+    t.string "value", comment: "ユーザーが選択したアクションを識別するための文字列"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["message_id"], name: "index_message_buttons_on_message_id"
   end
 
   create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -40,5 +49,6 @@ ActiveRecord::Schema.define(version: 20170807135208) do
   end
 
   add_foreign_key "mentioned_users", "messages"
+  add_foreign_key "message_buttons", "messages"
   add_foreign_key "messages", "users"
 end
