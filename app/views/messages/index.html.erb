@@ -1,0 +1,44 @@
+<script type="text/x-template" id="js-index__left__messages__table__template">
+  <table class="table">
+    <thead>
+      <tr>
+        <th v-for="key in columns"
+          @click="sortBy(key)"
+          :class="{ active: sortKey == key }">
+          {{ key | capitalize }}
+          <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
+          </span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="entry in filteredData">
+        <td v-for="key in columns">
+          {{entry[key]}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</script>
+
+<div class="row">
+  <div class="col">
+    <div id="js-index__left__messages__table">
+      <form>
+        <div class="form-group">
+          <input v-model="messagesTableSearchQuery">
+        </div>
+      </form>
+      <messages-table
+        :data="messages"
+        :columns="messagesTableColumns"
+        :filter-key="messagesTableSearchQuery">
+      </messages-table>
+    </div>
+  </div>
+  <div class="col">
+  </div>
+</div>
+
+<%= stylesheet_link_tag "messages" %>
+<%= javascript_include_tag "messages/index" %>
