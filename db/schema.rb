@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(version: 20170807141535) do
 
   create_table "message_buttons", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "message_id"
-    t.string "name", comment: "ユーザーが入力したボタン名"
-    t.string "value", comment: "ユーザーが選択したアクションを識別するための文字列"
+    t.string "name", comment: "ユーザーが選択したアクションを識別するための文字列"
+    t.string "text", comment: "ユーザーが入力したボタン名"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["message_id"], name: "index_message_buttons_on_message_id"
