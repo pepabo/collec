@@ -1,0 +1,30 @@
+<div id="message_create">
+<%= bootstrap_form_tag(url: '/messages/create') do |f| %>
+  <%= f.text_area(:message, label: 'request message') %>
+  <%= f.text_area(
+    :destination_users,
+    label: 'request destination users by slack account',
+    placeholder: '@example_group, @example_user, ...') %>
+
+  <template v-for="messageButton, key in messageButtons">
+    <p><input type="text" value=""> [<a href="#" @click.prevent="removeMessageButton(key)">削除</a>]</p></p>
+  </template>
+  <button @click.prevent="addMessageButton">追加する</button>
+
+  <%= f.form_group(:form_type, label: { text: 'select message form type' }) do %>
+    <%= f.radio_button :form_type, 1, label: "Single button", checked: true %>
+    <%= f.radio_button :form_type, 2, label: "Multi button", checked: false %>
+    <%= f.radio_button :form_type, 3, label: "Toggle button", checked: false %>
+  <% end %>
+  <%= f.datetime_select :due_at, label: { text: '対応期限' }, class: 'form-control', use_month_numbers: true, minute_step: 10 %>
+  <%= f.form_group(:remind_times, label: { text: 'select remind times' }) do %>
+    <%= f.check_box :remind_times, value: 600, label: "10 min", checked: false %>
+    <%= f.check_box :remind_times, value: 3600, label: "1 hour", checked: false %>
+    <%= f.check_box :remind_times, value: 86400, label: "1 day", checked: false %>
+    <%= f.check_box :remind_times, value: 604800, label: "1 week", checked: false %>
+  <% end %>
+  <%= f.submit('Create') %>
+<% end %>
+</div>
+
+<%= javascript_include_tag "messages/create" %>
