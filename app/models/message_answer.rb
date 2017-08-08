@@ -1,5 +1,5 @@
 class MessageAnswer < ApplicationRecord
   belongs_to :message
-  belongs_to :mentioned_user
+  belongs_to :mention
   belongs_to :message_button
 end
