@@ -41,18 +41,18 @@ ActiveRecord::Schema.define(version: 20170807141535) do
   end
 
   create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "user_id"
+    t.bigint "slack_user_id"
     t.text "message", comment: "依頼文"
     t.datetime "dut_at", comment: "対応期限日"
     t.boolean "require_confirm", default: false, comment: "確認用ポップアップフラグ 0: 無し 1: 有り"
     t.integer "remind_interval", comment: "リマインド間隔"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_messages_on_user_id"
+    t.index ["slack_user_id"], name: "index_messages_on_slack_user_id"
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "slack_id", comment: "SlackのユーザーID"
+  create_table "slack_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "user_id", comment: "SlackのユーザーID"
     t.string "access_token", comment: "Slack APIのアクセストークン"
     t.string "name", comment: "Slackのユーザー名"
     t.datetime "created_at", null: false
@@ -64,5 +64,5 @@ ActiveRecord::Schema.define(version: 20170807141535) do
   add_foreign_key "message_answers", "message_buttons"
   add_foreign_key "message_answers", "messages"
   add_foreign_key "message_buttons", "messages"
-  add_foreign_key "messages", "users"
+  add_foreign_key "messages", "slack_users"
 end
