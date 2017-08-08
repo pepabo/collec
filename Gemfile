@@ -8,7 +8,7 @@ end
 gem 'rake'
 gem 'rubocop', require: false
 gem 'rails', '~> 5.1.2'
-gem 'sqlite3'
+gem 'mysql2'
 gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -20,6 +20,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'dotenv-rails'
 end
 
 group :development do
@@ -35,7 +36,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'awesome_print'
-  gem 'did_you_mean'
+  gem 'factory_girl_rails'
 end
 
 group :test do
