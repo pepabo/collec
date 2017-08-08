@@ -45,7 +45,6 @@ ActiveRecord::Schema.define(version: 20170807141535) do
     t.text "message", comment: "Request message"
     t.datetime "dut_at", comment: "Due to answer the request"
     t.boolean "require_confirm", default: false, comment: "Flag to use confirmation dialog"
-    t.integer "remind_interval"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["slack_user_id"], name: "index_messages_on_slack_user_id"
