@@ -11,6 +11,72 @@ var messages = [
   },
 ]
 
+var mentioned_users = [
+  {
+    'mentioned_user_id': 1,
+    'message_id': 1,
+    'slack_id': 'takumakume'
+  },
+  {
+    'mentioned_user_id': 2,
+    'message_id': 1,
+    'slack_id': 'pyama'
+  },
+  {
+    'mentioned_user_id': 3,
+    'message_id': 2,
+    'slack_id': 'takumakume'
+  }
+]
+
+var message_buttons = [
+  {
+    'message_button_id': 1,
+    'message_id': 1,
+    'text': '参加',
+    'name': '62xgk32f7t',
+  },
+  {
+    'message_button_id': 2,
+    'message_id': 1,
+    'text': '不参加',
+    'name': 'mrfesbpusi',
+  },
+  {
+    'message_button_id': 3,
+    'message_id': 2,
+    'text': '参加',
+    'name': 'tp8j5nmr93',
+  },
+  {
+    'message_button_id': 4,
+    'message_id': 2,
+    'text': '不参加',
+    'name': '7ujirtdwpa',
+  },
+]
+
+var message_answers = [
+  {
+    'message_answer_id': 1,
+    'message_id': 1,
+    'mentioned_user_id': 1,
+    'message_button_id': 1,
+  },
+  {
+    'message_answer_id': 2,
+    'message_id': 1,
+    'mentioned_user_id': 2,
+    'message_button_id': 2,
+  },
+  {
+    'message_answer_id': 3,
+    'message_id': 2,
+    'mentioned_user_id': 3,
+    'message_button_id': 4,
+  },
+]
+
 Vue.component('messages-table', {
   template: '#js-index__left__messages__table__template',
   props: {
