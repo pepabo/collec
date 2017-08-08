@@ -2,8 +2,8 @@ class CreateMessageButtons < ActiveRecord::Migration[5.1]
   def change
     create_table :message_buttons do |t|
       t.references :message, foreign_key: true
-      t.string :name, comment: 'ユーザーが選択したアクションを識別するための文字列'
-      t.string :text, comment: 'ユーザーが入力したボタン名'
+      t.string :name, comment: 'String to specify action'
+      t.string :text, comment: 'The user-facing label for the message button'
 
       t.timestamps
     end
