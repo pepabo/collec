@@ -17,12 +17,7 @@
     <%= f.radio_button :form_type, 3, label: "Toggle button", checked: false %>
   <% end %>
   <%= f.datetime_select :due_at, label: { text: '対応期限' }, class: 'form-control', use_month_numbers: true, minute_step: 10 %>
-  <%= f.form_group(:remind_times, label: { text: 'select remind times' }) do %>
-    <%= f.check_box :remind_times, value: 600, label: "10 min", checked: false %>
-    <%= f.check_box :remind_times, value: 3600, label: "1 hour", checked: false %>
-    <%= f.check_box :remind_times, value: 86400, label: "1 day", checked: false %>
-    <%= f.check_box :remind_times, value: 604800, label: "1 week", checked: false %>
-  <% end %>
+
   <%= f.submit('Create') %>
 <% end %>
 </div>
