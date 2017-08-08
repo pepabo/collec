@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20170807141535) do
   create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "slack_user_id"
     t.text "message", comment: "依頼文"
-    t.datetime "dut_at", comment: "対応期限日"
+    t.datetime "dut_at", comment: "対応期限日時"
     t.boolean "require_confirm", default: false, comment: "確認用ポップアップフラグ 0: 無し 1: 有り"
     t.integer "remind_interval", comment: "リマインド間隔"
     t.datetime "created_at", null: false
