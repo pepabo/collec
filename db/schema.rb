@@ -52,8 +52,8 @@ ActiveRecord::Schema.define(version: 20170807141535) do
   end
 
   create_table "slack_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "user_id", comment: "SlackのユーザーID"
     t.string "access_token", comment: "Slack APIのアクセストークン"
+    t.string "user_id", comment: "SlackのユーザーID"
     t.string "name", comment: "Slackのユーザー名"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
