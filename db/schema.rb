@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 20170807141535) do
 
   create_table "mentioned_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "message_id"
-    t.integer "slack_id", comment: "メンションされたユーザーのSlackユーザーID"
+    t.integer "user_id", comment: "メンションされたユーザーのSlackユーザーID"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["message_id"], name: "index_mentioned_users_on_message_id"
