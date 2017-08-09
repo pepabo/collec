@@ -11,18 +11,13 @@
   </template>
   <button @click.prevent="addMessageButton">追加する</button>
 
-  <%= f.form_group(:form_type, label: { text: 'select message form type' }) do %>
-    <%= f.radio_button :form_type, 1, label: "Single button", checked: true %>
-    <%= f.radio_button :form_type, 2, label: "Multi button", checked: false %>
-    <%= f.radio_button :form_type, 3, label: "Toggle button", checked: false %>
-  <% end %>
+  <p>
+    <%= check_box_tag :require_confirm, '確認用ポップアップを表示する' %>
+    <%= label_tag :require_confirm, '確認用ポップアップを表示する' %>
+  </p>
+
   <%= f.datetime_select :due_at, label: { text: '対応期限' }, class: 'form-control', use_month_numbers: true, minute_step: 10 %>
-  <%= f.form_group(:remind_times, label: { text: 'select remind times' }) do %>
-    <%= f.check_box :remind_times, value: 600, label: "10 min", checked: false %>
-    <%= f.check_box :remind_times, value: 3600, label: "1 hour", checked: false %>
-    <%= f.check_box :remind_times, value: 86400, label: "1 day", checked: false %>
-    <%= f.check_box :remind_times, value: 604800, label: "1 week", checked: false %>
-  <% end %>
+
   <%= f.submit('Create') %>
 <% end %>
 </div>
