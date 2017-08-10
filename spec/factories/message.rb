@@ -6,6 +6,7 @@ FactoryGirl.define do
 
   factory :slack_user do
     slack_user_id = 1
+    access_token = 'aaaaaaaaaaaaaaaa'
 
     factory :slack_user_with_messages do
       transient do
