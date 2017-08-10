@@ -15,7 +15,8 @@
   </head>
 
   <body>
-    <div class="container-fluid">
+    <%= render :partial => 'shared/header' %>
+    <div class="container is-fluid" style="padding-top: 25px; padding-bottom: 25px;">
       <%= yield %>
     </div>
   </body>
