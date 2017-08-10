@@ -5,3 +5,14 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+SlackUser.create(:user_id => 1, :name => 'User 1', :access_token => 'aaaaaa')
+SlackUser.create(:user_id => 2, :name => 'User 2', :access_token => 'bbbbbb')
+
+10.times do |n|
+  Message.create(:slack_user_id => 1, :message => "User 1 message #{n}")
+end
+
+10.times do |n|
+  Message.create(:slack_user_id => 2, :message => "User 2 message #{n}")
+end
