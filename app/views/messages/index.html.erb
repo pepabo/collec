@@ -1,112 +1,201 @@
-<script type="text/x-template" id="js-index__left__messages__table__template">
-  <table class="table table-sm">
-    <thead>
+<div class="columns">
+  <div class="column is-1">
+    <a class="button is-primary">Button</a>
+  </div>
+  <div class="column is-6">
+    <table class="table">
+      <thead>
       <tr>
-        <th v-for="key in columns"
-          @click="sortBy(key)"
-          :class="{ active: sortKey == key }">
-          {{ key | capitalize }}
-          <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
-          </span>
-        </th>
+        <th>No</th>
+        <th>依頼者名</th>
+        <th>本文</th>
+        <th>対応期限日時</th>
       </tr>
-    </thead>
-    <tbody>
-      <tr v-for="entry in filteredData">
-        <td v-for="key in columns">
-          {{entry[key]}}
-        </td>
+      </thead>
+      <tbody>
+      <tr>
+        <td>1</td>
+        <td>@hypermkt</td>
+        <td>◯◯について確認があります。</td>
+        <td>2017-08-10 19:00</td>
       </tr>
-    </tbody>
-  </table>
-</script>
-
-<div class="row">
-  <div class="col">
-
-    <div id="js-index__left__messages__table">
-      <form class="form-inline">
-          <div class="form-group mr-3 mb-3">
-            <a class="btn btn-primary" href="/messages/create">Create Message</a>
-          </div>
-          <div class="form-group mb-3">
-            <div class="input-group">
-              <div class="input-group-addon">Search</div>
-              <input type="text" class="form-control" v-model="messagesTableSearchQuery" placeholder="search words">
-            </div>
-          </div>
-      </form>
-      <messages-table
-        :data="messages"
-        :columns="messagesTableColumns"
-        :filter-key="messagesTableSearchQuery">
-      </messages-table>
-    </div>
+      <tr>
+        <td>1</td>
+        <td>@hypermkt</td>
+        <td>◯◯について確認があります。</td>
+        <td>2017-08-10 19:00</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>@hypermkt</td>
+        <td>◯◯について確認があります。</td>
+        <td>2017-08-10 19:00</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>@hypermkt</td>
+        <td>◯◯について確認があります。</td>
+        <td>2017-08-10 19:00</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>@hypermkt</td>
+        <td>◯◯について確認があります。</td>
+        <td>2017-08-10 19:00</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>@hypermkt</td>
+        <td>◯◯について確認があります。</td>
+        <td>2017-08-10 19:00</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>@hypermkt</td>
+        <td>◯◯について確認があります。</td>
+        <td>2017-08-10 19:00</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>@hypermkt</td>
+        <td>◯◯について確認があります。</td>
+        <td>2017-08-10 19:00</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>@hypermkt</td>
+        <td>◯◯について確認があります。</td>
+        <td>2017-08-10 19:00</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>@hypermkt</td>
+        <td>◯◯について確認があります。</td>
+        <td>2017-08-10 19:00</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>@hypermkt</td>
+        <td>◯◯について確認があります。</td>
+        <td>2017-08-10 19:00</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>@hypermkt</td>
+        <td>◯◯について確認があります。</td>
+        <td>2017-08-10 19:00</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>@hypermkt</td>
+        <td>◯◯について確認があります。</td>
+        <td>2017-08-10 19:00</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>@hypermkt</td>
+        <td>◯◯について確認があります。</td>
+        <td>2017-08-10 19:00</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>@hypermkt</td>
+        <td>◯◯について確認があります。</td>
+        <td>2017-08-10 19:00</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>@hypermkt</td>
+        <td>◯◯について確認があります。</td>
+        <td>2017-08-10 19:00</td>
+      </tr>
+      </tbody>
+    </table>
   </div>
-  <div class="col">
-
-    <div id="accordion" role="tablist" aria-multiselectable="true">
-      <div class="card">
-        <div class="card-header" role="tab" id="headingOne">
-          <h5 class="mb-0">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              Graphs
-            </a>
-          </h5>
-        </div>
-        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
-          <div class="card-block">
-            TODO: グラフ
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" role="tab" id="headingTwo">
-          <h5 class="mb-0">
-            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              Unanswered users
-            </a>
-          </h5>
-        </div>
-        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-          <div class="card-block">
-            <table>
-              <tr><td>@takumakume</td></tr>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" role="tab" id="headingThree">
-          <h5 class="mb-0">
-            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-              Answered users
-            </a>
-          </h5>
-        </div>
-        <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
-          <div class="card-block">
-            <table class="table table-sm table-hover">
-              <tr>
-                <td>@pyama</td>
-                <td>不参加</td>
-              </tr>
-              <tr>
-                <td>@baachii</td>
-                <td>参加</td>
-              </tr>
-              <tr>
-                <td>@tnmt</td>
-                <td>参加</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-      </div>
+  <div class="column is-5">
+    <h3 class="title is-3">Result Report</h3>
+    <div style="width: 300px; height: 300px; ">
+    <canvas id="result_report"></canvas>
     </div>
+    <script>
+        var ctx = document.getElementById("result_report");
+        new Chart(ctx,{
+            type: 'pie',
+            data: data = {
+                datasets: [{
+                    data: [10, 20, 30],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                    ],
+                }],
+                // These labels appear in the legend and in the tooltips when hovering different arcs
+                labels: [
+                    '回答A',
+                    '回答B',
+                    '回答C'
+                ]
+            },
+            options: {}
+        });
+    </script>
+    <h3 class="title is-3">Answers</h3>
 
+    <table class="table" width="100%">
+      <tr>
+        <td width="40%">回答A</td>
+        <td width="10%" nowrap>30% / 3</td>
+        <td width="50%"><progress class="progress is-primary" value="30" max="100">30%</progress></td>
+      </tr>
+      <tr>
+        <td width="40%">回答B</td>
+        <td width="10%" nowrap>30% / 3</td>
+        <td width="50%"><progress class="progress is-primary" value="30" max="100">30%</progress></td>
+      </tr>
+      <tr>
+        <td width="40%">回答C</td>
+        <td width="10%" nowrap>30% / 3</td>
+        <td width="50%"><progress class="progress is-primary" value="30" max="100">30%</progress></td>
+      </tr>
+    </table>
+
+    <h4 class="title is-4">Voters</h4>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>アイコン</th>
+        <th>回答者</th>
+        <th>回答</th>
+        <th>回答日時</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><img src="https://avatars.slack-edge.com/2016-04-01/31165631686_d9eb6d000965c39bfbaa_192.jpg" class="image is-48x48"></td>
+        <td>@takumakume</td>
+        <td>回答A</td>
+      </tr>
+      <tr>
+        <td><img src="https://avatars.slack-edge.com/2015-05-08/4787287488_5cdb45313c223b678927_192.jpg" class="image is-48x48"></td>
+        <td>@hypermkt</td>
+        <td>回答B</td>
+      </tr>
+      <tr>
+        <td><img src="https://avatars.slack-edge.com/2015-05-08/4787287488_5cdb45313c223b678927_192.jpg" class="image is-48x48"></td>
+        <td>@hypermkt</td>
+        <td>回答C</td>
+      </tr>
+      </tbody>
+    </table>
   </div>
+
+  <script type="application/javascript">
+
+  </script>
 </div>
-
-<%= stylesheet_link_tag "messages" %>
-<%= javascript_include_tag "messages/index" %>
