@@ -1,24 +1,54 @@
 <div id="message_create">
-<%= bootstrap_form_tag(url: '/messages/create') do |f| %>
-  <%= f.text_area(:message, label: 'request message') %>
-  <%= f.text_area(
-    :destination_users,
-    label: 'request destination users by slack account',
-    placeholder: '@example_group, @example_user, ...') %>
+<%= form_for :message do |f| %>
+  <div class="field">
+    <label class="label">Request Message</label>
+    <div class="control">
+      <%= f.text_area :message, class: 'textarea' %>
+    </div>
+  </div>
 
-  <template v-for="messageButton, key in messageButtons">
-    <p><input type="text" value=""> [<a href="#" @click.prevent="removeMessageButton(key)">削除</a>]</p></p>
-  </template>
-  <button @click.prevent="addMessageButton">追加する</button>
 
-  <p>
-    <%= check_box_tag :require_confirm, '確認用ポップアップを表示する' %>
-    <%= label_tag :require_confirm, '確認用ポップアップを表示する' %>
-  </p>
+  <div class="field">
+    <label class="label">Mentions</label>
+    <%= f.text_area(:mentions, placeholder: '@example_group, @example_user, ...', class: 'textarea') %>
+  </div>
 
-  <%= f.datetime_select :due_at, label: { text: '対応期限' }, class: 'form-control', use_month_numbers: true, minute_step: 10 %>
+  <div class="field">
+    <label class="label">Selections</label>
+    <template v-for="messageButton, key in messageButtons">
+        <div class="columns">
+          <div class="column is-11">
+            <input type="text" class="input" value="">
+          </div>
+          <div class="column is-11">
+            <a class="delete is-large" @click.prevent="removeMessageButton(key)"></a>
+          </div>
+        </div>
+    </template>
+    <button class="button" @click.prevent="addMessageButton">追加する</button>
+  </div>
 
-  <%= f.submit('Create') %>
+  <div class="field">
+    <p>
+      <%= check_box_tag :require_confirm, '確認用ポップアップを表示する' %>
+      <%= label_tag :require_confirm, '確認用ポップアップを表示する' %>
+    </p>
+  </div>
+
+  <div class="field">
+    <div class="control">
+        <%= f.datetime_select :due_at, label: { text: '対応期限' }, class: 'select', use_month_numbers: true, minute_step: 10 %>
+    </div>
+  </div>
+
+  <div class="field is-grouped">
+    <div class="control">
+      <button class="button is-primary">Create</button>
+    </div>
+    <div class="control">
+      <button class="button is-link">Cancel</button>
+    </div>
+  </div>
 <% end %>
 </div>
 
