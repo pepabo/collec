@@ -4,7 +4,7 @@ RSpec.describe "Messages", type: :request do
   describe "GET /api/v1/messages" do
     before do
       create(:slack_user_with_messages)
-      get '/api/v1/messages', headers: { HTTP_ACCEPT: 'application/json', CONTENT_TYPE: 'application/json' }
+      get '/api/v1/messages'
     end
 
     it 'response 200' do
