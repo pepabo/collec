@@ -3,7 +3,10 @@ require 'rails_helper'
 RSpec.describe "Messages", type: :request do
   describe "GET /api/v1/messages" do
     before do
-      create(:slack_user_with_messages)
+      # "id: 1" because foreign key of message and slack_user
+      # are specified by factory test data.
+      create(:slack_user, id: 1)
+      create_list(:message, 10)
       get '/api/v1/messages'
     end
 
