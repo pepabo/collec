@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170807141535) do
+ActiveRecord::Schema.define(version: 20170811044128) do
 
   create_table "mentions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "message_id"
-    t.integer "user_id", comment: "Mentioned user's slack user ID"
+    t.integer "slack_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["message_id"], name: "index_mentions_on_message_id"
@@ -41,18 +41,18 @@ ActiveRecord::Schema.define(version: 20170807141535) do
   end
 
   create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "slack_user_id"
+    t.bigint "user_id"
     t.text "message", comment: "Request message"
     t.datetime "dut_at", comment: "Due to answer the request"
     t.boolean "require_confirm", default: false, comment: "Flag to use confirmation dialog"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["slack_user_id"], name: "index_messages_on_slack_user_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
-  create_table "slack_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "access_token", comment: "Access Token for Slack API"
-    t.string "user_id", comment: "Slack user ID"
+    t.string "slack_id"
     t.string "name", comment: "Slack username"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -63,5 +63,5 @@ ActiveRecord::Schema.define(version: 20170807141535) do
   add_foreign_key "message_answers", "message_buttons"
   add_foreign_key "message_answers", "messages"
   add_foreign_key "message_buttons", "messages"
-  add_foreign_key "messages", "slack_users"
+  add_foreign_key "messages", "users"
 end
