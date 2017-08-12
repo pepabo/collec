@@ -21,6 +21,7 @@ RSpec.describe "Messages", type: :request do
       m = json_parse.first
       expect(m['user_id']).to eq @message.user_id
       expect(m['message']).to eq @message.message
+      expect(m['due_at']).to eq @message.due_at.as_json
       expect(m['require_confirm']).to eq @message.require_confirm
     end
   end
