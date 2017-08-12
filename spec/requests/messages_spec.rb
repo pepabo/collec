@@ -16,7 +16,7 @@ RSpec.describe "Messages", type: :request do
     end
 
     it 'return all messages' do
-      result = JSON.parse(response.body)
+      result = json_parse(response)
       expect(result.count).to eq 10
     end
   end
