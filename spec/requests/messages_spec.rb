@@ -23,8 +23,6 @@ RSpec.describe "Messages", type: :request do
       expect(m['user_id']).to eq @message.user_id
       expect(m['message']).to eq @message.message
       expect(m['require_confirm']).to eq @message.require_confirm
-      expect(m['created_at']).to eq @message.created_at
-      expect(m['updated_at']).to eq @message.updated_at
     end
   end
 end
