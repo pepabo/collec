@@ -6,7 +6,8 @@ RSpec.describe "Messages", type: :request do
       # "id: 1" because foreign key of message and user
       # are specified by factory test data.
       create(:user, id: 1)
-      create_list(:message, 10)
+      @message = create(:message)
+      create_list(:message, 9)
       get '/api/v1/messages'
     end
 
@@ -18,6 +19,12 @@ RSpec.describe "Messages", type: :request do
     it 'check json contents' do
       expect(json_parse['name']).to eq 'mesages'
       expect(json_parse['count']).to eq 10
+      m = json_parse['messages'].first
+      expect(m['user_id']).to eq @message.user_id
+      expect(m['message']).to eq @message.message
+      expect(m['require_confirm']).to eq @message.require_confirm
+      expect(m['created_at']).to eq @message.created_at
+      expect(m['updated_at']).to eq @message.updated_at
     end
   end
 end
