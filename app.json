@@ -1,0 +1,17 @@
+{
+  "name": "answer",
+  "description": "(WIP) send message and remind app on slack",
+  "website": "https://github.com/honeymoon-answer/answer",
+  "repository": "https://github.com/honeymoon-answer/answer",
+  "logo": "https://github.com/honeymoon-answer/answer/blob/master/logo.png",
+  "success_url": "/",
+  "keywords": [
+    "answer",
+    "slack"
+  ],
+  "addons": [
+    "heroku-postgresql",
+    "heroku-redis"
+  ]
+}
+
