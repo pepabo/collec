@@ -2,7 +2,9 @@ window.onload = function() {
   new Vue({
     el: '#message_create',
     data: {
-      messageButtons: []
+      messageButtons: [
+        {}
+      ]
     },
     methods: {
       addMessageButton() {
