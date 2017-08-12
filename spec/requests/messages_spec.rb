@@ -17,9 +17,8 @@ RSpec.describe "Messages", type: :request do
     end
 
     it 'check json contents' do
-      expect(json_parse['name']).to eq 'mesages'
-      expect(json_parse['count']).to eq 10
-      m = json_parse['messages'].first
+      expect(json_parse.count).to eq 10
+      m = json_parse.first
       expect(m['user_id']).to eq @message.user_id
       expect(m['message']).to eq @message.message
       expect(m['require_confirm']).to eq @message.require_confirm
