@@ -1,3 +1,3 @@
-def json_parse(request)
-  JSON.parse(request.body)
+def json_parse
+  JSON.parse(response.body)
 end
