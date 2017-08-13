@@ -6,7 +6,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   def self.find_for_slack_oauth(auth)
-    u = User.where(provider: auth.provider, slack_id: auth.uid).first ||
+    User.where(provider: auth.provider, slack_id: auth.uid).first ||
       User.create!(
         name: auth.info.name,
         provider: auth.provider,
@@ -15,9 +15,6 @@ class User < ApplicationRecord
         token: auth.credentials.token,
         password: Devise.friendly_token[0,20]
       )
-    Rails.logger.info  u.inspect
-
-    u
   end
 
 end
