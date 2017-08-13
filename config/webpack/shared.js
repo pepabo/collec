@@ -45,6 +45,11 @@ module.exports = {
   ],
 
   resolve: {
+    // To use the compiler included build
+    // ref: http://qiita.com/magaya0403/items/3fbe9aa20c6a66b76662
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js'
+    },
     extensions: settings.extensions,
     modules: [
       resolve(settings.source_path),
