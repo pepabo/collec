@@ -2,6 +2,8 @@ AllCops:
   TargetRubyVersion: 2.4
   DisplayCopNames: true
   DisabledByDefault: true
+  Exclude:
+    - 'node_modules/**/*'
 
 Rails:
   Enabled: true
