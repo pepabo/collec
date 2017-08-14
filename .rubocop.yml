@@ -2,6 +2,9 @@ AllCops:
   TargetRubyVersion: 2.4
   DisplayCopNames: true
   DisabledByDefault: true
+  Exclude:
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
 
 Rails:
   Enabled: true
