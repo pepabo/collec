@@ -1,4 +1,6 @@
-window.onload = function() {
+import Vue from 'vue'
+
+document.addEventListener('DOMContentLoaded', () => {
   new Vue({
     el: '#message_create',
     data: {
@@ -15,4 +17,4 @@ window.onload = function() {
       }
     }
   })
-}
+})
