@@ -3,4 +3,10 @@ Rails.application.routes.draw do
   root 'messages#index'
   resources :messages, only: [:index, :new]
   resources :sessions, only: [:index]
+
+  namespace :api, {format: 'json'} do
+    namespace :v1 do
+      resources :messages, only: :index
+    end
+  end
 end
