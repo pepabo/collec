@@ -5,8 +5,7 @@
   <div class="login_content">
     <h2>Answerにログイン</h2>
     <br />
-    <%= link_to "Sign in with slack ", user_slack_omniauth_authorize_path %>
-    <%= link_to image_tag("sign_in_with_slack.png"), '/messages/' %>
+    <%= link_to image_tag("sign_in_with_slack.png"), user_slack_omniauth_authorize_path %>
   </div>
 </div>
 <!-- TODO: リンク先はmessages#indexのルーティングが出来たら、message_indexに変更する -->

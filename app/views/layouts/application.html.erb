@@ -14,6 +14,8 @@
   <body>
     <%= render :partial => 'shared/header' %>
     <div class="container is-fluid" style="padding-top: 25px; padding-bottom: 25px;">
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
       <%= yield %>
     </div>
   </body>
