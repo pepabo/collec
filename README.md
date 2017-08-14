@@ -16,6 +16,13 @@ Things you may want to cover:
 
 * Configuration
 
+* Setup
+
+```bash
+$ bundle install --path vendor/bundle
+$ yarn install
+```
+
 * Database creation
 
 ```bash
