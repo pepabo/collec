@@ -12,6 +12,7 @@ Things you may want to cover:
 
 * System dependencies
   - mysqld
+  - [yarn](https://yarnpkg.com/lang/en/)
 
 * Configuration
 
@@ -31,4 +32,12 @@ $ bin/rake db:migrate
 
 ```bash
 $ bin/rake test
+```
+
+* How to run the local development server
+
+```bash
+# Run both servers
+$ bin/webpack-dev-server
+$ rails s
 ```
