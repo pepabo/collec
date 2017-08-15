@@ -6,7 +6,7 @@ class Api::V1::MessagesController < ApplicationController
   def create
     message_attributes = params.permit(:message, :require_confirm, :due_at)
     message_buttons_attributes = params.permit(message_buttons: [:text])
-    mentions_attributes = params.permit(mentions: [:slack_id])
+    mentions_attributes = params.permit(mentions: [:slack_id, :name, :profile_picture_url])
 
     Message.transaction do
       message = Message.new(message_attributes)
