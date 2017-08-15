@@ -4,17 +4,17 @@ class Api::V1::MessagesController < ApplicationController
   end
 
   def create
-    message_attributes = params.permit(:message, :require_confirm, :due_at)
-    message_buttons_attributes = params.permit(message_buttons: [:text])
-    mentions_attributes = params.permit(mentions: [:slack_id, :name, :profile_picture_url])
+    message_params = params.permit(:message, :require_confirm, :due_at)
+    message_buttons_params = params.permit(message_buttons: [:text])
+    mentions_params = params.permit(mentions: [:slack_id, :name, :profile_picture_url])
 
     Message.transaction do
-      message = Message.new(message_attributes)
+      message = Message.new(message_params)
       message.user_id = 1 # TODO: Pass the user id parameter from payload user id in JWT.
-      message_buttons_attributes[:message_buttons].each do |m|
+      message_buttons_params[:message_buttons].each do |m|
         message.message_buttons << MessageButton.new(m)
       end
-      mentions_attributes[:mentions].each do |m|
+      mentions_params[:mentions].each do |m|
         message.mentions << Mention.new(m)
       end
       message.save!
