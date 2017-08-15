@@ -51,6 +51,10 @@ RSpec.describe "Messages", type: :request do
       expect(m['message']).to eq @message.message
       expect(m['due_at']).to eq @message.due_at.as_json
       expect(m['require_confirm']).to eq @message.require_confirm
+
+      expect(m['report']['answers'][0]['text']).to eq 'label1'
+      expect(m['report']['answers'][0]['count']).to eq 1
+      expect(m['report']['answers'][0]['percentage']).to eq 50
     end
   end
 end
