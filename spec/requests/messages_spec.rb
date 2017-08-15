@@ -32,7 +32,7 @@ RSpec.describe "Messages", type: :request do
       @message = create(:message, id: 1)
       create(:mention, id: 1, slack_id: "ABCDEFG01")
       create(:mention, id: 2, slack_id: "ABCDEFG02")
-      create(:message_button, id: 1, name: "name1", text: "label2")
+      create(:message_button, id: 1, name: "name1", text: "label1")
       create(:message_button, id: 2, name: "name2", text: "label2")
       create(:message_answer, id: 1, mention_id: 1, message_button_id: 1)
       create(:message_answer, id: 2, mention_id: 2, message_button_id: 2)
