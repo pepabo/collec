@@ -28,12 +28,21 @@ RSpec.describe "Messages", type: :request do
 
   describe "POST /api/v1/messages" do
     before do
-      post api_v1_messages_path
+      create(:user, id: 1)
+      post api_v1_messages_path, params: { message: 'hoge', require_confirm: 0, due_at: '2017-08-15 10:00:00' }
+
+      @message = Message.first
     end
 
     it 'response 201' do
       expect(response).to be_success
       expect(response.status).to eq 201
+    end
+
+    it 'check db registration' do
+      expect(@message[:message]).to eq 'hoge'
+      expect(@message[:require_confirm]).to eq false
+      expect(@message[:due_at]).to eq '2017-08-15 10:00:00'
     end
   end
 end
