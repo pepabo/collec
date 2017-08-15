@@ -14,4 +14,18 @@ json.set! :report do
       json.percentage  answer[:percentage]
     end
   end
+
+  json.set! :mentioned do
+    json.array! @message.mentions do |m|
+      json.name                m.name
+      json.profile_picture_url m.profile_picture_url
+
+      json.set! :answers do
+        json.array! m.message_answers do |a|
+          json.answer            @message.message_buttons.find { |b| b.id == a.message_button_id }.text
+          json.answered_date     a.updated_at
+        end
+      end
+    end
+  end
 end
