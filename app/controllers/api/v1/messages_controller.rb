@@ -11,12 +11,10 @@ class Api::V1::MessagesController < ApplicationController
     Message.transaction do
       message = Message.new(message_params)
       message.user_id = 1 # TODO: Pass the user id parameter from payload user id in JWT.
-      message_buttons_params[:message_buttons].each do |m|
-        message.message_buttons << MessageButton.new(m)
-      end
-      mentions_params[:mentions].each do |m|
-        message.mentions << Mention.new(m)
-      end
+
+      message.message_buttons = message_buttons_params[:message_buttons].map {|m| MessageButton.new(m) }
+      message.mentions = mentions_params[:mentions].map {|m| Mention.new(m) }
+
       message.save!
     end
 
