@@ -4,6 +4,7 @@ class Api::V1::MessagesController < ApplicationController
   end
 
   def show
-    @message = Message.where("user_id = ? and id = ?", 1, params[:id]).first
+    @message = Message.includes(:mentions).
+               where("user_id = ? and id = ?", 1, params[:id]).first
   end
 end

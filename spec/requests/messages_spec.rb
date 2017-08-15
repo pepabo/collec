@@ -30,6 +30,7 @@ RSpec.describe "Messages", type: :request do
     before do
       create(:user, id: 1)
       @message = create(:message, id: 1)
+      create(:mention, id: 1)
 
       get '/api/v1/messages/1'
     end
