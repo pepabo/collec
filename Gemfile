@@ -49,3 +49,4 @@ end
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-slack'
+gem 'slack-ruby-client'
