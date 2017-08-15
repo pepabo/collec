@@ -29,9 +29,18 @@ RSpec.describe "Messages", type: :request do
   describe "POST /api/v1/messages" do
     before do
       create(:user, id: 1)
-      post api_v1_messages_path, params: { message: 'hoge', require_confirm: 0, due_at: '2017-08-15 10:00:00' }
+      post api_v1_messages_path, params:
+                                 {
+                                   message: 'hoge',
+                                   require_confirm: 0,
+                                   due_at: '2017-08-15 10:00:00',
+                                   message_buttons: [
+                                     { text: 'button01' },
+                                   ]
+                                 }
 
       @message = Message.first
+      @message_buttons = MessageButton.where('message_id = ?', @message.id)
     end
 
     it 'response 201' do
@@ -43,6 +52,7 @@ RSpec.describe "Messages", type: :request do
       expect(@message[:message]).to eq 'hoge'
       expect(@message[:require_confirm]).to eq false
       expect(@message[:due_at]).to eq '2017-08-15 10:00:00'
+      expect(@message_buttons[0][:text]).to eq 'button01'
     end
   end
 end
