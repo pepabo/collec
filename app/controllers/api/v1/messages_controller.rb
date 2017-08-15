@@ -11,9 +11,7 @@ class Api::V1::MessagesController < ApplicationController
     @message.message_buttons.each do |b|
       answer = {}
       answer[:text] = b.text
-      answer[:count] = @message.message_answers.select do |a|
-        a[:message_button_id] == b.id
-      end.size
+      answer[:count] = b.message_answers.size
       answer[:percentage] = (answer[:count].to_f / @message.message_answers.size) * 100
       @answers.push(answer)
     end
