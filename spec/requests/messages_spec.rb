@@ -57,4 +57,41 @@ RSpec.describe "Messages", type: :request do
       expect(m['report']['answers'][0]['percentage']).to eq 50
     end
   end
+
+  describe "POST /api/v1/messages" do
+    before do
+      create(:user, id: 1)
+      post api_v1_messages_path, params:
+                                 {
+                                   message: 'hoge',
+                                   require_confirm: 0,
+                                   due_at: '2017-08-15 10:00:00',
+                                   message_buttons: [
+                                     { text: 'button01' },
+                                   ],
+                                   mentions: [
+                                     { slack_id: 'UHOGEHOGE', name: 'fuga', profile_picture_url: 'http://hoge.com/fuga.jpg' }
+                                   ]
+                                 }
+
+      @message = Message.first
+      @message_buttons = MessageButton.where('message_id = ?', @message.id)
+      @mentions = Mention.where('message_id = ?', @message.id)
+    end
+
+    it 'response 201' do
+      expect(response).to be_success
+      expect(response.status).to eq 201
+    end
+
+    it 'check db registration' do
+      expect(@message[:message]).to eq 'hoge'
+      expect(@message[:require_confirm]).to eq false
+      expect(@message[:due_at]).to eq '2017-08-15 10:00:00'
+      expect(@message_buttons[0][:text]).to eq 'button01'
+      expect(@mentions[0][:slack_id]).to eq 'UHOGEHOGE'
+      expect(@mentions[0][:name]).to eq 'fuga'
+      expect(@mentions[0][:profile_picture_url]).to eq 'http://hoge.com/fuga.jpg'
+    end
+  end
 end
