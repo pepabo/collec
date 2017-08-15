@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   namespace :api, {format: 'json'} do
     namespace :v1 do
       resources :messages, only: [:index, :create]
+      namespace :slack do
+        resources :users, only: [:index]
+      end
     end
   end
 end
