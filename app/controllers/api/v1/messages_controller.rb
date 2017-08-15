@@ -4,13 +4,7 @@ class Api::V1::MessagesController < ApplicationController
   end
 
   def show
-    message_includes = %i(
-      mentions
-      message_buttons
-      message_answers
-    )
-    @message = Message.includes(message_includes).
-               where("user_id = ? and id = ?", 1, params[:id]).first
+    @message = Message.where("user_id = ? and id = ?", 1, params[:id]).first
 
     @answers = []
     @message.message_buttons.each do |b|
