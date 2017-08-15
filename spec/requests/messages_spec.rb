@@ -28,7 +28,7 @@ RSpec.describe "Messages", type: :request do
 
   describe "POST /api/v1/messages" do
     before do
-      post '/api/v1/messages'
+      post api_v1_messages_path
     end
 
     it 'response 201' do
