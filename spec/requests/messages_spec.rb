@@ -25,4 +25,15 @@ RSpec.describe "Messages", type: :request do
       expect(m['require_confirm']).to eq @message.require_confirm
     end
   end
+
+  describe "POST /api/v1/messages" do
+    before do
+      post '/api/v1/messages'
+    end
+
+    it 'response 201' do
+      expect(response).to be_success
+      expect(response.status).to eq 201
+    end
+  end
 end
