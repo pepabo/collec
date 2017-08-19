@@ -22,9 +22,9 @@ class Api::V1::MessagesController < ApplicationController
       end
     end
 
-    slack = Slack::MessageButton.new
+    message_button = Slack::MessageButton.new
     mentions_params[:mentions].each do |mention|
-      slack.direct_message({
+      message_button.send({
         channel: mention[:slack_id],
         text: message_params[:text],
         message_buttons: message_buttons_params[:message_buttons]

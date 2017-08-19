@@ -34,7 +34,7 @@ module Slack
       end
     end
 
-    def direct_message(options = {})
+    def send(options = {})
       options = create_options(options)
       client.chat_postMessage(options)
     end
