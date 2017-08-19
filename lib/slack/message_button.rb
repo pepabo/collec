@@ -2,6 +2,13 @@ require 'securerandom'
 
 module Slack
   class MessageButton
+    def send(options = {})
+      options = create_options(options)
+      client.chat_postMessage(options)
+    end
+
+    private
+
     def client
       @client ||= Slack::Web::Client.new
     end
@@ -32,11 +39,6 @@ module Slack
           type: 'button',
         }
       end
-    end
-
-    def send(options = {})
-      options = create_options(options)
-      client.chat_postMessage(options)
     end
   end
 end
