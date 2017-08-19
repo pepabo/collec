@@ -49,3 +49,5 @@ end
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-slack'
+
+gem 'redis-rails'

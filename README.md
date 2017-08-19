@@ -12,6 +12,7 @@ Things you may want to cover:
 
 * System dependencies
   - mysqld
+  - redis
   - [yarn](https://yarnpkg.com/lang/en/)
 
 * Configuration
@@ -21,6 +22,7 @@ Things you may want to cover:
 ```bash
 $ bundle install --path vendor/bundle
 $ yarn install
+$ brew services start redis
 ```
 
 * Database creation
