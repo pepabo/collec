@@ -51,3 +51,4 @@ gem 'omniauth'
 gem 'omniauth-slack'
 
 gem 'redis-rails'
+gem 'config'
