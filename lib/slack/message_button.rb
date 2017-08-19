@@ -2,9 +2,8 @@ require 'securerandom'
 
 module Slack
   class MessageButton
-    def send(options = {})
-      options = create_options(options)
-      client.chat_postMessage(options)
+    def send(params = {})
+      client.chat_postMessage(create_options(params))
     end
 
     private
@@ -13,9 +12,7 @@ module Slack
       @client ||= Slack::Web::Client.new
     end
 
-    def create_options(options = {})
-      actions = create_actions(options[:message_buttons])
-
+    def create_options(params = {})
       {
         channel: options[:channel],
         text: options[:text],
@@ -25,7 +22,7 @@ module Slack
             callback_id: 'test', # TODO: Set callback id
             color: '#3AA3E3',
             attachment_type: 'default',
-            actions: actions
+            actions: create_actions(params[:message_buttons])
           }
         ]
       }
