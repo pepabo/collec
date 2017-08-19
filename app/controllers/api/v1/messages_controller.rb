@@ -1,4 +1,4 @@
-class Api::V1::MessagesController < ApplicationController
+class Api::V1::MessagesController < ApiController
   def index
     @messages = Message.where("user_id = ?", 1)
   end
