@@ -5,9 +5,7 @@ describe Slack::MessageButton do
 
   describe '#create_action' do
     context 'when has no values' do
-      before do
-        @result = slack.send(:create_actions)
-      end
+      before { @result = slack.send(:create_actions) }
 
       it { expect(@result.count).to eq 0 }
       it { expect(@result).to eq [] }
