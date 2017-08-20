@@ -9,7 +9,7 @@ class Api::V1::MessagesController < ApplicationController
     mentions_params = params.permit(mentions: [:slack_id, :name, :profile_picture_url])
 
     message = Message.new(message_params)
-    message.user_id = 1 # TODO: Pass the user id parameter from payload user id in JWT.
+    message.user_id = 1 # TODO: Pass the user id parameter from session
     message.callback_id = Slack::MessageButton.create_key
 
     message.message_buttons = message_buttons_params[:message_buttons].map do |m|
