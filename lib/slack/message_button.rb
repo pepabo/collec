@@ -2,6 +2,13 @@ require 'securerandom'
 
 module Slack
   class MessageButton
+    #
+    # This method post a message to multiple users with Message Button
+    #
+    # @option params [String] :callback_id
+    # @option params [String] :slack_id
+    # @option params [Array<Hash>] :message_buttons
+    #
     def bulk_post(params = {})
       params[:mentions].each do |mention|
         post({
@@ -13,10 +20,21 @@ module Slack
       end
     end
 
+    #
+    # This method post a message with Message Button
+    #
+    # @option params [String] :channel
+    # @option params [String] :text
+    # @option params [String] :callback_id
+    # @option params [Array<Hash>] :message_buttons
+    # @see https://github.com/slack-ruby/slack-ruby-client/blob/master/README.md#send-messages
     def post(params = {})
       client.chat_postMessage(create_options(params))
     end
 
+    #
+    # This method create unique identifier for Message Button's callback id or action name
+    #
     def self.create_identifier
       SecureRandom.hex(8)
     end
