@@ -34,7 +34,7 @@ class Api::V1::MessagesController < ApplicationController
           mentions: mentions_params[:mentions],
           message_buttons: message_buttons_params[:message_buttons],
           callback_id: message.callback_id,
-          text: message_params[:text]
+          text: message_params[:message]
         }
       )
     rescue e
