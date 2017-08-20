@@ -29,7 +29,7 @@ RSpec.describe "Messages", type: :request do
   describe "POST /api/v1/messages" do
     before do
       create(:user, id: 1)
-      allow_any_instance_of(Slack::MessageButton).to receive(:send)
+      allow_any_instance_of(Slack::MessageButton).to receive(:post)
       post api_v1_messages_path, params:
                                  {
                                    message: 'hoge',

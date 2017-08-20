@@ -2,7 +2,7 @@ require 'securerandom'
 
 module Slack
   class MessageButton
-    def send(params = {})
+    def post(params = {})
       client.chat_postMessage(create_options(params))
     end
 
