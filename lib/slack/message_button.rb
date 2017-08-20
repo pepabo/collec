@@ -18,8 +18,8 @@ module Slack
 
     def create_options(params = {})
       {
-        channel: options[:channel],
-        text: options[:text],
+        channel: params[:channel],
+        text: params[:text],
         attachments: [
           {
             fallback: 'fallback', # TODO: Set fallback
