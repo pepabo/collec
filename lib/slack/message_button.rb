@@ -7,7 +7,7 @@ module Slack
     end
 
     def self.create_key
-      SecureRandom.hex(16)
+      SecureRandom.hex(8)
     end
 
     private
