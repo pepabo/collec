@@ -3,6 +3,29 @@ require 'rails_helper'
 describe Slack::MessageButton do
   let(:slack) { Slack::MessageButton.new }
 
+  describe '#create_options' do
+    context 'when has params values' do
+      before do
+        @result = slack.send(:create_options, {
+                                              channel: 'UHOGEHOGE',
+                                              text: 'dummy text',
+                                              message_buttons: [
+                                                { name: 'name001', text: 'hoge' },
+                                                { name: 'name002', text: 'fuga' },
+                                              ]
+                                            }
+        )
+      end
+
+      it { expect(@result[:channel]).to eq 'UHOGEHOGE' }
+      it { expect(@result[:text]).to eq 'dummy text' }
+      it { expect(@result[:attachments][0][:fallback]).to eq 'fallback' }
+      it { expect(@result[:attachments][0][:callback_id]).not_to be_empty }
+      it { expect(@result[:attachments][0][:color]).to eq '#3AA3E3' }
+      it { expect(@result[:attachments][0][:attachment_type]).to eq 'default' }
+    end
+  end
+
   describe '#create_action' do
     context 'when has no values' do
       before { @result = slack.send(:create_actions) }
