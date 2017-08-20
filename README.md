@@ -48,5 +48,6 @@ $ bin/rake test
 ```bash
 # Run both servers
 $ bin/webpack-dev-server
+$ bundle exec sidekiq -C config/sidekiq.yml
 $ rails s
 ```
