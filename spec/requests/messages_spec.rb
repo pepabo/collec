@@ -29,7 +29,7 @@ RSpec.describe "Messages", type: :request do
   describe "POST /api/v1/messages" do
     before do
       create(:user, id: 1)
-      allow_any_instance_of(Slack::MessageButton).to receive(:post)
+      expect_any_instance_of(Slack::MessageButton).to receive(:bulk_post).once
       post api_v1_messages_path, params:
                                  {
                                    message: 'hoge',
@@ -57,6 +57,8 @@ RSpec.describe "Messages", type: :request do
       expect(@message[:message]).to eq 'hoge'
       expect(@message[:require_confirm]).to eq false
       expect(@message[:due_at]).to eq '2017-08-15 10:00:00'
+      expect(@message[:callback_id]).not_to be_empty
+      expect(@message_buttons[0][:name]).not_to be_empty
       expect(@message_buttons[0][:text]).to eq 'button01'
       expect(@mentions[0][:slack_id]).to eq 'UHOGEHOGE'
       expect(@mentions[0][:name]).to eq 'fuga'
