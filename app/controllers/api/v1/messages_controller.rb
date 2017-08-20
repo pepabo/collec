@@ -22,7 +22,7 @@ class Api::V1::MessagesController < ApplicationController
     Message.transaction do
       begin
         message.save!
-      rescue e
+      rescue => e
         Rails.logger.error e.inspect
       end
     end
@@ -37,7 +37,7 @@ class Api::V1::MessagesController < ApplicationController
           text: message_params[:message]
         }
       )
-    rescue e
+    rescue => e
       Rails.logger.error e.inspect
     end
 
