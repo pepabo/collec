@@ -40,7 +40,7 @@ $ bin/rake db:migrate
 * How to run the test suite
 
 ```bash
-$ bin/rake test
+$ bundle exec guard
 ```
 
 * How to run the local development server
