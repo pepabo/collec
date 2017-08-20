@@ -2,13 +2,13 @@ require 'securerandom'
 
 module Slack
   class MessageButton
-    def bulk_post(mentions, message_buttons, callback_id, text)
-      mentions.each do |mention|
+    def bulk_post(params = {})
+      params[:mentions].each do |mention|
         post({
-          callback_id: callback_id,
+          callback_id: params[:callback_id],
           channel: mention[:slack_id],
-          text: text,
-          message_buttons: message_buttons
+          text: params[:text],
+          message_buttons: params[:message_buttons]
         })
       end
     end

@@ -29,7 +29,14 @@ class Api::V1::MessagesController < ApplicationController
 
     message_button = Slack::MessageButton.new
     begin
-      message_button.bulk_post(mentions_params[:mentions], message_buttons_params[:message_buttons], message.callback_id, message_params[:text])
+      message_button.bulk_post(
+        {
+          mentions: mentions_params[:mentions],
+          message_buttons: message_buttons_params[:message_buttons],
+          callback_id: message.callback_id,
+          text: message_params[:text]
+        }
+      )
     rescue e
       Rails.logger.error e.inspect
     end
