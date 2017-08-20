@@ -6,6 +6,10 @@ module Slack
       client.chat_postMessage(create_options(params))
     end
 
+    def self.create_key
+      SecureRandom.hex(16)
+    end
+
     private
 
     def client
@@ -19,7 +23,7 @@ module Slack
         attachments: [
           {
             fallback: 'fallback', # TODO: Set fallback
-            callback_id: 'test', # TODO: Set callback id
+            callback_id: params[:callback_id],
             color: '#3AA3E3',
             attachment_type: 'default',
             actions: create_actions(params[:message_buttons])
@@ -31,7 +35,7 @@ module Slack
     def create_actions(message_buttons = [])
       message_buttons.map do |message_button|
         {
-          name: SecureRandom.hex(16),
+          name: message_button[:name],
           text: message_button[:text],
           type: 'button',
         }
