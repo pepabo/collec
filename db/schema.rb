@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170815074423) do
+ActiveRecord::Schema.define(version: 20170820024441) do
 
   create_table "mentions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "message_id"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20170815074423) do
     t.boolean "require_confirm", default: false, comment: "Flag to use confirmation dialog"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "callback_id", comment: "Unique identifier for the Slack message button"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
