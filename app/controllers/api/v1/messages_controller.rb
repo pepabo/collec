@@ -10,11 +10,11 @@ class Api::V1::MessagesController < ApplicationController
 
     message = Message.new(message_params)
     message.user_id = 1 # TODO: Pass the user id parameter from session
-    message.callback_id = Slack::MessageButton.create_key
+    message.callback_id = Slack::MessageButton.create_identifier
 
     message.message_buttons = message_buttons_params[:message_buttons].map do |m|
       button = MessageButton.new(m)
-      button.name = Slack::MessageButton.create_key
+      button.name = Slack::MessageButton.create_identifier
       button
     end
     message.mentions = mentions_params[:mentions].map {|m| Mention.new(m) }

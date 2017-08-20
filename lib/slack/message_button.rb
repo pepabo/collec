@@ -17,7 +17,7 @@ module Slack
       client.chat_postMessage(create_options(params))
     end
 
-    def self.create_key
+    def self.create_identifier
       SecureRandom.hex(8)
     end
 
