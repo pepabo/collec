@@ -30,6 +30,7 @@ class Api::V1::MessagesController < ApplicationController
     message_button = Slack::MessageButton.new
     mentions_params[:mentions].each do |mention|
       message_button.post({
+        callback_id: message.callback_id,
         channel: mention[:slack_id],
         text: message_params[:text],
         message_buttons: message_buttons_params[:message_buttons]
