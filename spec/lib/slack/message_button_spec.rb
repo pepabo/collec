@@ -7,6 +7,7 @@ describe Slack::MessageButton do
     context 'when has params values' do
       before do
         @result = slack.send(:create_options, {
+                                              callback_id: 'idfuga',
                                               channel: 'UHOGEHOGE',
                                               text: 'dummy text',
                                               message_buttons: [
