@@ -1,11 +1,11 @@
 class Api::V1::MessagesController < ApplicationController
   def index
-    @messages = User.user_messages(1)
+    @messages = User.my_messages(1)
     # TODO: Pass the user id parameter from payload user id in JWT.
   end
 
   def show
-    @message = User.user_message(1, params[:id])
+    @message = User.my_message(1, params[:id])
     # TODO: Pass the user id parameter from payload user id in JWT.
 
     @answers = @message.message_buttons.map do |b|

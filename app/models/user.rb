@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  scope :user_messages, ->(user_id) { find(user_id).messages }
-  scope :user_message, ->(user_id, message_id) { find(user_id).messages.find(message_id) }
+  scope :my_messages, ->(user_id) { find(user_id).messages }
+  scope :my_message, ->(user_id, message_id) { find(user_id).messages.find(message_id) }
   has_many :messages
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
