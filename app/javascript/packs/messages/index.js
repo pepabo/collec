@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Chart from 'chart.js'
 import Api from '../../lib/api'
+import moment from 'moment'
+import _ from 'underscore'
 
 document.addEventListener('DOMContentLoaded', () => {
   new Vue({
@@ -14,7 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
     methods: {
       fetchMessageList() {
         Api.Message.list().then((response) => {
-          this.messages = response.data;
+          this.messages = _.map(response.data, (message) => {
+            message.due_at = moment(message.due_at).format('YYYY/MM/DD HH:mm')
+            return message
+          })
         })
       }
     }
