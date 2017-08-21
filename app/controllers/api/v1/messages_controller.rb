@@ -1,11 +1,10 @@
 class Api::V1::MessagesController < ApplicationController
   def index
-    @messages = Message.where("user_id = ?", 1)
     @messages = User.user_messages(1)
   end
 
   def show
-    @message = Message.where("user_id = ? and id = ?", 1, params[:id]).first
+    @message = User.user_message(1, params[:id])
 
     @answers = @message.message_buttons.map do |b|
       {
