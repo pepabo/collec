@@ -1,11 +1,22 @@
 import Vue from 'vue'
 import Chart from 'chart.js'
+import Api from '../../lib/api'
 
 document.addEventListener('DOMContentLoaded', () => {
   new Vue({
     el: '#js-messages__index',
     data: {
-      message: 'Hello Vue'
+      messages: []
+    },
+    created() {
+      this.fetchMessageList()
+    },
+    methods: {
+      fetchMessageList() {
+        Api.Message.list().then((response) => {
+          this.messages = response.data;
+        })
+      }
     }
   })
 
