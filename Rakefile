@@ -4,3 +4,10 @@
 require_relative 'config/application'
 
 Rails.application.load_tasks
+
+namespace :sidekiq do
+  desc 'start sidekiq'
+  task :start do
+    sh "bundle exec sidekiq -C config/sidekiq.yml"
+  end
+end

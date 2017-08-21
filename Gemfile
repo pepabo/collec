@@ -46,8 +46,13 @@ end
 group :test do
   gem 'rspec'
   gem 'rspec-rails'
+  gem 'rspec-sidekiq'
 end
 
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-slack'
+
+gem 'redis-rails'
+gem 'sidekiq'
+gem 'config'
