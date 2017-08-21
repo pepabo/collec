@@ -6,8 +6,8 @@ Rails.application.routes.draw do
 
   namespace :api, {format: 'json'} do
     namespace :v1 do
-      resources :users, only:[] do
-        resources :messages, only: [:index, :show, :create]
+      resources :users, only: [] do
+        resources :messages, only: [:index, :show, :create], module: 'users'
       end
     end
   end
