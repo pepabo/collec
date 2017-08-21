@@ -55,7 +55,7 @@ RSpec.describe "Messages", type: :request do
     it 'check db registration' do
       expect(@message[:message]).to eq 'hoge'
       expect(@message[:require_confirm]).to eq false
-      expect(@message[:due_at]).to eq '2017-08-15 10:00:00'
+      expect(@message[:due_at]).to eq '2017-08-15 10:00:00.000000000 +0900'
       expect(@message_buttons[0][:text]).to eq 'button01'
       expect(@mentions[0][:slack_id]).to eq 'UHOGEHOGE'
       expect(@mentions[0][:name]).to eq 'fuga'
