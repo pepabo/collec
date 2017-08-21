@@ -14,6 +14,7 @@ RSpec.describe "Users", type: :request do
     it 'check json contents' do
       expect(json_parse.first['slack_id']).to eq 'UHOGE'
       expect(json_parse.first['name']).to eq 'hypermkt'
+      expect(json_parse.first['real_name']).to eq '千葉 誠 Makoto Chiba (バーチー)'
       expect(json_parse.first['avatar_url']).to eq 'http://hoge.io/001.jpg'
     end
   end
