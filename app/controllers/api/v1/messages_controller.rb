@@ -6,13 +6,12 @@ class Api::V1::MessagesController < ApplicationController
   def show
     @message = Message.where("user_id = ? and id = ?", 1, params[:id]).first
 
-    @answers = []
-    @message.message_buttons.each do |b|
-      answer = {}
-      answer[:text] = b.text
-      answer[:count] = b.message_answers.size
-      answer[:percentage] = (answer[:count].to_f / @message.message_answers.size) * 100
-      @answers.push(answer)
+    @answers = @message.message_buttons.map do |b|
+      {
+        text: b.text,
+        count: b.message_answers.size,
+        percentage: (b.message_answers.size.to_f / @message.message_answers.size) * 100
+      }
     end
   end
 
