@@ -1,6 +1,14 @@
+import Vue from 'vue'
 import Chart from 'chart.js'
 
 document.addEventListener('DOMContentLoaded', () => {
+  new Vue({
+    el: '#js-messages__index',
+    data: {
+      message: 'Hello Vue'
+    }
+  })
+
   window.chartColors = {
     red: 'rgb(255, 99, 132)',
     orange: 'rgb(255, 159, 64)',
