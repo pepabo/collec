@@ -30,10 +30,10 @@ RSpec.describe "Messages", type: :request do
     before do
       create(:user, id: 1)
       @message = create(:message, id: 1)
-      create(:mention, id: 1, message_id: @message.id, slack_id: "ABCDEFG01", name: "user01", profile_picture_url: "http://hoge/user01.jpg")
-      create(:mention, id: 2, message_id: @message.id, slack_id: "ABCDEFG02", name: "user02", profile_picture_url: "http://hoge/user02.jpg")
-      create(:message_button, id: 1, message_id: @message.id, name: "name1", text: "label1")
-      create(:message_button, id: 2, message_id: @message.id, name: "name2", text: "label2")
+      @mention = create(:mention, id: 1, message_id: @message.id)
+      create(:mention, id: 2, message_id: @message.id)
+      @message_button = create(:message_button, id: 1, message_id: @message.id)
+      create(:message_button, id: 2, message_id: @message.id)
       create(:message_answer, id: 1, message_id: @message.id, mention_id: 1, message_button_id: 1)
       create(:message_answer, id: 2, message_id: @message.id, mention_id: 2, message_button_id: 2)
 
@@ -52,12 +52,12 @@ RSpec.describe "Messages", type: :request do
       expect(m['due_at']).to eq @message.due_at.as_json
       expect(m['require_confirm']).to eq @message.require_confirm
 
-      expect(m['report']['answers'][0]['text']).to eq 'label1'
+      expect(m['report']['answers'][0]['text']).to eq @message_button.text
       expect(m['report']['answers'][0]['count']).to eq 1
       expect(m['report']['answers'][0]['percentage']).to eq 50
 
-      expect(m['report']['mentioned'][0]['name']).to eq 'user01'
-      expect(m['report']['mentioned'][0]['profile_picture_url']).to eq 'http://hoge/user01.jpg'
+      expect(m['report']['mentioned'][0]['name']).to eq @mention.name
+      expect(m['report']['mentioned'][0]['profile_picture_url']).to eq @mention.profile_picture_url
     end
   end
 
