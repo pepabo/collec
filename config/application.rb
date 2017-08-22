@@ -17,7 +17,6 @@ module Answer
 
     # Set timezone to register db and display datetime in JST
     # ref: http://qiita.com/sutoh/items/b7d23990abb9c5083daa
-    config.active_record.default_timezone = :local
     config.time_zone = 'Tokyo'
   end
 end
