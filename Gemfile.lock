@@ -277,13 +277,12 @@ GEM
     selenium-webdriver (3.4.4)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
-
+    shellany (0.0.1)
     sidekiq (5.0.4)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (~> 3.3, >= 3.3.3)
-    shellany (0.0.1)
     slack-ruby-client (0.9.0)
       activesupport
       faraday (>= 0.9)
@@ -366,8 +365,8 @@ DEPENDENCIES
   rubocop
   sass-rails (~> 5.0)
   selenium-webdriver
-  slack-ruby-client
   sidekiq
+  slack-ruby-client
   spring
   spring-commands-rspec
   spring-watcher-listen (~> 2.0.0)
