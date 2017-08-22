@@ -16,9 +16,9 @@
       <tbody v-for="message in messages">
       <tr>
         <td>{{ message.id }}</td>
-        <td><span class="tag is-primary">In Progress</span></td>
+        <td><message_status :due_at="message.due_at"></message_status></td>
         <td>{{ message.message }}</td>
-        <td>{{ message.due_at }}</td>
+        <td>{{ message.due_at_for_view }}</td>
       </tr>
       </tbody>
     </table>

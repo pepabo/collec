@@ -3,10 +3,14 @@ import Chart from 'chart.js'
 import Api from '../../lib/api'
 import moment from 'moment'
 import _ from 'underscore'
+import MessageStatus from '../components/message_status.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   new Vue({
     el: '#js-messages__index',
+    components: {
+      'message_status': MessageStatus
+    },
     data: {
       messages: []
     },
@@ -17,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
       fetchMessageList() {
         Api.Message.list().then((response) => {
           this.messages = _.map(response.data, (message) => {
-            message.due_at = moment(message.due_at).format('YYYY/MM/DD HH:mm')
+            message.due_at_for_view = moment(message.due_at).format('YYYY/MM/DD HH:mm')
             return message
           })
         })
