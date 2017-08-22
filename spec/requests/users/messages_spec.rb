@@ -28,16 +28,16 @@ RSpec.describe "Messages", type: :request do
 
   describe "GET /api/v1/users/:user_id/messages/:message_id" do
     before do
-      create(:user, id: 1)
-      @message = create(:message, id: 1)
-      @mention = create(:mention, id: 1, message_id: @message.id)
-      create(:mention, id: 2, message_id: @message.id)
-      @message_button = create(:message_button, id: 1, message_id: @message.id)
-      create(:message_button, id: 2, message_id: @message.id)
-      create(:message_answer, id: 1, message_id: @message.id, mention_id: 1, message_button_id: 1)
-      create(:message_answer, id: 2, message_id: @message.id, mention_id: 2, message_button_id: 2)
+      @user_with_messages = create(:user, :with_messages, id: 1)
 
-      get '/api/v1/users/1/messages/1'
+      create(
+        :message_answer,
+        message_id: @user_with_messages.messages.first.id,
+        mention_id: @user_with_messages.messages.first.mentions.first.id,
+        message_button_id: @user_with_messages.messages.first.message_buttons.first.id,
+      )
+
+      get "/api/v1/users/#{@user_with_messages.id}/messages/#{@user_with_messages.messages.first.id}"
     end
 
     it 'response 200' do
@@ -47,17 +47,18 @@ RSpec.describe "Messages", type: :request do
 
     it 'check json contents' do
       m = json_parse
-      expect(m['user_id']).to eq @message.user_id
-      expect(m['message']).to eq @message.message
-      expect(m['due_at']).to eq @message.due_at.as_json
-      expect(m['require_confirm']).to eq @message.require_confirm
 
-      expect(m['report']['answers'][0]['text']).to eq @message_button.text
-      expect(m['report']['answers'][0]['count']).to eq 1
-      expect(m['report']['answers'][0]['percentage']).to eq 50
+      expect(m['user_id']).to eq @user_with_messages.id
+      expect(m['message']).to eq @user_with_messages.messages.first.message
+      expect(m['due_at']).to eq @user_with_messages.messages.first.due_at.as_json
+      expect(m['require_confirm']).to eq @user_with_messages.messages.first.require_confirm
 
-      expect(m['report']['mentioned'][0]['name']).to eq @mention.name
-      expect(m['report']['mentioned'][0]['profile_picture_url']).to eq @mention.profile_picture_url
+      expect(m['report']['answers'].first['text']).to eq @user_with_messages.messages.first.message_buttons.first.text
+      expect(m['report']['answers'].first['count']).to eq 1
+      expect(m['report']['answers'].first['percentage']).to eq 100
+
+      expect(m['report']['mentioned'].first['name']).to eq @user_with_messages.messages.first.mentions.first.name
+      expect(m['report']['mentioned'].first['profile_picture_url']).to eq @user_with_messages.messages.first.mentions.first.profile_picture_url
     end
   end
 
