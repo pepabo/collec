@@ -72,7 +72,7 @@ RSpec.describe "Messages", type: :request do
                                    message: 'hoge',
                                    require_confirm: 0,
                                    due_at: '2017-08-15 10:00:00',
-                                   button_type: 'single',
+                                   button_type: 0, # single
                                    message_buttons: [
                                      { text: 'button01' },
                                    ],
@@ -95,7 +95,7 @@ RSpec.describe "Messages", type: :request do
       expect(@message[:message]).to eq 'hoge'
       expect(@message[:require_confirm]).to eq false
       expect(@message[:due_at]).to eq '2017-08-15 10:00:00'
-      expect(@message[:button_type]).to eq 'single'
+      expect(@message[:button_type]).to eq 0 # single
       expect(@message[:callback_id]).not_to be_empty
       expect(@message_buttons[0][:name]).not_to be_empty
       expect(@message_buttons[0][:text]).to eq 'button01'
