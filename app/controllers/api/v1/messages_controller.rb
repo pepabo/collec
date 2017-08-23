@@ -1,6 +1,17 @@
-class Api::V1::MessagesController < ApiController
+class Api::V1::MessagesController < ApplicationController
   def index
-    @messages = Message.where("user_id = ?", 1)
+    @messages = Message.all
+  end
+
+  def show
+    @message = Message.find(params[:id])
+    @answers = @message.message_buttons.map do |b|
+      {
+        text: b.text,
+        count: b.message_answers.size,
+        percentage: (b.message_answers.size.to_f / @message.message_answers.size) * 100
+      }
+    end
   end
 
   def create
