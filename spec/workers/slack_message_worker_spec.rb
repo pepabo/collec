@@ -19,17 +19,17 @@ describe SlackMessageWorker  do
         status: 200,
         headers: { 'Content-Type' =>  'application/json' })
 
-      worker = SlackMessageWorker.new
-      @res = worker.perform(user_with_messages.messages.first.mentions.first.id)
+      @mention_id = user_with_messages.messages.first.mentions.first.id
     end
 
     it 'dm normally sended.' do
-      expect(@res['channel']).to eq 'DXXXXXXXX'
-      expect(@res['message']['text']).to eq 'Hello World'
-      expect(@res['message']['username']).to eq 'answer'
-      expect(@res['message']['bot_id']).to eq 'B11111111'
-      expect(@res['message']['type']).to eq 'message'
-      expect(@res['message']['subtype']).to eq 'bot_message'
+      res = subject.perform(@mention_id)
+      expect(res['channel']).to eq 'DXXXXXXXX'
+      expect(res['message']['text']).to eq 'Hello World'
+      expect(res['message']['username']).to eq 'answer'
+      expect(res['message']['bot_id']).to eq 'B11111111'
+      expect(res['message']['type']).to eq 'message'
+      expect(res['message']['subtype']).to eq 'bot_message'
     end
   end
 end
