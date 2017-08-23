@@ -8,7 +8,8 @@ RSpec.describe "Messages", type: :request do
       create(:user, id: 1)
       @message = create(:message)
       create_list(:message, 9)
-      get '/api/v1/messages'
+
+      get api_v1_messages_path
     end
 
     it 'response 200' do
@@ -37,7 +38,7 @@ RSpec.describe "Messages", type: :request do
         message_button_id: @user_with_messages.messages.first.message_buttons.first.id,
       )
 
-      get "/api/v1/messages/#{@user_with_messages.messages.first.id}"
+      get api_v1_message_path @user_with_messages.messages.first.id
     end
 
     it 'response 200' do
