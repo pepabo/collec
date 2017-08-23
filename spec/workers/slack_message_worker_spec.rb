@@ -22,6 +22,10 @@ describe SlackMessageWorker  do
       @mention_id = user_with_messages.messages.first.mentions.first.id
     end
 
+    it 'proceeding slack job' do
+      expect(SlackMessageWorker).to be_processed_in :slack
+    end
+
     it 'dm normally sended.' do
       res = subject.perform(@mention_id)
       expect(res['channel']).to eq 'DXXXXXXXX'
