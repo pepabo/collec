@@ -1,4 +1,6 @@
 require 'rails_helper'
+require 'webmock/rspec'
+
 describe SlackMessageWorker  do
   before do
     Sidekiq::Testing.inline!
@@ -10,14 +12,24 @@ describe SlackMessageWorker  do
 
   describe 'perform' do
     before do
-      create(:user, id: 1)
-      message = create(:message)
-      create(:message_button, mention_id: message.id)
-      @mention = create(:mention, mention_id: message.id)
-      expect_any_instance_of(Slack::MessageButton).to receive(:post).once
+      user_with_messages = create(:user, :with_messages, id: 1)
+
+      WebMock.stub_request(:post, "https://slack.com/api/chat.postMessage").to_return(
+        body: File.read("#{Rails.root}/test/fixtures/slack_chat_post_response.json"),
+        status: 200,
+        headers: { 'Content-Type' =>  'application/json' })
 
       worker = SlackMessageWorker.new
-      worker.perform(mention)
+      @res = worker.perform(user_with_messages.messages.first.mentions.first.id)
+    end
+
+    it 'dm normally sended.' do
+      expect(@res['channel']).to eq 'DXXXXXXXX'
+      expect(@res['message']['text']).to eq 'Hello World'
+      expect(@res['message']['username']).to eq 'answer'
+      expect(@res['message']['bot_id']).to eq 'B11111111'
+      expect(@res['message']['type']).to eq 'message'
+      expect(@res['message']['subtype']).to eq 'bot_message'
     end
   end
 end
