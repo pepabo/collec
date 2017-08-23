@@ -15,7 +15,7 @@ module Answer
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    # Set timezone to register db and display datetime in JST
+    # Set timezone to display datetime in JST
     # ref: http://qiita.com/sutoh/items/b7d23990abb9c5083daa
     config.time_zone = 'Tokyo'
 
