@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe "Messages", type: :request do
-  describe "GET /api/v1/users/:user_id/messages" do
+  describe "GET /api/v1/messages" do
     before do
       # "id: 1" because foreign key of message and user
       # are specified by factory test data.
       create(:user, id: 1)
       @message = create(:message)
       create_list(:message, 9)
-      get '/api/v1/users/1/messages'
+      get '/api/v1/messages'
     end
 
     it 'response 200' do
@@ -26,7 +26,7 @@ RSpec.describe "Messages", type: :request do
     end
   end
 
-  describe "GET /api/v1/users/:user_id/messages/:message_id" do
+  describe "GET /api/v1/messages/:message_id" do
     before do
       @user_with_messages = create(:user, :with_messages, id: 1)
 
@@ -37,7 +37,7 @@ RSpec.describe "Messages", type: :request do
         message_button_id: @user_with_messages.messages.first.message_buttons.first.id,
       )
 
-      get "/api/v1/users/#{@user_with_messages.id}/messages/#{@user_with_messages.messages.first.id}"
+      get "/api/v1/messages/#{@user_with_messages.messages.first.id}"
     end
 
     it 'response 200' do
@@ -62,10 +62,10 @@ RSpec.describe "Messages", type: :request do
     end
   end
 
-  describe "POST /api/v1/users/:user_id/messages" do
+  describe "POST /api/v1/messages" do
     before do
       create(:user, id: 1)
-        post "/api/v1/users/1/messages", params:
+        post "/api/v1/messages", params:
                                  {
                                    message: 'hoge',
                                    require_confirm: 0,
