@@ -5,7 +5,7 @@ class SlackMessageWorker
     message_button = Slack::MessageButton.new
 
     mention = Mention.find(mention_id)
-    message = Message.find(mention.message_id)
+    message = mention.message
     begin
       message_button.post(
         {
