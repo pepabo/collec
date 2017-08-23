@@ -84,6 +84,11 @@ RSpec.describe "Messages", type: :request do
       @mentions = Mention.where('message_id = ?', @message.id)
     end
 
+    it 'enqueue' do
+      assert_equal 1, SlackMessageWorker.jobs.size
+      expect(SlackMessageWorker.jobs.first['args'].first).to eq @mentions[0][:id]
+    end
+
     it 'response 201' do
       expect(response).to be_success
       expect(response.status).to eq 201
