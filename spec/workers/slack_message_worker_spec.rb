@@ -10,12 +10,14 @@ describe SlackMessageWorker  do
 
   describe 'perform' do
     before do
-      # 多分Slackのmockを書くことになる
-    end
+      create(:user, id: 1)
+      message = create(:message)
+      create(:message_button, mention_id: message.id)
+      @mention = create(:mention, mention_id: message.id)
+      expect_any_instance_of(Slack::MessageButton).to receive(:post).once
 
-    it 'sent message to slack' do
-      expect_any_instance_of(Dummy).to receive(:send).once
-      described_class.perform_async('test')
+      worker = SlackMessageWorker.new
+      worker.perform(mention)
     end
   end
 end
