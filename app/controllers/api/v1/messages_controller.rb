@@ -27,18 +27,8 @@ class Api::V1::MessagesController < ApiController
       end
     end
 
-    message_button = Slack::MessageButton.new
-    begin
-      message_button.bulk_post(
-        {
-          mentions: message.mentions,
-          message_buttons: message.message_buttons,
-          callback_id: message.callback_id,
-          text: message.message
-        }
-      )
-    rescue => e
-      Rails.logger.error e.inspect
+    message.mentions.each do |m|
+      SlackMessageWorker.perform_async m.id
     end
 
     head :created
