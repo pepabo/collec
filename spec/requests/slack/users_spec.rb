@@ -5,9 +5,9 @@ RSpec.describe "Users", type: :request do
     before do
       data = [
         {
-          slack_id: "UHOGE",
-          name: "hypermkt",
-          real_name: "千葉 誠 Makoto Chiba (バーチー)",
+          slack_id: "U03XXXXXX",
+          name: "testuser",
+          real_name: "テスト ユーザー Test User (テス)",
           avatar_url: "http://hoge.io/001.jpg"
         }
       ]
@@ -21,9 +21,9 @@ RSpec.describe "Users", type: :request do
     end
 
     it 'check json contents' do
-      expect(json_parse.first['slack_id']).to eq 'UHOGE'
-      expect(json_parse.first['name']).to eq 'hypermkt'
-      expect(json_parse.first['real_name']).to eq '千葉 誠 Makoto Chiba (バーチー)'
+      expect(json_parse.first['slack_id']).to eq 'U03XXXXXX'
+      expect(json_parse.first['name']).to eq 'testuser'
+      expect(json_parse.first['real_name']).to eq 'テスト ユーザー Test User (テス)'
       expect(json_parse.first['avatar_url']).to eq 'http://hoge.io/001.jpg'
     end
   end
