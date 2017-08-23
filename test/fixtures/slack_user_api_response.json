@@ -2,6 +2,34 @@
   "ok": true,
   "members": [
     {
+      "id": "U2YYYYYYY",
+      "team_id": "T03XXXXXX",
+      "name": "testbot",
+      "deleted": true,
+      "profile": {
+        "bot_id": "BXXXXXXXX",
+        "api_app_id": "",
+        "avatar_hash": "832cdc798e47",
+        "image_24": "https://avatars.slack-edge.com/2016-10-07/22222222222_832cdc798e47e9c85844_24.png",
+        "image_32": "https://avatars.slack-edge.com/2016-10-07/22222222222_832cdc798e47e9c85844_32.png",
+        "image_48": "https://avatars.slack-edge.com/2016-10-07/22222222222_832cdc798e47e9c85844_48.png",
+        "image_72": "https://avatars.slack-edge.com/2016-10-07/22222222222_832cdc798e47e9c85844_72.png",
+        "image_192": "https://avatars.slack-edge.com/2016-10-07/22222222222_832cdc798e47e9c85844_192.png",
+        "image_512": "https://avatars.slack-edge.com/2016-10-07/22222222222_832cdc798e47e9c85844_512.png",
+        "image_1024": "https://avatars.slack-edge.com/2016-10-07/22222222222_832cdc798e47e9c85844_512.png",
+        "image_original": "https://avatars.slack-edge.com/2016-10-07/22222222222_832cdc798e47e9c85844_original.png",
+        "first_name": "Test",
+        "last_name": "BOT",
+        "title": "test bot for API Test",
+        "real_name": "Test BOT",
+        "real_name_normalized": "Test BOT",
+        "team": "T03XXXXXX"
+      },
+      "is_bot": true,
+      "updated": 1489626591,
+      "is_app_user": false
+    },
+    {
       "id": "U03XXXXXX",
       "team_id": "T03XXXXXX",
       "name": "testuser",
