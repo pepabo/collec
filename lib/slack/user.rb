@@ -12,9 +12,7 @@ module Slack
           real_name: u['real_name'],
           avatar_url: u['profile']['image_24']
         }
-        users.push user
       end
-      users
     end
 
     def client
