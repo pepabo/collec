@@ -6,9 +6,8 @@ module Slack
       users_list = Rails.cache.fetch(SLACK_ACTIVE_USERS) do
         client.users_list['members'].select { |u| u['deleted'] == false && u['is_bot'] == false }
       end
-      users = []
       users_list.map do |u|
-        user = {
+        {
           slack_id: u['id'],
           name: u['name'],
           real_name: u['real_name'],
