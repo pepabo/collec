@@ -3,6 +3,7 @@ FactoryGirl.define do
     user_id 1
     message 'Slack User 001: Message 00001'
     due_at '2017-08-12T09:47:29.000Z'
+    button_type 0
     require_confirm true
 
     trait :with_mentions do
