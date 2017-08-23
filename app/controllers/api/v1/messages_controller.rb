@@ -31,10 +31,10 @@ class Api::V1::MessagesController < ApiController
     begin
       message_button.bulk_post(
         {
-          mentions: mentions_params[:mentions],
+          mentions: message.mentions,
           message_buttons: message.message_buttons,
           callback_id: message.callback_id,
-          text: message_params[:message]
+          text: message.message
         }
       )
     rescue => e
