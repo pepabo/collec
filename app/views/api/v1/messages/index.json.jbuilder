@@ -6,4 +6,9 @@ json.array! @messages do |message|
   json.require_confirm message.require_confirm
   json.created_at message.created_at
   json.updated_at message.updated_at
+
+  json.set! :report do
+    json.answered_count message.message_answers.size
+    json.mentioned_count message.mentions.size
+  end
 end
