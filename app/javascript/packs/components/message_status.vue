@@ -12,7 +12,7 @@ export default {
   props: ['due_at'],
   methods: {
     isCompleted() {
-      return moment(this.due_at).isBefore()
+      // TODO: メンションしたユーザーが回答済みか否か
     }
   }
 }
