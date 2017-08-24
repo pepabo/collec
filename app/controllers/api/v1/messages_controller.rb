@@ -19,15 +19,15 @@ class Api::V1::MessagesController < ApplicationController
     message_buttons_params = params.permit(message_buttons: [:text])
     mentions_params = params.permit(mentions: [:slack_id, :name, :profile_picture_url])
 
-    message = Message.new(message_params).tap do |message|
-      message.user_id = 1 # TODO: Pass the user id parameter from session
-      message.callback_id = Slack::MessageButton.create_identifier
-      message.message_buttons = message_buttons_params[:message_buttons].map do |m|
+    message = Message.new(message_params).tap do |ms|
+      ms.user_id = 1 # TODO: Pass the user id parameter from session
+      ms.callback_id = Slack::MessageButton.create_identifier
+      ms.message_buttons = message_buttons_params[:message_buttons].map do |m|
         MessageButton.new(m).tap do |button|
           button.name = Slack::MessageButton.create_identifier
         end
       end
-      message.mentions = mentions_params[:mentions].map {|m| Mention.new(m) }
+      ms.mentions = mentions_params[:mentions].map {|m| Mention.new(m) }
     end
 
     Message.transaction do
@@ -42,10 +42,10 @@ class Api::V1::MessagesController < ApplicationController
     begin
       message_button.bulk_post(
         {
-          mentions: mentions_params[:mentions],
+          mentions: message.mentions,
           message_buttons: message.message_buttons,
           callback_id: message.callback_id,
-          text: message_params[:message]
+          text: message.message
         }
       )
     rescue => e
