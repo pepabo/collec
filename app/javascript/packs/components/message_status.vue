@@ -1,7 +1,7 @@
 <template>
   <div>
-    <span v-if="this.isCompleted()" class="tag is-info">Completed</span>
-    <span v-else class="tag is-primary">In Progress</span>
+    <span v-if="this.isCompleted()" class="tag is-info">Completed( {{ this.answer_ratio }} )</span>
+    <span v-else class="tag is-primary">In Progress( {{ this.answer_ratio }} )</span>
   </div>
 </template>
 
@@ -9,11 +9,16 @@
 import moment from 'moment'
 
 export default {
-  props: ['due_at'],
+  props: ['report'],
+  computed: {
+    answer_ratio() {
+      return this.report.answered_count + '/' + this.report.mentioned_count
+    }
+  },
   methods: {
     isCompleted() {
-      // TODO: メンションしたユーザーが回答済みか否か
-    }
+      return this.report.answered_count >= this.report.mentioned_count
+    },
   }
 }
 </script>

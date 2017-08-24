@@ -16,7 +16,7 @@
       <tbody v-for="message in messages">
       <tr>
         <td>{{ message.id }}</td>
-        <td><message_status :due_at="message.due_at"></message_status></td>
+        <td><message_status :report="message.report"></message_status></td>
         <td>{{ message.message }}</td>
         <td>{{ message.due_at_for_view }}</td>
       </tr>
