@@ -66,7 +66,6 @@ RSpec.describe "Messages", type: :request do
   describe "POST /api/v1/messages" do
     before do
       create(:user, id: 1)
-      expect_any_instance_of(Slack::MessageButton).to receive(:bulk_post).once
       post api_v1_messages_path, params:
                                  {
                                    message: 'hoge',
@@ -100,6 +99,11 @@ RSpec.describe "Messages", type: :request do
       expect(@mentions[0][:slack_id]).to eq 'UHOGEHOGE'
       expect(@mentions[0][:name]).to eq 'fuga'
       expect(@mentions[0][:profile_picture_url]).to eq 'http://hoge.com/fuga.jpg'
+    end
+
+    it 'enqueue DM send job' do
+      expect(SlackMessageWorker.jobs.size).to eq 1
+      expect(SlackMessageWorker.jobs.first['args'].first).to eq @mentions[0][:id]
     end
   end
 end
