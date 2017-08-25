@@ -8,7 +8,7 @@ json.array! @messages do |message|
   json.updated_at message.updated_at
 
   json.set! :report do
-    json.answered_count message.message_answers.size
+    json.answered_count message.message_answers.pluck(:mention_id).uniq.size
     json.mentioned_count message.mentions.size
   end
 end
