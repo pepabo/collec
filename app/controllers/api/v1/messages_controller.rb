@@ -18,7 +18,6 @@ class Api::V1::MessagesController < ApplicationController
     message_params = params.permit(:message, :require_confirm, :due_at, :button_type)
     message_buttons_params = params.permit(message_buttons: [:text])
     mentions_params = params.permit(mentions: [:slack_id, :name, :profile_picture_url])
-
     message = Message.new(message_params).tap do |ms|
       ms.user_id = 1 # TODO: Pass the user id parameter from session
       ms.callback_id = Slack::MessageButton.create_identifier
@@ -42,6 +41,6 @@ class Api::V1::MessagesController < ApplicationController
       SlackMessageWorker.perform_async m.id
     end
 
-    head :created
+    render json: message.to_json(include: %w(message_buttons mentions) ), status: :created
   end
 end
