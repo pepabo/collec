@@ -3,9 +3,7 @@ require 'rails_helper'
 RSpec.describe "Messages", type: :request do
   describe "GET /api/v1/messages" do
     before do
-      # "id: 1" because foreign key of message and user
-      # are specified by factory test data.
-      @user_with_messages = create(:user, :with_messages, id: 1)
+      @user_with_messages = create(:user, :with_messages)
       @message = @user_with_messages.messages.first
 
       create(
@@ -37,7 +35,7 @@ RSpec.describe "Messages", type: :request do
 
   describe "GET /api/v1/messages/:message_id" do
     before do
-      @user_with_messages = create(:user, :with_messages, id: 1)
+      @user_with_messages = create(:user, :with_messages)
 
       create(
         :message_answer,
