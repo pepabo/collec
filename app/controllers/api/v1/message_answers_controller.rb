@@ -8,14 +8,14 @@ class Api::V1::MessageAnswersController < ApplicationController
     end
 
     # TODO: https://github.com/honeymoon-answer/answer/pull/52
-    message[:button_type] = 'single'
+    button_type = 'single'
 
     my_answers = message.message_answers.find do |answer|
       answer[:mention_id] == message_answers_params[:mention_id]
     end
 
     if my_answers
-      case message[:button_type]
+      case button_type
       when "single"
         message_answers_params[:id] = my_answers.first[:id]
       when "multi"
