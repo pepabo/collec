@@ -27,18 +27,14 @@ class Api::V1::MessageAnswersController < ApplicationController
       end
     end
 
-    message_save!(message_answers_params)
-    head :created
-  end
-
-  private
-  def message_save!(params)
     MessageAnswer.transaction do
       begin
-        MessageAnswer.new(params).save!
+        MessageAnswer.new(message_answers_params).save!
       rescue => e
         Rails.logger.error e.inspect
       end
     end
+
+    head :created
   end
 end
