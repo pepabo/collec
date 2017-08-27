@@ -3,7 +3,7 @@
   <div class="field">
     <label class="label">Request Message</label>
     <div class="control">
-      <%= f.text_area :message, class: 'textarea' %>
+      <%= f.text_area :message, class: 'textarea', 'v-model': 'message' %>
     </div>
   </div>
 
@@ -74,14 +74,19 @@
 
   <div class="field">
     <p>
-      <%= check_box_tag :require_confirm, '確認用ポップアップを表示する' %>
+      <%= check_box_tag :require_confirm, 0, false, 'v-model': 'require_confirm'%>
       <%= label_tag :require_confirm, '確認用ポップアップを表示する' %>
     </p>
   </div>
 
   <div class="field">
     <div class="control">
-        <%= f.datetime_select :due_at, label: { text: '対応期限' }, class: 'select', use_month_numbers: true, minute_step: 10 %>
+      <% # TODO: 初期値として現在時刻を設定する %>
+      <%= select_year(Date.today, { start_year: 2017, end_year: 2019}, { 'v-model': 'due_at_year' }) %>
+      <%= select_month(Date.today, { use_month_numbers: true }, { 'v-model': 'due_at_month' }) %>
+      <%= select_day(Date.today, {}, { 'v-model': 'due_at_day' }) %>
+      <%= select_hour(Date.today, {}, { 'v-model': 'due_at_hour' }) %>
+      <%= select_minute(Date.today, {}, { 'v-model': 'due_at_minute' }) %>
     </div>
   </div>
 

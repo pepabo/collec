@@ -6,9 +6,21 @@ document.addEventListener('DOMContentLoaded', () => {
   new Vue({
     el: '#message_create',
     data: {
+      message: '',
+      require_confirm: false,
+      due_at_year: null,
+      due_at_month: null,
+      due_at_day: null,
+      due_at_hour: null,
+      due_at_minute: null,
       messageButtons: [
         {}
       ]
+    },
+    computed: {
+      due_at() {
+        return this.due_at_year + '-' + this.due_at_month + '-' + this.due_at_day + ' ' + this.due_at_hour + ':' + this.due_at_minute+ ':00'
+      }
     },
     methods: {
       addMessageButton() {
@@ -21,9 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
         Api.Message.create(
           $("input[name='authenticity_token'").val(),
           {
-            message: 'hoge',
-            require_confirm: 0,
-            due_at: '2017-08-28 10:00:00'
+            message: this.message,
+            require_confirm: this.require_confirm,
+            due_at: this.due_at
           },
           [
             { text: 'button_name001'}
