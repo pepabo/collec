@@ -1,5 +1,4 @@
-<div class="columns">
-
+<div id="js-messages__index" class="columns">
   <div class="column is-1">
     <%= link_to 'Create', new_message_path, class: 'button is-primary' %>
   </div>
@@ -14,26 +13,22 @@
         <th>Due</th>
       </tr>
       </thead>
-      <tbody>
+      <tbody v-for="message in messages">
       <tr>
-        <td>1</td>
-        <td><span class="tag is-primary">In Progress</span></td>
-        <td>◯◯について確認があります。</td>
-        <td>2017-08-10 19:00</td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td><span class="tag is-info">Completed</span></td>
-        <td>◯◯について確認があります。</td>
-        <td>2017-08-10 19:00</td>
+        <td>{{ message.id }}</td>
+        <td><message_status :report="message.report"></message_status></td>
+        <td>{{ message.message }}</td>
+        <td>{{ message.due_at_for_view }}</td>
       </tr>
       </tbody>
     </table>
 
+    <!--
     <nav class="pagination is-centered">
       <a class="pagination-previous">Previous</a>
       <a class="pagination-next">Next page</a>
     </nav>
+    -->
   </div>
 
   <div class="column is-6">
