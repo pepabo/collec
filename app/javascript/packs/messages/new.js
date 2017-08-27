@@ -1,10 +1,12 @@
 import Vue from 'vue'
+import Multiselect from 'vue-multiselect'
 import Api from '../../lib/api'
 import $ from 'jquery'
 
 document.addEventListener('DOMContentLoaded', () => {
   new Vue({
     el: '#message_create',
+    components: { Multiselect },
     data: {
       message: '',
       require_confirm: false,
@@ -15,12 +17,19 @@ document.addEventListener('DOMContentLoaded', () => {
       due_at_minute: null,
       messageButtons: [
         {}
-      ]
+      ],
+      slack_users: [],
+      selected_slack_users: []
     },
     computed: {
       due_at() {
         return this.due_at_year + '-' + this.due_at_month + '-' + this.due_at_day + ' ' + this.due_at_hour + ':' + this.due_at_minute+ ':00'
       }
+    },
+    created() {
+      Api.SlackUser.list().then((response) => {
+        this.slack_users = response.data
+      })
     },
     methods: {
       addMessageButton() {
@@ -40,9 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
           [
             { text: 'button_name001'}
           ],
-          [
-            { slack_id: 'UHOGEHOGE', name: 'hypermkt', profile_picture_url: 'http://hogehoge.jp' }
-          ]
+          this.selected_slack_users
         )
         window.location.href = '/';
       }
