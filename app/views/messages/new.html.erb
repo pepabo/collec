@@ -87,7 +87,9 @@
 
   <div class="field is-grouped">
     <div class="control">
-      <button class="button is-primary">Create</button>
+      <button
+        @click.prevent="register()"
+        class="button is-primary">Create</button>
     </div>
     <div class="control">
       <button class="button is-link">Cancel</button>
