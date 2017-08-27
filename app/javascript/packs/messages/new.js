@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
       due_at_hour: null,
       due_at_minute: null,
       messageButtons: [
-        {}
+        { text: '' }
       ],
       slack_users: [],
       selected_slack_users: []
@@ -46,9 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
             require_confirm: this.require_confirm,
             due_at: this.due_at
           },
-          [
-            { text: 'button_name001'}
-          ],
+          this.messageButtons,
           this.selected_slack_users
         )
         window.location.href = '/';

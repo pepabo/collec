@@ -30,7 +30,7 @@
     <template v-for="messageButton, key in messageButtons">
         <div class="columns">
           <div class="column is-11">
-            <input type="text" class="input" value="">
+            <input type="text" class="input" v-model="messageButton.text">
           </div>
           <div class="column is-11">
             <a class="delete is-large" @click.prevent="removeMessageButton(key)"></a>
