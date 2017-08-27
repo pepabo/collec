@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { slack_id: 'UHOGEHOGE', name: 'hypermkt', profile_picture_url: 'http://hogehoge.jp' }
           ]
         )
+        window.location.href = '/';
       }
     }
   })
