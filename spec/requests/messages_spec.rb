@@ -3,11 +3,15 @@ require 'rails_helper'
 RSpec.describe "Messages", type: :request do
   describe "GET /api/v1/messages" do
     before do
-      # "id: 1" because foreign key of message and user
-      # are specified by factory test data.
-      create(:user, id: 1)
-      @message = create(:message)
-      create_list(:message, 9)
+      @user_with_messages = create(:user, :with_messages)
+      @message = @user_with_messages.messages.first
+
+      create(
+        :message_answer,
+        message_id: @user_with_messages.messages.first.id,
+        mention_id: @user_with_messages.messages.first.mentions.first.id,
+        message_button_id: @user_with_messages.messages.first.message_buttons.first.id,
+      )
 
       get api_v1_messages_path
     end
@@ -18,18 +22,20 @@ RSpec.describe "Messages", type: :request do
     end
 
     it 'check json contents' do
-      expect(json_parse.count).to eq 10
+      expect(json_parse.count).to eq 1
       m = json_parse.first
       expect(m['user_id']).to eq @message.user_id
       expect(m['message']).to eq @message.message
       expect(m['due_at']).to eq @message.due_at.as_json
       expect(m['require_confirm']).to eq @message.require_confirm
+      expect(m['report']['answered_count']).to eq 1
+      expect(m['report']['mentioned_count']).to eq 2
     end
   end
 
   describe "GET /api/v1/messages/:message_id" do
     before do
-      @user_with_messages = create(:user, :with_messages, id: 1)
+      @user_with_messages = create(:user, :with_messages)
 
       create(
         :message_answer,
@@ -92,7 +98,7 @@ RSpec.describe "Messages", type: :request do
     it 'check db registration' do
       expect(@message[:message]).to eq 'hoge'
       expect(@message[:require_confirm]).to eq false
-      expect(@message[:due_at]).to eq '2017-08-15 10:00:00'
+      expect(@message[:due_at]).to eq '2017-08-15 10:00:00.000000000 +0900'
       expect(@message[:callback_id]).not_to be_empty
       expect(@message_buttons[0][:name]).not_to be_empty
       expect(@message_buttons[0][:text]).to eq 'button01'
