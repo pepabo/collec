@@ -50,4 +50,5 @@ $ bundle exec guard
 $ bin/webpack-dev-server
 $ bundle exec sidekiq -C config/sidekiq.yml
 $ rails s
+$ bundle exec rackup # to view Sidekiq dashboard
 ```
