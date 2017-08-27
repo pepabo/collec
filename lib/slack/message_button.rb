@@ -33,6 +33,17 @@ module Slack
     end
 
     #
+    # This method update a message with Message Button
+    #
+    # @option params [String] :channel
+    # @option params [String] :ts
+    # @option params [String] :text
+    # @see https://github.com/slack-ruby/slack-ruby-client/blob/master/README.md#send-messages
+    def chat_update(params = {})
+      client.chat_update(params)
+    end
+
+    #
     # This method create unique identifier for Message Button's callback id or action name
     #
     def self.create_identifier
