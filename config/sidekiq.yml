@@ -5,3 +5,4 @@
 :queues:
   - default
   - slack
+  - remind

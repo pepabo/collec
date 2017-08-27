@@ -14,6 +14,8 @@ class Api::V1::MessagesController < ApplicationController
     end
   end
 
+  REMIND_HOUR = 14.freeze
+  REMIND_MINUTE = 0.freeze
   def create
     message_params = params.permit(:message, :require_confirm, :due_at)
     message_buttons_params = params.permit(message_buttons: [:text])
@@ -40,6 +42,9 @@ class Api::V1::MessagesController < ApplicationController
 
     message.mentions.each do |m|
       SlackMessageWorker.perform_async m.id
+      remind_day = message.due_at - 1.day
+      wait = Time.new(remind_day.year, remind_day.month, remind_day.day, REMIND_HOUR, REMIND_MINUTE) - Time.now
+      RemindWorker.perform_at(wait, m.id)
     end
 
     head :created
