@@ -22,14 +22,7 @@ class SlackMessageWorker
 
     mention.channel = response.channel
     mention.ts= response.ts
-
-    Mention.transaction do
-      begin
-        mention.save!
-      rescue => e
-        Rails.logger.error e.inspect
-      end
-    end
+    mention.save!
 
     response
   end
