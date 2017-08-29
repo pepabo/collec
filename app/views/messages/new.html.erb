@@ -4,7 +4,7 @@
   <div class="field">
     <label class="label">Request Message</label>
     <div class="control">
-      <%= f.text_area :message, class: 'textarea', 'v-model': 'message', 'v-validate': "'required'", :placeholder => "Please answer this questionnaire..." %>
+      <%= f.text_area :message, class: 'textarea', 'v-model': 'message', 'v-validate': "'required'", :placeholder => "Do you like pizza?" %>
     </div>
 
     <p v-if="errors.has('message[message]')" class="help is-danger">
@@ -16,13 +16,14 @@
   <div class="columns">
     <div class="column is-6">
       <div class="field">
-        <label class="label">Mentions</label>
+        <label class="label">Destination</label>
         <multiselect
             data-vv-name="mentions"
             label="name"
             :multiple="true"
             :options="this.slack_users"
             :close-on-select="false"
+            :tab-select="true"
             placeholder="@example"
             v-validate="'required'"
             v-model="selected_slack_users"
@@ -44,7 +45,10 @@
               :name="'message_button' + key "
               v-model="messageButton.text"
               v-validate="'required'"
-              type="text" class="input">
+              @keyup="keyupButtonText(key)"
+              type="text" class="input"
+              placeholder="Yes! I like Pizza!"
+              >
           </div>
           <div class="column is-11">
             <a class="delete is-large" @click.prevent="removeMessageButton(key)"></a>
@@ -54,7 +58,6 @@
           {{ errors.first('message_button' + key) }}
         </p>
     </template>
-    <button class="button" @click.prevent="addMessageButton">追加する</button>
   </div>
 
   <!--
@@ -75,7 +78,6 @@
       <%= select_minute(Date.today, {}, { 'v-model': 'due_at_minute' }) %>
     </div>
   </div>
-
   <div class="field is-grouped">
     <div class="control">
       <button @click.prevent="register()" class="button is-primary">

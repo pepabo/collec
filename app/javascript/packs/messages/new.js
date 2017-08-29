@@ -39,8 +39,18 @@ document.addEventListener('DOMContentLoaded', () => {
       addMessageButton() {
         this.messageButtons.push({})
       },
+      keyupButtonText(key) {
+        if(this.messageButtons.length -1 == key) {
+          this.messageButtons.push({})
+        }
+      },
       removeMessageButton(key) {
-        Vue.delete(this.messageButtons, key)
+        // 最後の一個は削除させない
+        if(this.messageButtons.length != 1) {
+          Vue.delete(this.messageButtons, key)
+        } else if(this.messageButtons.length == 1){
+          Vue.set(this.messageButtons, key, "")
+        }
       },
       register() {
         this.$validator.validateAll().then(result => {
@@ -62,8 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }).catch(() => {
           // something went wrong (non-validation related).
         });
-
-
       }
     }
   })
