@@ -19,12 +19,17 @@
       <div class="field">
         <label class="label">Mentions</label>
         <multiselect
+            data-vv-name="mentions"
             label="name"
             :multiple="true"
             :options="this.slack_users"
+            v-validate="'required'"
             v-model="selected_slack_users"
         >
         </multiselect>
+        <p v-if="errors.has('mentions')" class="help is-danger">
+          {{ errors.first('mentions') }}
+        </p>
       </div>
     </div>
   </div>
