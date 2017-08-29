@@ -43,33 +43,21 @@ RSpec.describe "InteractiveMessages", type: :request do
     let!(:mention) { create(:mention, message: message) }
 
     before do
-      # create
-      post "/api/v1/slack/interactive-messages/callback", params:
-        {
-          actions: [
-            name: buttons[1].name,
-            value: buttons[1].text,
-            type: 'button',
-          ],
-          user: {
-            id: mention.slack_id,
-          },
-        }
+      buttons.each do |b|
+        post "/api/v1/slack/interactive-messages/callback", params:
+          {
+            actions: [
+              name: b.name,
+              value: b.text,
+              type: 'button',
+            ],
+            user: {
+              id: mention.slack_id,
+            },
+          }
+      end
 
-      # update
-      post "/api/v1/slack/interactive-messages/callback", params:
-        {
-          actions: [
-            name: buttons.first.name,
-            value: buttons.first.text,
-            type: 'button',
-          ],
-          user: {
-            id: mention.slack_id,
-          },
-        }
-
-      @message_answer = MessageAnswer.first
+      @message_answer = MessageAnswer.all
     end
 
     it 'response 201' do
@@ -78,9 +66,10 @@ RSpec.describe "InteractiveMessages", type: :request do
     end
 
     it 'check db registration' do
-      expect(@message_answer[:message_id]).to eq message.id
-      expect(@message_answer[:mention_id]).to eq mention.id
-      expect(@message_answer[:message_button_id]).to eq buttons.first.id
+      expect(@message_answer.size).to eq 1
+      expect(@message_answer.first[:message_id]).to eq message.id
+      expect(@message_answer.first[:mention_id]).to eq mention.id
+      expect(@message_answer.first[:message_button_id]).to eq buttons.last.id
     end
   end
 end
