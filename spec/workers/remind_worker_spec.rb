@@ -34,7 +34,6 @@ describe RemindWorker  do
 
     it 'update previous message' do
       res = subject.perform(@mention_id)
-      pp res.class
       expect(res['channel']).to eq 'DXXXXXXXX'
       expect(res['ts']).to eq '1503499924.000735'
       expect(res['text']).to eq '[remind] Hello World'
