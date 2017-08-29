@@ -4,12 +4,14 @@ import Api from '../../lib/api'
 import moment from 'moment'
 import _ from 'underscore'
 import MessageStatus from '../components/message_status.vue'
+import MessageDetail from '../components/messages/details.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   new Vue({
     el: '#js-messages__index',
     components: {
-      'message_status': MessageStatus
+      'message_status': MessageStatus,
+      'message_detail': MessageDetail
     },
     data: {
       message_id: null,
