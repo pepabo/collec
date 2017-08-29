@@ -33,6 +33,7 @@
     "underscore": "^1.8.3",
     "vee-validate": "^2.0.0-rc.14",
     "vue": "^2.4.2",
+    "vue-chartjs": "^2.8.2",
     "vue-loader": "^13.0.4",
     "vue-multiselect": "^2.0.2",
     "vue-template-compiler": "^2.4.2",
