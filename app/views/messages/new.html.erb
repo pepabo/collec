@@ -1,11 +1,10 @@
-<% # TODO: CDN経由ではなくパッケージインストールしたCSSを読み込むようにする %>
 <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.0.0/dist/vue-multiselect.min.css">
 <div id="message_create">
 <%= form_for :message do |f| %>
   <div class="field">
     <label class="label">Request Message</label>
     <div class="control">
-      <%= f.text_area :message, class: 'textarea', 'v-model': 'message', 'v-validate': "'required'" %>
+      <%= f.text_area :message, class: 'textarea', 'v-model': 'message', 'v-validate': "'required'", :placeholder => "Please answer this questionnaire..." %>
     </div>
 
     <p v-if="errors.has('message[message]')" class="help is-danger">
