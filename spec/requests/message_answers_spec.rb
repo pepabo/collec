@@ -2,14 +2,23 @@ require 'rails_helper'
 
 RSpec.describe "MessageAnswers", type: :request do
   describe "POST /api/v1/slack/interactive-messages/callback" do
-    before do
-      @user_with_messages = create(:user, :with_messages, id: 1)
+    let!(:user) { create(:user) }
+    let!(:message) { create(:message, user: user) }
+    let!(:button) { create(:message_button, message: message) }
+    let!(:mention) { create(:mention, message: message) }
 
+    before do
+      # POST parameter: https://api.slack.com/docs/message-buttons
       post "/api/v1/slack/interactive-messages/callback", params:
         {
-          message_id: @user_with_messages.messages.first.id,
-          mention_id: @user_with_messages.messages.first.mentions.first.id,
-          message_button_id: @user_with_messages.messages.first.message_buttons.first.id,
+          actions: [
+            name: button.name,
+            value: button.text,
+            type: 'button',
+          ],
+          user: {
+            id: mention.slack_id,
+          },
         }
 
       @message_answer = MessageAnswer.first
@@ -21,32 +30,32 @@ RSpec.describe "MessageAnswers", type: :request do
     end
 
     it 'check db registration' do
-      expect(@message_answer[:message_id]).to eq @user_with_messages.messages.first.id
-      expect(@message_answer[:mention_id]).to eq @user_with_messages.messages.first.mentions.first.id
-      expect(@message_answer[:message_button_id]).to eq @user_with_messages.messages.first.message_buttons.first.id
+      expect(@message_answer[:message_id]).to eq message.id
+      expect(@message_answer[:mention_id]).to eq mention.id
+      expect(@message_answer[:message_button_id]).to eq button.id
     end
   end
 
   describe "POST /api/v1/slack/interactive-messages/callback button_type single update message answer" do
+    let!(:user) { create(:user) }
+    let!(:message) { create(:message, user: user) }
+    let!(:button) { create(:message_button, message: message) }
+    let!(:mention) { create(:mention, message: message) }
+
     before do
-      @user_with_messages = create(:user, :with_messages, id: 1)
-
-      create(
-        :message_answer,
-        message_id: @user_with_messages.messages.first.id,
-        mention_id: @user_with_messages.messages.first.mentions.first.id,
-        message_button_id: @user_with_messages.messages.first.message_buttons[1].id,
-      )
-
-      p MessageAnswer.all
-
+      # POST parameter: https://api.slack.com/docs/message-buttons
       post "/api/v1/slack/interactive-messages/callback", params:
         {
-          message_id: @user_with_messages.messages.first.id,
-          mention_id: @user_with_messages.messages.first.mentions.first.id,
-          message_button_id: @user_with_messages.messages.first.message_buttons.first.id,
+          actions: [
+            name: button.name,
+            value: button.text,
+            type: 'button',
+          ],
+          user: {
+            id: mention.slack_id,
+          },
         }
-      p MessageAnswer.all
+
       @message_answer = MessageAnswer.first
     end
 
@@ -56,9 +65,9 @@ RSpec.describe "MessageAnswers", type: :request do
     end
 
     it 'check db registration' do
-      expect(@message_answer[:message_id]).to eq @user_with_messages.messages.first.id
-      expect(@message_answer[:mention_id]).to eq @user_with_messages.messages.first.mentions.first.id
-      expect(@message_answer[:message_button_id]).to eq @user_with_messages.messages.first.message_buttons.first.id
+      expect(@message_answer[:message_id]).to eq message.id
+      expect(@message_answer[:mention_id]).to eq mention.id
+      expect(@message_answer[:message_button_id]).to eq button.id
     end
   end
 end

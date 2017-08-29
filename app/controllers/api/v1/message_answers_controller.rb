@@ -1,10 +1,16 @@
 class Api::V1::MessageAnswersController < ApplicationController
   def create
-    message_answers_params = params.permit(:message_id, :mention_id, :message_button_id)
-    # TODO: https://github.com/honeymoon-answer/answer/pull/52
-    #message = Message.find(message_answers_params[:message_id])
-    #case message[:button_type]
-    case "single"
+    message_button = MessageButton.where(name: params[:actions].first[:name]).first
+    message = Message.find(message_button[:message_id])
+    mention = Mention.where(slack_id: params[:user][:id]).first
+
+    message_answers_params = {
+      message_id: message[:id],
+      message_button_id: message_button[:id],
+      mention_id: mention[:id]
+    }
+
+    case message[:button_type]
     when "single"
       create_of_single_button(message_answers_params)
     when "multi"
