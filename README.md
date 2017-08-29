@@ -37,6 +37,12 @@ $ bin/rake db:create
 $ bin/rake db:migrate
 ```
 
+* API Document
+
+```bash
+$ AUTODOC=1 bundle exec rspec
+```
+
 * How to run the test suite
 
 ```bash

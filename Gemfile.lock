@@ -42,9 +42,15 @@ GEM
       public_suffix (~> 2.0, >= 2.0.2)
     arel (8.0.0)
     ast (2.3.0)
+    autodoc (0.6.2)
+      actionpack
+      activesupport (>= 3.0.0)
+      rspec
     awesome_print (1.8.0)
     bcrypt (3.1.11)
     bindex (0.5.0)
+    bootstrap-social-rails (4.12.0)
+      railties (>= 3.1)
     bootstrap_form (2.7.0)
     builder (3.2.3)
     byebug (9.0.6)
@@ -345,7 +351,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  autodoc
   awesome_print
+  bootstrap-social-rails
   bootstrap_form
   byebug
   capybara (~> 2.13)

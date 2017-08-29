@@ -1,14 +1,19 @@
-<style type="text/css">
-
-</style>
-<div class="login">
-  <div class="login_content">
-    <h2>Answerにログイン</h2>
-    <br />
-    <%= link_to image_tag("sign_in_with_slack.png"), user_slack_omniauth_authorize_path %>
+<div class="hero-body">
+  <div class="container has-text-centered">
+    <div class="columns is-half is-vcentered">
+      <div class="column is-6 is-offset-0">
+        <h1 class="title is-2">
+          Answer
+        </h1>
+        <h2 class="subtitle is-4">
+          I will tell you your question
+        </h2>
+        <div class="is-center">
+          <%= link_to user_slack_omniauth_authorize_path, class: 'btn btn-block btn-social btn-linkedin', style: "width: 300px; margin: 0 auto;"  do %>
+            <span class="fa fa-slack"></span> Sign in with Slack
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<!-- TODO: リンク先はmessages#indexのルーティングが出来たら、message_indexに変更する -->
-<!-- TODO: SlackとOAuth2認証を行いユーザー情報を取得する -->
-<!-- MEMO: 指定のチームのログインを許可する -->
-<%= stylesheet_link_tag "sessions" %>
