@@ -58,11 +58,14 @@ module Slack
 
       Rails.logger.debug(params)
       begin
-        Rails.logger.debug chat_update(params).inspect
+        response = chat_update(params)
+        Rails.logger.debug response.inspect
       rescue => e
         Rails.logger.error e.inspect
         raise e
       end
+
+      response
     end
 
     #
