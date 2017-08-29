@@ -62,7 +62,6 @@
 
   <div class="field">
     <div class="control">
-      <% # TODO: 初期値として現在時刻を設定する %>
       <%= select_year(Date.today, { start_year: 2017, end_year: 2019}, { 'v-model': 'due_at_year' }) %>
       <%= select_month(Date.today, { use_month_numbers: true }, { 'v-model': 'due_at_month' }) %>
       <%= select_day(Date.today, {}, { 'v-model': 'due_at_day' }) %>
