@@ -1,10 +1,16 @@
+<% # TODO: CDN経由ではなくパッケージインストールしたCSSを読み込むようにする %>
+<link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.0.0/dist/vue-multiselect.min.css">
 <div id="message_create">
 <%= form_for :message do |f| %>
   <div class="field">
     <label class="label">Request Message</label>
     <div class="control">
-      <%= f.text_area :message, class: 'textarea' %>
+      <%= f.text_area :message, class: 'textarea', 'v-model': 'message', 'v-validate': "'required'" %>
     </div>
+
+    <p v-if="errors.has('message[message]')" class="help is-danger">
+      {{ errors.first('message[message]') }}
+    </p>
   </div>
 
 
@@ -12,85 +18,71 @@
     <div class="column is-6">
       <div class="field">
         <label class="label">Mentions</label>
-        <%= f.text_field(:mentions, placeholder: '@example_group, @example_user, ...', class: 'input') %>
-      </div>
-    </div>
-    <div class="column is-6">
-      <div class="box">
-        <div class="field is-grouped is-grouped-multiline">
-          <div class="control">
-            <div class="tags has-addons">
-              <span class="tag is-info"><img src="https://avatars.slack-edge.com/2016-04-01/31165631686_d9eb6d000965c39bfbaa_192.jpg" class="image is-16x16">&nbsp;@takumakume</span>
-              <a class="tag is-delete"></a>
-            </div>
-          </div>
-
-          <div class="control">
-            <div class="tags has-addons">
-              <span class="tag is-info"><img src="https://avatars.slack-edge.com/2015-05-08/4787287488_5cdb45313c223b678927_192.jpg" class="image is-16x16">&nbsp;@hypermkt</span>
-              <a class="tag is-delete"></a>
-            </div>
-          </div>
-
-          <div class="control">
-            <div class="tags has-addons">
-              <span class="tag is-info"><img src="https://avatars.slack-edge.com/2015-05-08/4787287488_5cdb45313c223b678927_192.jpg" class="image is-16x16">&nbsp;@hypermkt</span>
-              <a class="tag is-delete"></a>
-            </div>
-          </div>
-
-          <div class="control">
-            <div class="tags has-addons">
-              <span class="tag is-info"><img src="https://avatars.slack-edge.com/2015-05-08/4787287488_5cdb45313c223b678927_192.jpg" class="image is-16x16">&nbsp;@hypermkt</span>
-              <a class="tag is-delete"></a>
-            </div>
-          </div>
-
-          <div class="control">
-            <div class="tags has-addons">
-              <span class="tag is-info"><img src="https://avatars.slack-edge.com/2015-05-08/4787287488_5cdb45313c223b678927_192.jpg" class="image is-16x16">&nbsp;@hypermkt</span>
-              <a class="tag is-delete"></a>
-            </div>
-          </div>
-        </div>
+        <multiselect
+            data-vv-name="mentions"
+            label="name"
+            :multiple="true"
+            :options="this.slack_users"
+            v-validate="'required'"
+            v-model="selected_slack_users"
+        >
+        </multiselect>
+        <p v-if="errors.has('mentions')" class="help is-danger">
+          {{ errors.first('mentions') }}
+        </p>
       </div>
     </div>
   </div>
 
   <div class="field">
-    <label class="label">Selections</label>
+    <label class="label">Buttons</label>
     <template v-for="messageButton, key in messageButtons">
         <div class="columns">
           <div class="column is-11">
-            <input type="text" class="input" value="">
+            <input
+              :name="'message_button' + key "
+              v-model="messageButton.text"
+              v-validate="'required'"
+              type="text" class="input">
           </div>
           <div class="column is-11">
             <a class="delete is-large" @click.prevent="removeMessageButton(key)"></a>
           </div>
         </div>
+        <p v-if="errors.has('message_button' + key)" class="help is-danger">
+          {{ errors.first('message_button' + key) }}
+        </p>
     </template>
     <button class="button" @click.prevent="addMessageButton">追加する</button>
   </div>
 
+  <!--
   <div class="field">
     <p>
-      <%= check_box_tag :require_confirm, '確認用ポップアップを表示する' %>
+      <%= check_box_tag :require_confirm, 0, false, 'v-model': 'require_confirm'%>
       <%= label_tag :require_confirm, '確認用ポップアップを表示する' %>
     </p>
   </div>
+  -->
 
   <div class="field">
     <div class="control">
-        <%= f.datetime_select :due_at, label: { text: '対応期限' }, class: 'select', use_month_numbers: true, minute_step: 10 %>
+      <%= select_year(Date.today, { start_year: 2017, end_year: 2019}, { 'v-model': 'due_at_year' }) %>
+      <%= select_month(Date.today, { use_month_numbers: true }, { 'v-model': 'due_at_month' }) %>
+      <%= select_day(Date.today, {}, { 'v-model': 'due_at_day' }) %>
+      <%= select_hour(Date.today, {}, { 'v-model': 'due_at_hour' }) %>
+      <%= select_minute(Date.today, {}, { 'v-model': 'due_at_minute' }) %>
     </div>
   </div>
 
   <div class="field is-grouped">
     <div class="control">
-      <button class="button is-primary">Create</button>
+      <button
+        @click.prevent="register()"
+        class="button is-primary">Create</button>
     </div>
     <div class="control">
-      <button class="button is-link">Cancel</button>
+      <a href="/" class="button is-link">Cancel</a>
     </div>
   </div>
 <% end %>

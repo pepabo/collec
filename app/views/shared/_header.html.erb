@@ -5,17 +5,18 @@
 
   <div class="navbar-menu">
     <div class="navbar-end">
+      <% if user_signed_in? %>
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link  is-active" href="#">
-          <img src="https://avatars.slack-edge.com/2015-05-08/4787287488_5cdb45313c223b678927_192.jpg" class="image is-24x24">
-          &nbsp;Login as @hypermkt
+          <img src="<%= current_user.image %>" class="image is-24x24">
         </a>
         <div class="navbar-dropdown">
           <a class="navbar-item " href="#">
-            Logout
+            <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
           </a>
         </div>
       </div>
+      <% end %>
 
 
     </div>
