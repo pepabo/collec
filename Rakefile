@@ -11,3 +11,7 @@ namespace :sidekiq do
     sh "bundle exec sidekiq -C config/sidekiq.yml"
   end
 end
+
+namespace :jobs do
+  task :work => ["sidekiq:start"]
+end
