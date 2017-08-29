@@ -1,7 +1,10 @@
 import Vue from 'vue'
+import VeeValidate from 'vee-validate';
 import Multiselect from 'vue-multiselect'
 import Api from '../../lib/api'
 import $ from 'jquery'
+
+Vue.use(VeeValidate)
 
 document.addEventListener('DOMContentLoaded', () => {
   new Vue({
@@ -39,17 +42,27 @@ document.addEventListener('DOMContentLoaded', () => {
         Vue.delete(this.messageButtons, key)
       },
       register() {
-        Api.Message.create(
-          $("input[name='authenticity_token'").val(),
-          {
-            message: this.message,
-            require_confirm: this.require_confirm,
-            due_at: this.due_at
-          },
-          this.messageButtons,
-          this.selected_slack_users
-        )
-        window.location.href = '/';
+        this.$validator.validateAll().then(result => {
+          if (result) {
+            Api.Message.create(
+              $("input[name='authenticity_token'").val(),
+              {
+                message: this.message,
+                require_confirm: this.require_confirm,
+                due_at: this.due_at
+              },
+              this.messageButtons,
+              this.selected_slack_users
+            )
+            window.location.href = '/';
+            return
+          }
+          // validation failed.
+        }).catch(() => {
+          // something went wrong (non-validation related).
+        });
+
+
       }
     }
   })

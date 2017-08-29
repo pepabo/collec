@@ -5,8 +5,12 @@
   <div class="field">
     <label class="label">Request Message</label>
     <div class="control">
-      <%= f.text_area :message, class: 'textarea', 'v-model': 'message' %>
+      <%= f.text_area :message, class: 'textarea', 'v-model': 'message', 'v-validate': "'required'" %>
     </div>
+
+    <p v-if="errors.has('message[message]')" class="help is-danger">
+      {{ errors.first('message[message]') }}
+    </p>
   </div>
 
 
