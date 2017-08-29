@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
       fetchMessageList() {
         Api.Message.list().then((response) => {
           this.messages = _.map(response.data, (message) => {
-            message.due_at_for_view = moment(message.due_at).format('YYYY/MM/DD HH:mm')
+            message.due_at_for_view = moment(message.due_at).format('MM/DD HH:mm')
             return message
           })
         })
