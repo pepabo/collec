@@ -3,7 +3,9 @@ FactoryGirl.define do
     name     "Slack User 001"
     provider "slack"
     slack_id "U023BECGF"
-    email    "slack_user_001@hoge.io"
+    sequence :email do |n|
+      "slack_user_00#{n}@hoge.io"
+    end
     token    "aaaaaaaa"
     password "iiiiiiii"
 
