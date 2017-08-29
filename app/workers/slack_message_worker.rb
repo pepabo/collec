@@ -7,6 +7,14 @@ class SlackMessageWorker
     mention = Mention.find(mention_id)
     message = mention.message
 
+    Rails.logger.debug(
+      {
+        callback_id: message.callback_id,
+        channel: mention.slack_id,
+        text: message.message,
+        message_buttons: message.message_buttons
+      }
+    )
     begin
       response = message_button.post(
         {
@@ -16,8 +24,10 @@ class SlackMessageWorker
           message_buttons: message.message_buttons
         }
       )
+      Rails.logger.debug response.inspect
     rescue => e
       Rails.logger.error e.inspect
+      raise e
     end
 
     mention.channel = response.channel
