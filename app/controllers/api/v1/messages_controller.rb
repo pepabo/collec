@@ -34,6 +34,7 @@ class Api::V1::MessagesController < ApplicationController
         message.save!
       rescue => e
         Rails.logger.error e.inspect
+        raise e
       end
     end
 
