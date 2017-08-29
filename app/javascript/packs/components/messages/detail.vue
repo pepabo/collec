@@ -18,28 +18,31 @@
           </tr>
         </table>
 
-        <h5 class="title is-5">Voters</h5>
+        <h5 class="title is-5">Mentioned users</h5>
         <table class="table" width="100%">
           <thead>
           <tr>
             <th>アイコン</th>
             <th>回答者</th>
             <th>回答</th>
-            <th>回答日時</th>
+            <!--<th>回答日時</th>-->
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td><img src="https://avatars.slack-edge.com/2016-04-01/31165631686_d9eb6d000965c39bfbaa_192.jpg" class="image is-48x48"></td>
-            <td>@takumakume</td>
-            <td>回答A</td>
-            <td>2017-08-03 10:13:10</td>
-          </tr>
-          <tr>
-            <td><img src="https://avatars.slack-edge.com/2015-05-08/4787287488_5cdb45313c223b678927_192.jpg" class="image is-48x48"></td>
-            <td>@hypermkt</td>
-            <td>回答B</td>
-            <td>2017-08-03 10:13:10</td>
+          <tr v-for="mention in this.message.report.mentioned">
+            <td><img :src="mention.profile_picture_url" class="image is-48x48"></td>
+            <td>@{{ mention.name }}</td>
+            <td>
+              <span v-if="mention.answers.length > 0">
+                <p v-for="answer in mention.answers">
+                  {{ answer.answer }}
+                </p>
+              </span>
+              <span v-else>
+                <p>Not answered</p>
+              </span>
+            </td>
+            <!--<td>2017-08-03 10:13:10</td>-->
           </tr>
           </tbody>
         </table>
