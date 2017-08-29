@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'message_status': MessageStatus
     },
     data: {
+      message_id: null,
       messages: []
     },
     created() {
@@ -25,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return message
           })
         })
-      }
+      },
     }
   })
 
