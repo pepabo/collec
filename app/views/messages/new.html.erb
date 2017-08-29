@@ -34,12 +34,19 @@
     <template v-for="messageButton, key in messageButtons">
         <div class="columns">
           <div class="column is-11">
-            <input type="text" class="input" v-model="messageButton.text">
+            <input
+              :name="'message_button' + key "
+              v-model="messageButton.text"
+              v-validate="'required'"
+              type="text" class="input">
           </div>
           <div class="column is-11">
             <a class="delete is-large" @click.prevent="removeMessageButton(key)"></a>
           </div>
         </div>
+        <p v-if="errors.has('message_button' + key)" class="help is-danger">
+          {{ errors.first('message_button' + key) }}
+        </p>
     </template>
     <button class="button" @click.prevent="addMessageButton">追加する</button>
   </div>
