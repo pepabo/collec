@@ -64,3 +64,22 @@ document.addEventListener('DOMContentLoaded', () => {
     options: {}
   });
 })
+window.addEventListener('load', () => {
+  new Vue({
+    el: '#js-messages__index__notification',
+    data: {
+      show: true
+    },
+    mounted() {
+      this.delayUnload()
+    },
+    methods: {
+      delayUnload() {
+        var that = this
+        setInterval(function () {
+          that.show = false
+        }, 1000);
+      }
+    }
+  });
+})

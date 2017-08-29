@@ -1,24 +1,38 @@
-<nav class="navbar ">
-  <div class="navbar-brand">
-    <h1 class="title is-2" style="margin: 5px;">Answer</h1>
-  </div>
-
-  <div class="navbar-menu">
-    <div class="navbar-end">
-      <% if user_signed_in? %>
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link  is-active" href="#">
-          <img src="<%= current_user.image %>" class="image is-24x24">
-        </a>
-        <div class="navbar-dropdown">
-          <a class="navbar-item " href="#">
-            <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
-          </a>
-        </div>
+<div class="hero-head">
+  <div class="columns">
+    <div class="column">
+      <h1 class="title is-2" style="margin: 5px;">Answer</h1>
+    </div>
+    <div class="column">
+      <div id="js-messages__index__notification">
+        <transition name="fade">
+          <% if notice %>
+            <p v-if="show" id="js-messages__notification" class="notification is-info is-size-7"><%= notice %></p>
+          <% elsif alert %>
+            <p v-if="show" id="js-messages__notification" class="notification is-danger is-size-7"><%= alert %></p>
+          <% end %>
+        </transition>
       </div>
-      <% end %>
-
-
+    </div>
+    <div class="column">
+      <nav class="navbar ">
+        <div class="navbar-menu">
+          <div class="navbar-end">
+            <% if user_signed_in? %>
+              <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link  is-active" href="#">
+                  <img src="<%= current_user.image %>" class="image is-24x24">
+                </a>
+                <div class="navbar-dropdown">
+                  <a class="navbar-item " href="#">
+                    <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+                  </a>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </nav>
     </div>
   </div>
-</nav>
+</div>
