@@ -1,7 +1,6 @@
+---
 :verbose: false
-:pidfile: ./tmp/pids/sidekiq.pid
-:logfile: ./log/sidekiq.log
-:concurrency:  25
+:concurrency: 3
 :queues:
   - default
   - slack
