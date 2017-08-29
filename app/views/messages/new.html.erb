@@ -1,6 +1,6 @@
 <% # TODO: CDN経由ではなくパッケージインストールしたCSSを読み込むようにする %>
 <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.0.0/dist/vue-multiselect.min.css">
-<div id="message_create">
+<div id="message_create" v-show="is_loaded" style="display: none;: ">
 <%= form_for :message do |f| %>
   <div class="field">
     <label class="label">Request Message</label>
@@ -12,7 +12,6 @@
       {{ errors.first('message[message]') }}
     </p>
   </div>
-
 
   <div class="columns">
     <div class="column is-6">

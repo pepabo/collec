@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     data: {
       selected_message: null,
+      is_loaded: false,
       messages: []
     },
     created() {
@@ -24,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         Api.Message.list().then((response) => {
           this.messages = _.map(response.data, (message) => {
             message.due_at_for_view = moment(message.due_at).format('MM/DD HH:mm')
+            this.is_loaded = true
             return message
           })
         })
