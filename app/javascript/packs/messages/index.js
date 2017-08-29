@@ -23,11 +23,30 @@ document.addEventListener('DOMContentLoaded', () => {
       fetchMessageList() {
         Api.Message.list().then((response) => {
           this.messages = _.map(response.data, (message) => {
-            message.due_at_for_view = moment(message.due_at).format('YYYY/MM/DD HH:mm')
+            message.due_at_for_view = moment(message.due_at).format('MM/DD HH:mm')
             return message
           })
         })
       },
     }
   })
+})
+window.addEventListener('load', () => {
+  new Vue({
+    el: '#js-messages__index__notification',
+    data: {
+      show: true
+    },
+    mounted() {
+      this.delayUnload()
+    },
+    methods: {
+      delayUnload() {
+        var that = this
+        setInterval(function () {
+          that.show = false
+        }, 1000);
+      }
+    }
+  });
 })

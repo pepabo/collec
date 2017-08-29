@@ -1,21 +1,21 @@
 <div id="js-messages__index" class="columns">
-  <div class="column is-1">
-    <%= link_to 'Create', new_message_path, class: 'button is-primary' %>
-  </div>
 
   <div class="column is-5">
-    <table class="table" style="width: 100%;">
+    <%= link_to new_message_path, class: 'button is-info is-outlined' do %>
+      <span class="icon">
+        <i class="fa fa-slack"></i>
+      </span>
+      <span>Create</span>
+    <% end %>
+    <table class="table">
       <thead>
       <tr>
-        <th>No</th>
         <th>State</th>
         <th>Message</th>
         <th>Due</th>
       </tr>
       </thead>
-      <tbody v-for="message in messages">
-      <tr @click="selected_message=message">
-        <td>{{ message.id }}</td>
+      <tr @click="selected_message=message" v-for="message in messages" class="is-size-7">
         <td><message_status :report="message.report"></message_status></td>
         <td>{{ message.message }}</td>
         <td>{{ message.due_at_for_view }}</td>
