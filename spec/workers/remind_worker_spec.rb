@@ -36,7 +36,7 @@ describe RemindWorker  do
       res = subject.perform(@mention_id)
       expect(res['channel']).to eq 'DXXXXXXXX'
       expect(res['ts']).to eq '1503499924.000735'
-      expect(res['text']).to eq '[remind] Hello World'
+      expect(res['text']).to eq '[updated. please read new message] Hello World'
     end
 
     it 'enqueue DM send job' do

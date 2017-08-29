@@ -12,7 +12,7 @@ class RemindWorker
         {
           channel: mention.channel,
           ts: mention.ts,
-          text: "[remind] #{message.message}"
+          text: "[updated. please read new message] #{message.message}"
         }
       )
     rescue => e
