@@ -22,6 +22,8 @@
             label="name"
             :multiple="true"
             :options="this.slack_users"
+            :close-on-select="false"
+            placeholder="@example"
             v-validate="'required'"
             v-model="selected_slack_users"
         >
