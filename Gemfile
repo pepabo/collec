@@ -47,6 +47,7 @@ group :test do
   gem 'rspec-rails'
   gem 'rspec-sidekiq'
   gem 'webmock'
+  gem 'autodoc'
 end
 
 gem 'devise'
