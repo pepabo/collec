@@ -47,30 +47,22 @@ module Slack
       mention = Mention.find(mention_id)
       message = mention.message
 
-      Rails.logger.debug(
-        {
-          channel: mention.channel,
-          ts: mention.ts,
-          text: "[updated. please read new message] #{message.message}",
-          attachments: []
-        }
-      )
+      message.message = "[updated. please read new message] #{message.message}",
+
+      params = {
+        channel: mention.channel,
+        ts: mention.ts,
+        text: message.message,
+        attachments: []
+      }
+
+      Rails.logger.debug(params)
       begin
-        response = chat_update(
-          {
-            channel: mention.channel,
-            ts: mention.ts,
-            text: "[updated. please read new message] #{message.message}",
-            attachments: []
-          }
-        )
-        Rails.logger.debug response.inspect
+        Rails.logger.debug chat_update(params).inspect
       rescue => e
         Rails.logger.error e.inspect
         raise e
       end
-
-      response
     end
 
     #
