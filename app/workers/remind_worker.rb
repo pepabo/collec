@@ -7,6 +7,13 @@ class RemindWorker
     mention = Mention.find(mention_id)
     message = mention.message
 
+    Rails.logger.debug(
+      {
+        channel: mention.channel,
+        ts: mention.ts,
+        text: "[updated. please read new message] #{message.message}"
+      }
+    )
     begin
       response = message_button.chat_update(
         {
@@ -16,8 +23,10 @@ class RemindWorker
           attachments: []
         }
       )
+      Rails.logger.debug response.inspect
     rescue => e
       Rails.logger.error e.inspect
+      raise e
     end
 
     SlackMessageWorker.perform_async mention_id
