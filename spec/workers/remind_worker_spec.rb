@@ -12,7 +12,7 @@ describe RemindWorker  do
 
   describe 'perform' do
     before do
-      user_with_messages = create(:user, :with_messages, id: 1)
+      user_with_messages = create(:user, :with_messages)
 
       WebMock.stub_request(:post, "https://slack.com/api/chat.postMessage").to_return(
         body: File.read("#{Rails.root}/test/fixtures/slack_chat_post_response.json"),
