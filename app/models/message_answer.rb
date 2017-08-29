@@ -12,7 +12,11 @@ class MessageAnswer < ApplicationRecord
     MessageAnswer.transaction do
       begin
         if answer
-          MessageAnswer.find(answer[:id]).update_attributes!(message_button_id: message_answers_params[:message_button_id])
+          if answer[:message_button_id] == message_answers_params[:message_button_id]
+            MessageAnswer.delete(answer[:id])
+          else
+            MessageAnswer.find(answer[:id]).update_attributes!(message_button_id: message_answers_params[:message_button_id])
+          end
         else
           MessageAnswer.new(message_answers_params).save!
         end
