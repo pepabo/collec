@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "MessageAnswers", type: :request do
+RSpec.describe "InteractiveMessages", type: :request do
   describe "POST /api/v1/slack/interactive-messages/callback" do
     let!(:user) { create(:user) }
     let!(:message) { create(:message, user: user) }

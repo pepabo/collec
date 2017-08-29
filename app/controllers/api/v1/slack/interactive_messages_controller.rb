@@ -1,4 +1,4 @@
-class Api::V1::MessageAnswersController < ApplicationController
+class Api::V1::Slack::InteractiveMessagesController < ApplicationController
   def create
     message_button = MessageButton.where(name: params[:actions].first[:name]).first
     message = Message.find(message_button[:message_id])
