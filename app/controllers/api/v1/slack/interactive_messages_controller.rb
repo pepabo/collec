@@ -1,8 +1,8 @@
 class Api::V1::Slack::InteractiveMessagesController < ApplicationController
   def create
-    message_button = MessageButton.where(name: params[:actions].first[:name]).first
+    message_button = MessageButton.find_by(name: params[:actions].first[:name])
     message = Message.find(message_button[:message_id])
-    mention = Mention.where(slack_id: params[:user][:id]).first
+    mention = Mention.find_by(slack_id: params[:user][:id])
 
     message_answers_params = {
       message_id: message[:id],
@@ -22,10 +22,10 @@ class Api::V1::Slack::InteractiveMessagesController < ApplicationController
 
   private
   def create_of_single_button(message_answers_params)
-    answer = MessageAnswer.where(
+    answer = MessageAnswer.find_by(
       message_id: message_answers_params[:message_id],
       mention_id: message_answers_params[:mention_id],
-    ).first
+    )
 
     MessageAnswer.transaction do
       begin
