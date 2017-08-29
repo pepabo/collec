@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 20170829032541) do
 
   create_table "mentions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "message_id"
-    t.integer "slack_id", comment: "Mentioned user's slack user ID"
+    t.string "slack_id", comment: "Mentioned user's slack user ID"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name", comment: "Slack user name"
