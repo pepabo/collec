@@ -41,11 +41,11 @@ class Api::V1::Slack::InteractiveMessagesController < ApplicationController
   end
 
   def create_of_multi_button(message_answers_params)
-    answer = MessageAnswer.where(
+    answer = MessageAnswer.find_by(
       message_id: message_answers_params[:message_id],
       mention_id: message_answers_params[:mention_id],
       message_button_id: message_answers_params[:message_button_id],
-    ).first
+    )
 
     MessageAnswer.transaction do
       begin
