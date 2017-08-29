@@ -8,7 +8,6 @@ RSpec.describe "InteractiveMessages", type: :request do
     let!(:mention) { create(:mention, message: message) }
 
     before do
-      # POST parameter: https://api.slack.com/docs/message-buttons
       post "/api/v1/slack/interactive-messages/callback", params:
         {
           actions: [
@@ -21,7 +20,7 @@ RSpec.describe "InteractiveMessages", type: :request do
           },
         }
 
-      @message_answer = MessageAnswer.first
+      @message_answer = MessageAnswer.all
     end
 
     it 'response 201' do
@@ -30,9 +29,10 @@ RSpec.describe "InteractiveMessages", type: :request do
     end
 
     it 'check db registration' do
-      expect(@message_answer[:message_id]).to eq message.id
-      expect(@message_answer[:mention_id]).to eq mention.id
-      expect(@message_answer[:message_button_id]).to eq button.id
+      expect(@message_answer.size).to eq 1
+      expect(@message_answer.first[:message_id]).to eq message.id
+      expect(@message_answer.first[:mention_id]).to eq mention.id
+      expect(@message_answer.first[:message_button_id]).to eq button.id
     end
   end
 
