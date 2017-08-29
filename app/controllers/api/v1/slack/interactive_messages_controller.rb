@@ -1,4 +1,5 @@
 class Api::V1::Slack::InteractiveMessagesController < ApplicationController
+  # POST parameter: https://api.slack.com/docs/message-buttons
   def create
     message_button = MessageButton.find_by(name: params[:actions].first[:name])
     message = Message.find(message_button[:message_id])
