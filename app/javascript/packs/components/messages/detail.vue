@@ -1,14 +1,11 @@
 <template>
   <div>
     <div v-if="isMessageSelected()" class="column is-6">
-      {{ selected_message.id }}
       <h3 class="title is-3">Result Report</h3>
 
       <div v-if="isFetched()">
         <h4 class="title is-4">Answers</h4>
-        <div style="width: 300px; height: 300px; margin: auto;">
-          <canvas id="result_report"></canvas>
-        </div>
+        <pie-chart :chart-data="chart_data"></pie-chart>
 
         <table class="table" width="100%">
           <tr v-for="answer in this.message.report.answers">
@@ -56,12 +53,16 @@
 
 <script>
 import Api from '../../../lib/api'
+import PieChart from '../../../lib/chartjs/pie-chart.js'
+import _ from 'underscore'
 
 export default {
   props: ['selected_message'],
+  components: { PieChart },
   data() {
     return {
       message: null,
+      chart_data: null,
     }
   },
   watch: {
@@ -80,7 +81,31 @@ export default {
       Api.Message.detail(message.id).then((response) => {
         console.log(JSON.stringify(response.data))
         this.message = response.data
+        this.chart_data = this.createChartData(response.data.report.answers)
       })
+    },
+    createChartData(answers) {
+      return {
+        labels: _.map(answers, 'text'),
+        datasets: [
+          {
+            backgroundColor: [
+              '#ff6384', // pink
+              '#ff9f40', // orange
+              '#ffcd56', // yellow
+              '#4bc0c0', // green
+              '#36a2eb', // blue
+              '#9966ff', // purple
+              '#c9cbcf', // gray
+              '#c9cbcf', // gray
+              '#c9cbcf', // gray
+              '#c9cbcf', // gray
+              '#c9cbcf', // gray
+            ],
+            data: _.map(answers, 'percentage')
+          }
+        ]
+      }
     }
   }
 }
