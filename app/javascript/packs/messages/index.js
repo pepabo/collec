@@ -4,7 +4,7 @@ import Api from '../../lib/api'
 import moment from 'moment'
 import _ from 'underscore'
 import MessageStatus from '../components/message_status.vue'
-import MessageDetail from '../components/messages/details.vue'
+import MessageDetail from '../components/messages/detail.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   new Vue({
