@@ -3,6 +3,7 @@ import VeeValidate from 'vee-validate';
 import Multiselect from 'vue-multiselect'
 import Api from '../../lib/api'
 import $ from 'jquery'
+import moment from 'moment'
 
 Vue.use(VeeValidate)
 
@@ -13,11 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
     data: {
       message: '',
       require_confirm: false,
-      due_at_year: null,
-      due_at_month: null,
-      due_at_day: null,
-      due_at_hour: null,
-      due_at_minute: null,
+      due_at_year: moment().format('YYYY'),
+      due_at_month: moment().format('M'),
+      due_at_day: moment().format('D'),
+      due_at_hour: moment().format('H'),
+      due_at_minute: moment().format('mm'),
       messageButtons: [
         { text: '' }
       ],
