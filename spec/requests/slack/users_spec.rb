@@ -24,7 +24,7 @@ RSpec.describe "Users", type: :request do
       expect(json_parse.first['slack_id']).to eq 'U03XXXXXX'
       expect(json_parse.first['name']).to eq 'testuser'
       expect(json_parse.first['real_name']).to eq 'テスト ユーザー Test User (テス)'
-      expect(json_parse.first['avatar_url']).to eq 'http://hoge.io/001.jpg'
+      expect(json_parse.first['profile_picture_url']).to eq 'http://hoge.io/001.jpg'
     end
   end
 end
