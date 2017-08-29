@@ -20,7 +20,7 @@ RSpec.describe "Users", type: :request do
       expect(response.status).to eq 200
     end
 
-    it 'check json contents' do
+    it 'check json contents', autodoc: true do
       expect(json_parse.first['slack_id']).to eq 'U03XXXXXX'
       expect(json_parse.first['name']).to eq 'testuser'
       expect(json_parse.first['real_name']).to eq 'テスト ユーザー Test User (テス)'

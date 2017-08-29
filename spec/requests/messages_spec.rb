@@ -10,7 +10,7 @@ RSpec.describe "Messages", type: :request do
       get api_v1_messages_path
     end
 
-    it 'response success' do
+    it 'response success', autodoc: true do
       expect(response).to be_success
       expect(response.status).to eq 200
       expect(json_parse.count).to eq 1
@@ -33,7 +33,7 @@ RSpec.describe "Messages", type: :request do
       get api_v1_message_path message.id
     end
 
-    it 'response success' do
+    it 'response success', autodoc: true do
       expect(response).to be_success
       expect(response.status).to eq 200
 
@@ -70,7 +70,7 @@ RSpec.describe "Messages", type: :request do
       post api_v1_messages_path, params: params
     end
 
-    it 'resposne created' do
+    it 'resposne created', autodoc: true do
       expect(response).to be_success
       expect(response.status).to eq 201
 
