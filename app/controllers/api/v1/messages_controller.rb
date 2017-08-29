@@ -21,7 +21,7 @@ class Api::V1::MessagesController < ApplicationController
     message_buttons_params = params.permit(message_buttons: [:text])
     mentions_params = params.permit(mentions: [:slack_id, :name, :profile_picture_url])
     message = Message.new(message_params).tap do |ms|
-      ms.user_id = 1 # TODO: Pass the user id parameter from session
+      ms.user_id = current_user.id
       ms.callback_id = Slack::MessageButton.create_identifier
       ms.message_buttons = message_buttons_params[:message_buttons].map do |m|
         MessageButton.new(m).tap do |button|
@@ -36,6 +36,7 @@ class Api::V1::MessagesController < ApplicationController
         message.save!
       rescue => e
         Rails.logger.error e.inspect
+        raise e
       end
     end
 

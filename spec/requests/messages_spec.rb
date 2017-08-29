@@ -53,7 +53,9 @@ RSpec.describe "Messages", type: :request do
 
   describe "POST /api/v1/messages" do
     let(:parse_response) { json_parse }
+
     before do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(create(:user))
       params = {
          message: 'hoge',
          require_confirm: 0,
