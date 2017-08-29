@@ -1,5 +1,6 @@
+---
 :verbose: false
-:concurrency:  25
+:concurrency: 3
 :queues:
   - default
   - slack
