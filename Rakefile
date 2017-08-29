@@ -13,5 +13,5 @@ namespace :sidekiq do
 end
 
 namespace :jobs do
-  task :work => ["sidekiq:start"]
+  task work: ["sidekiq:start"]
 end
