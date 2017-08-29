@@ -29,7 +29,7 @@ describe RemindWorker  do
     end
 
     it 'proceeding slack job' do
-      expect(RemindWorker).to be_processed_in :remind
+      expect(subject).to be_processed_in :remind
     end
 
     it 'update previous message' do
@@ -37,6 +37,10 @@ describe RemindWorker  do
       expect(res['channel']).to eq 'DXXXXXXXX'
       expect(res['ts']).to eq '1503499924.000735'
       expect(res['text']).to eq '[remind] Hello World'
+    end
+
+    it 'enqueue DM send job' do
+      subject.perform(@mention_id)
     end
   end
 end

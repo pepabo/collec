@@ -8,7 +8,7 @@ class RemindWorker
     message = mention.message
 
     begin
-      message_button.chat_update(
+      response = message_button.chat_update(
         {
           channel: mention.channel,
           ts: mention.ts,
@@ -18,5 +18,9 @@ class RemindWorker
     rescue => e
       Rails.logger.error e.inspect
     end
+
+    SlackMessageWorker.perform_async mention_id
+
+    response
   end
 end
