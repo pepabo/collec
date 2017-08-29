@@ -35,5 +35,12 @@ describe SlackMessageWorker  do
       expect(res['message']['type']).to eq 'message'
       expect(res['message']['subtype']).to eq 'bot_message'
     end
+
+    it 'mention data updated' do
+      subject.perform(mention.id)
+      m = Mention.find(mention.id)
+      expect(m.channel).to eq 'DXXXXXXXX'
+      expect(m.ts).to eq '1503499924.000735'
+    end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170823142158) do
+ActiveRecord::Schema.define(version: 20170824122804) do
 
   create_table "mentions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "message_id"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 20170823142158) do
     t.datetime "updated_at", null: false
     t.string "name", comment: "Slack user name"
     t.string "profile_picture_url"
+    t.string "channel", comment: "ts to determine sended DM"
+    t.string "ts", comment: "channel to determine sended DM"
     t.index ["message_id"], name: "index_mentions_on_message_id"
   end
 

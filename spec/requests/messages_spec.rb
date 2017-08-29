@@ -14,7 +14,6 @@ RSpec.describe "Messages", type: :request do
       expect(response).to be_success
       expect(response.status).to eq 200
       expect(json_parse.count).to eq 1
-
       expect(parse_response['user_id']).to eq user.id
       expect(parse_response['message']).to eq message.message
       expect(parse_response['due_at']).to eq message.due_at.as_json
