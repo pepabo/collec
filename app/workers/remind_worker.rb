@@ -11,7 +11,8 @@ class RemindWorker
       {
         channel: mention.channel,
         ts: mention.ts,
-        text: "[updated. please read new message] #{message.message}"
+        text: "[updated. please read new message] #{message.message}",
+        attachments: []
       }
     )
     begin
