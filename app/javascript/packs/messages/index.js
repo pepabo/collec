@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'message_detail': MessageDetail
     },
     data: {
-      message_id: null,
+      selected_message: null,
       messages: []
     },
     created() {

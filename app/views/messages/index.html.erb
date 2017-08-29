@@ -14,7 +14,7 @@
       </tr>
       </thead>
       <tbody v-for="message in messages">
-      <tr @click="message_id=message.id">
+      <tr @click="selected_message=message">
         <td>{{ message.id }}</td>
         <td><message_status :report="message.report"></message_status></td>
         <td>{{ message.message }}</td>
@@ -31,7 +31,7 @@
     -->
   </div>
 
-  <message_detail></message_detail>
+  <message_detail :message="selected_message"></message_detail>
 </div>
 
 <%= javascript_pack_tag "messages/index" %>
