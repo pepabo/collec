@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     el: '#message_create',
     components: { Multiselect },
     data: {
+      is_loaded: false,
       message: '',
       require_confirm: false,
       due_at_year: moment().format('YYYY'),
@@ -32,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     created() {
       Api.SlackUser.list().then((response) => {
+        this.is_loaded = true
         this.slack_users = response.data
       })
     },
