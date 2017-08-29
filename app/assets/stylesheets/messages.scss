@@ -15,3 +15,10 @@
   border-right: 5px solid transparent;
   border-top: 5px solid #000;
 }
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1s
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0
+}
