@@ -43,6 +43,36 @@ module Slack
       client.chat_update(params)
     end
 
+    def disable_previous_message(mention_id)
+      mention = Mention.find(mention_id)
+      message = mention.message
+
+      Rails.logger.debug(
+        {
+          channel: mention.channel,
+          ts: mention.ts,
+          text: "[updated. please read new message] #{message.message}",
+          attachments: []
+        }
+      )
+      begin
+        response = chat_update(
+          {
+            channel: mention.channel,
+            ts: mention.ts,
+            text: "[updated. please read new message] #{message.message}",
+            attachments: []
+          }
+        )
+        Rails.logger.debug response.inspect
+      rescue => e
+        Rails.logger.error e.inspect
+        raise e
+      end
+
+      response
+    end
+
     #
     # This method create unique identifier for Message Button's callback id or action name
     #
