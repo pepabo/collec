@@ -10,15 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170820024441) do
+ActiveRecord::Schema.define(version: 20170829032541) do
 
   create_table "mentions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "message_id"
-    t.string "slack_id", comment: "Mentioned user's slack user ID"
+    t.integer "slack_id", comment: "Mentioned user's slack user ID"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name", comment: "Slack user name"
     t.string "profile_picture_url"
+    t.string "channel", comment: "ts to determine sended DM"
+    t.string "ts", comment: "channel to determine sended DM"
     t.index ["message_id"], name: "index_mentions_on_message_id"
   end
 
@@ -50,6 +52,7 @@ ActiveRecord::Schema.define(version: 20170820024441) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "callback_id", comment: "Unique identifier for the Slack message button"
+    t.integer "button_type"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
@@ -70,6 +73,7 @@ ActiveRecord::Schema.define(version: 20170820024441) do
     t.string "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image", comment: "slack avator"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -8,12 +8,13 @@ class User < ApplicationRecord
   def self.find_for_slack_oauth(auth)
     User.where(provider: auth.provider, slack_id: auth.uid).first ||
       User.create!(
-        name: auth.info.name,
+        name: auth.info.user,
         provider: auth.provider,
         slack_id: auth.uid,
         email: auth.info.email,
         token: auth.credentials.token,
-        password: Devise.friendly_token[0,20]
+        password: Devise.friendly_token[0,20],
+        image: auth.info.image_24,
       )
   end
 end
