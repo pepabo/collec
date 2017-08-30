@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     data: {
       is_loaded: false,
       message: '',
+      button_type: 'single',
       require_confirm: false,
       due_at_year: moment().format('YYYY'),
       due_at_month: moment().format('M'),
@@ -52,7 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
               {
                 message: this.message,
                 require_confirm: this.require_confirm,
-                due_at: this.due_at
+                due_at: this.due_at,
+                button_type: this.button_type
               },
               this.messageButtons,
               this.selected_slack_users
