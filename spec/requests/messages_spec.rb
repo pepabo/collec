@@ -53,7 +53,9 @@ RSpec.describe "Messages", type: :request do
 
   describe "POST /api/v1/messages" do
     let(:parse_response) { json_parse }
+
     before do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(create(:user))
       params = {
          message: 'hoge',
          require_confirm: 0,
@@ -86,11 +88,17 @@ RSpec.describe "Messages", type: :request do
       expect(parse_response["mentions"].first["slack_id"]).to eq 'UHOGEHOGE'
       expect(parse_response["mentions"].first["name"]).to eq 'fuga'
       expect(parse_response["mentions"].first["profile_picture_url"]).to eq 'http://hoge.com/fuga.jpg'
+      expect(parse_response["mentions"].first["text"]).to eq 'hoge'
     end
 
     it 'enqueue sidekiq' do
       expect(SlackMessageWorker.jobs.size).to eq 1
       expect(SlackMessageWorker.jobs.first['args'].first).to eq parse_response["mentions"].first["id"]
+    end
+
+    it 'enqueue remind job' do
+      expect(RemindWorker.jobs.size).to eq 1
+      expect(RemindWorker.jobs.first['args'].first).to eq parse_response["mentions"].first["id"]
     end
   end
 end
