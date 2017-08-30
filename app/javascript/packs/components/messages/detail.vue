@@ -5,7 +5,7 @@
 
       <div v-if="isFetched()">
         <h4 class="title is-4">Answers</h4>
-        <pie-chart :chart-data="chart_data"></pie-chart>
+        <pie-chart v-if="this.message.report.answers.length > 1" :chart-data="chart_data"></pie-chart>
 
         <table class="table" width="100%">
           <tr v-for="answer in this.message.report.answers">
@@ -76,6 +76,13 @@ export default {
     },
     isFetched() {
       return this.message !== null
+    },
+    isAnswered(answers) {
+      let total = 0;
+      total = _.map(answers, (answer) => {
+        return total + answer.count
+      })
+      return total > 0
     },
     fetchMessage(message) {
       Api.Message.detail(message.id).then((response) => {
