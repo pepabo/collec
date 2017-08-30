@@ -68,6 +68,30 @@ module Slack
       chat_update(params)
     end
 
+    def update_answered_message(mention_id)
+      chat_update(create_update_params)
+    end
+
+    def create_update_params(mention_id)
+      mention = Mention.find(mention_id)
+      message = mention.message
+
+      {
+        channel: mention.channel,
+        ts: mention.ts,
+        text: mention.text,
+        attachments: [
+          {
+            fallback: 'fallback', # TODO: Set fallback
+            callback_id: message.callback_id,
+            color: '#3AA3E3',
+            attachment_type: 'default',
+            actions: create_actions(effective_buttons(mention_id))
+          }
+        ]
+      }
+    end
+
     #
     # This method create unique identifier for Message Button's callback id or action name
     #
@@ -106,5 +130,16 @@ module Slack
         }
       end
     end
+
+    def effective_buttons(mention_id)
+      message_id = Mention.find(mention_id).message_id
+      answered_buttons_ids = MessageAnswer.where(mention_id: mention_id).map { |a|
+        a.message_button_id
+      }
+      ::MessageButton.where(message_id: message_id).select { |mb|
+        !answered_buttons_ids.include?(mb.id)
+      }
+    end
+
   end
 end
