@@ -6,7 +6,7 @@ class Api::V1::Slack::InteractiveMessagesController < ApplicationController
     json = JSON.parse(params['payload'])
     message_button = MessageButton.find_by(name: json['actions'].first['name'])
     message = Message.find(message_button[:message_id])
-    mention = Mention.find_by(slack_id: json['user']['id'])
+    mention = message.mentions.find_by(slack_id: json['user']['id'])
 
     MessageAnswer.new(
       message_id: message[:id],

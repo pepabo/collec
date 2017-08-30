@@ -26,7 +26,7 @@ RSpec.describe "InteractiveMessages", type: :request do
             user: {
               id: mention.slack_id,
             },
-          }
+          }.to_json
         }
       @message_answer = MessageAnswer.first
     end
