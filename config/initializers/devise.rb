@@ -30,5 +30,8 @@ Devise.setup do |config|
   #   manager.default_strategies(scope: :user).unshift :some_external_strategy
   # end
 
-  config.omniauth :slack, ENV['SLACK_API_KEY'], ENV['SLACK_API_SECRET'], scope: 'team:read,users:read,users:read.email,identify'
+  # Use team parameter restrict the login slack team.
+  # Get your slack team id using this: https://api.slack.com/methods/team.info/test
+  # ref: https://github.com/kmrshntr/omniauth-slack#team
+  config.omniauth :slack, ENV['SLACK_API_KEY'], ENV['SLACK_API_SECRET'], scope: 'team:read,users:read,users:read.email,identify', team: ENV['SLACK_LOGIN_TEAM_ID']
 end
