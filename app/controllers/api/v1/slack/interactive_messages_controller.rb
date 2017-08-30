@@ -1,4 +1,6 @@
 class Api::V1::Slack::InteractiveMessagesController < ApplicationController
+  protect_from_forgery except: :create
+
   # POST parameter: https://api.slack.com/docs/message-buttons
   def create
     message_button = MessageButton.find_by(name: params[:actions].first[:name])
