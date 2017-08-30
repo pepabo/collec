@@ -8,6 +8,11 @@ RSpec.describe "InteractiveMessages", type: :request do
     let!(:mention) { create(:mention, message: message) }
 
     before do
+      WebMock.stub_request(:post, "https://slack.com/api/chat.update").to_return(
+        body: File.read("#{Rails.root}/test/fixtures/slack_chat_update_response.json"),
+        status: 200,
+        headers: { 'Content-Type' =>  'application/json' })
+
       post "/api/v1/slack/interactive-messages/callback", params:
         {
           actions: [
