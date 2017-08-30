@@ -11,7 +11,7 @@
           <tr v-for="answer in this.message.report.answers">
             <td width="40%">{{ answer.text }}</td>
             <td width="10%" nowrap>{{ answer.percentage }}% / {{ answer.count }}</td>
-            <td width="50%"><progress class="progress is-danger" value="5" max="100">{{ answer.percentage }}%</progress></td>
+            <td width="50%"><progress class="progress is-danger" :value="answer.percentage" max="100">{{ answer.percentage }}%</progress></td>
           </tr>
         </table>
 
