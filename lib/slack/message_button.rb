@@ -69,7 +69,7 @@ module Slack
     end
 
     def update_answered_message(mention_id)
-      chat_update(create_update_params)
+      chat_update(create_update_params(mention_id))
     end
 
     def create_update_params(mention_id)
