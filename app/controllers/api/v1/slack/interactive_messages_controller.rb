@@ -5,17 +5,11 @@ class Api::V1::Slack::InteractiveMessagesController < ApplicationController
     message = Message.find(message_button[:message_id])
     mention = Mention.find_by(slack_id: params[:user][:id])
 
-    MessageAnswer.transaction do
-      begin
-        MessageAnswer.new(
-          message_id: message[:id],
-          message_button_id: message_button[:id],
-          mention_id: mention[:id]
-        ).save!
-      rescue => e
-        Rails.logger.error e.inspect
-      end
-    end
+    MessageAnswer.new(
+      message_id: message[:id],
+      message_button_id: message_button[:id],
+      mention_id: mention[:id]
+    ).save!
 
     head :created
   end
