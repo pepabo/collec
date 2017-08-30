@@ -11,6 +11,9 @@ class Api::V1::Slack::InteractiveMessagesController < ApplicationController
       mention_id: mention[:id]
     ).save!
 
+    mention.text = "#{mention.text}. #{message_button.text} が選択されました"
+    mention.save!
+
     head :created
   end
 end
