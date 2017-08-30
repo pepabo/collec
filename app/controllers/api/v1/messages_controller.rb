@@ -1,6 +1,6 @@
 class Api::V1::MessagesController < ApplicationController
   def index
-    @messages = Message.order('id desc').all.page(params[:page]).per(10)
+    @messages = Message.all.page(params[:page]).per(10)
   end
 
   def show
