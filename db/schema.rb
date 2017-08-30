@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20170830022518) do
     t.string "profile_picture_url"
     t.string "channel", comment: "ts to determine sended DM"
     t.string "ts", comment: "channel to determine sended DM"
-    t.string "message", comment: "current displayed message"
+    t.string "text", comment: "current displayed message"
     t.index ["message_id"], name: "index_mentions_on_message_id"
   end
 
