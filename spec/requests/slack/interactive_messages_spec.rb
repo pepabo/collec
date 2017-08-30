@@ -10,18 +10,19 @@ RSpec.describe "InteractiveMessages", type: :request do
     before do
       post "/api/v1/slack/interactive-messages/callback", params:
         {
-          actions: [
-            {
-              name: button.name,
-              value: button.text,
-              type: 'button',
+          payload: {
+            actions: [
+              {
+                name: button.name,
+                value: button.text,
+                type: 'button',
+              },
+            ],
+            user: {
+              id: mention.slack_id,
             },
-          ],
-          user: {
-            id: mention.slack_id,
-          },
+          }
         }
-
       @message_answer = MessageAnswer.first
     end
 
