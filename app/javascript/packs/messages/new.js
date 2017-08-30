@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     data: {
       is_loaded: false,
       message: '',
-      button_type: 0,
+      button_type: 'single',
       require_confirm: false,
       due_at_year: moment().format('YYYY'),
       due_at_month: moment().format('M'),
