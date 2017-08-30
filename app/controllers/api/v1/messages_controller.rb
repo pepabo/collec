@@ -28,7 +28,11 @@ class Api::V1::MessagesController < ApplicationController
           button.name = Slack::MessageButton.create_identifier
         end
       end
-      ms.mentions = mentions_params[:mentions].map {|m| Mention.new(m) }
+      ms.mentions = mentions_params[:mentions].map do |m|
+        Mention.new(m).tap do |mention|
+          mention.text = ms.message
+        end
+      end
     end
 
     Message.transaction do
