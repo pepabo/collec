@@ -34,6 +34,20 @@
   </div>
 
   <div class="field">
+    <label class="label">Button Type</label>
+    <div class="control">
+      <label class="radio">
+        <%= f.radio_button(:button_type, 0, checked: 'checked') %>
+        <strong>Single</strong>: can choose one answer from buttons.
+      </label>
+      <label class="radio">
+        <%= f.radio_button(:button_type, 1) %>
+        <strong>Multi</strong>: can choose multiple answers from buttons.
+      </label>
+    </div>
+  </div>
+
+  <div class="field">
     <label class="label">Buttons</label>
     <template v-for="messageButton, key in messageButtons">
         <div class="columns">
