@@ -40,7 +40,16 @@ module Slack
     # @option params [String] :text
     # @see https://github.com/slack-ruby/slack-ruby-client/blob/master/README.md#send-messages
     def chat_update(params = {})
-      client.chat_update(params)
+      Rails.logger.debug(params)
+      begin
+        response = client.chat_update(params)
+        Rails.logger.debug response.inspect
+      rescue => e
+        Rails.logger.error e.inspect
+        raise e
+      end
+
+      response
     end
 
     def disable_previous_message(mention_id)
@@ -56,16 +65,7 @@ module Slack
         attachments: []
       }
 
-      Rails.logger.debug(params)
-      begin
-        response = chat_update(params)
-        Rails.logger.debug response.inspect
-      rescue => e
-        Rails.logger.error e.inspect
-        raise e
-      end
-
-      response
+      chat_update(params)
     end
 
     #
