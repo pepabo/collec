@@ -33,6 +33,42 @@ module Slack
     end
 
     #
+    # This method update a message with Message Button
+    #
+    # @option params [String] :channel
+    # @option params [String] :ts
+    # @option params [String] :text
+    # @see https://github.com/slack-ruby/slack-ruby-client/blob/master/README.md#send-messages
+    def chat_update(params = {})
+      client.chat_update(params)
+    end
+
+    def disable_previous_message(mention_id)
+      mention = Mention.find(mention_id)
+      message = mention.message
+
+      message.message = "[updated. please read new message] #{message.message}",
+
+      params = {
+        channel: mention.channel,
+        ts: mention.ts,
+        text: message.message,
+        attachments: []
+      }
+
+      Rails.logger.debug(params)
+      begin
+        response = chat_update(params)
+        Rails.logger.debug response.inspect
+      rescue => e
+        Rails.logger.error e.inspect
+        raise e
+      end
+
+      response
+    end
+
+    #
     # This method create unique identifier for Message Button's callback id or action name
     #
     def self.create_identifier

@@ -1,0 +1,13 @@
+{
+  "ok": true,
+  "channel": "DXXXXXXXX",
+  "ts": "1503499924.000735",
+  "text": "[updated. please read new message] Hello World",
+  "message": {
+    "text": "[updated. please read new message] Hello World",
+    "username": "answer",
+    "bot_id": "B11111111",
+    "type": "message",
+    "subtype": "bot_message"
+  }
+}
