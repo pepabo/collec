@@ -12,6 +12,7 @@ export default {
       authenticity_token: token,
       message: message.message,
       require_confirm: message.require_confirm,
+      button_type: message.button_type,
       due_at: message.due_at,
       message_buttons: message_buttons,
       mentions: mentions
