@@ -37,11 +37,11 @@
     <label class="label">Button Type</label>
     <div class="control">
       <label class="radio">
-        <%= f.radio_button(:button_type, 0, 'v-model': 'button_type') %>
+        <%= f.radio_button(:button_type, 'single', 'v-model': 'button_type') %>
         <strong>Single</strong>: can choose one answer from buttons.
       </label>
       <label class="radio">
-        <%= f.radio_button(:button_type, 1, 'v-model': 'button_type') %>
+        <%= f.radio_button(:button_type, 'multi', 'v-model': 'button_type') %>
         <strong>Multi</strong>: can choose multiple answers from buttons.
       </label>
     </div>
