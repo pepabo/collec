@@ -53,4 +53,29 @@ describe Slack::MessageButton do
       it { expect(@result[1][:type]).to eq 'button' }
     end
   end
+
+  describe '#create_update_params' do
+    before do
+      user_with_messages = create(:user, :with_messages)
+      mention_id = user_with_messages.messages.first.mentions.first.id
+
+      @result = slack.send(:create_update_params, mention_id)
+    end
+
+    it { expect(@result[:channel]).to eq 'DXXXXXXXX' }
+    it { expect(@result[:ts]).to eq '1503499924.000735' }
+    it { expect(@result[:text]).to eq 'question 000001' }
+  end
+
+  describe '#effective_buttons' do
+    context 'when has no answer' do
+      before do
+        user_with_messages = create(:user, :with_messages)
+        mention_id = user_with_messages.messages.first.mentions.first.id
+        @result = slack.send(:effective_buttons, mention_id)
+      end
+
+      it { expect(@result.count).to eq 2 }
+    end
+  end
 end

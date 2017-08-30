@@ -88,6 +88,7 @@ RSpec.describe "Messages", type: :request do
       expect(parse_response["mentions"].first["slack_id"]).to eq 'UHOGEHOGE'
       expect(parse_response["mentions"].first["name"]).to eq 'fuga'
       expect(parse_response["mentions"].first["profile_picture_url"]).to eq 'http://hoge.com/fuga.jpg'
+      expect(parse_response["mentions"].first["text"]).to eq 'hoge'
     end
 
     it 'enqueue sidekiq' do

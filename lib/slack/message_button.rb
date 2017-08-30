@@ -40,7 +40,16 @@ module Slack
     # @option params [String] :text
     # @see https://github.com/slack-ruby/slack-ruby-client/blob/master/README.md#send-messages
     def chat_update(params = {})
-      client.chat_update(params)
+      Rails.logger.debug(params)
+      begin
+        response = client.chat_update(params)
+        Rails.logger.debug response.inspect
+      rescue => e
+        Rails.logger.error e.inspect
+        raise e
+      end
+
+      response
     end
 
     def disable_previous_message(mention_id)
@@ -56,16 +65,31 @@ module Slack
         attachments: []
       }
 
-      Rails.logger.debug(params)
-      begin
-        response = chat_update(params)
-        Rails.logger.debug response.inspect
-      rescue => e
-        Rails.logger.error e.inspect
-        raise e
-      end
+      chat_update(params)
+    end
 
-      response
+    def update_answered_message(mention_id)
+      chat_update(create_update_params(mention_id))
+    end
+
+    def create_update_params(mention_id)
+      mention = Mention.find(mention_id)
+      message = mention.message
+
+      {
+        channel: mention.channel,
+        ts: mention.ts,
+        text: mention.text,
+        attachments: [
+          {
+            fallback: 'fallback', # TODO: Set fallback
+            callback_id: message.callback_id,
+            color: '#3AA3E3',
+            attachment_type: 'default',
+            actions: create_actions(effective_buttons(mention_id))
+          }
+        ]
+      }
     end
 
     #
@@ -106,5 +130,16 @@ module Slack
         }
       end
     end
+
+    def effective_buttons(mention_id)
+      message_id = Mention.find(mention_id).message_id
+      answered_buttons_ids = MessageAnswer.where(mention_id: mention_id).map { |a|
+        a.message_button_id
+      }
+      ::MessageButton.where(message_id: message_id).select { |mb|
+        !answered_buttons_ids.include?(mb.id)
+      }
+    end
+
   end
 end
