@@ -11,9 +11,11 @@ RSpec.describe "InteractiveMessages", type: :request do
       post "/api/v1/slack/interactive-messages/callback", params:
         {
           actions: [
-            name: button.name,
-            value: button.text,
-            type: 'button',
+            {
+              name: button.name,
+              value: button.text,
+              type: 'button',
+            },
           ],
           user: {
             id: mention.slack_id,
