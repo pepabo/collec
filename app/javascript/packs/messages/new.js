@@ -4,13 +4,17 @@ import Multiselect from 'vue-multiselect'
 import Api from '../../lib/api'
 import $ from 'jquery'
 import moment from 'moment'
+import Datepicker from 'vuejs-datepicker';
 
 Vue.use(VeeValidate)
 
 document.addEventListener('DOMContentLoaded', () => {
   new Vue({
     el: '#message_create',
-    components: { Multiselect },
+    components: {
+      Multiselect,
+      Datepicker
+    },
     data: {
       is_loaded: false,
       message: '',
@@ -25,11 +29,20 @@ document.addEventListener('DOMContentLoaded', () => {
         { text: '' }
       ],
       slack_users: [],
-      selected_slack_users: []
-    },
-    computed: {
-      due_at() {
-        return this.due_at_year + '-' + this.due_at_month + '-' + this.due_at_day + ' ' + this.due_at_hour + ':' + this.due_at_minute+ ':00'
+      selected_slack_users: [],
+      selected: "180",
+      options: [
+        { text: '3 hours later', value: "180" },
+        { text: '6 hours later', value: "360" },
+        { text: '1 days later', value: "1440" },
+        { text: '3 days later', value: "4320" },
+        { text: 'other', value: "0" },
+      ],
+      state: {
+        disabled: true,
+      },
+      customFormatter(date) {
+        return moment(date).format('YYYY/MM/DD');
       }
     },
     created() {
@@ -39,13 +52,42 @@ document.addEventListener('DOMContentLoaded', () => {
       })
     },
     methods: {
-      addMessageButton() {
-        this.messageButtons.push({})
+      keyupButtonText(key) {
+        if(this.messageButtons.length -1 == key && this.messageButtons[key].text != undefined) {
+          this.messageButtons.push({})
+        }
       },
       removeMessageButton(key) {
-        Vue.delete(this.messageButtons, key)
+        // 最後の一個は削除させない
+        if(this.messageButtons.length != 1) {
+          Vue.delete(this.messageButtons, key)
+        } else if(this.messageButtons.length == 1){
+          Vue.set(this.messageButtons, key, "")
+        }
+      },
+      onRemindChange() {
+        if(this.selected == 0) {
+          this.state.disabled = false
+          this.state.date = new Date()
+        } else {
+          this.state.disabled = true
+          this.state.date = null
+        }
       },
       register() {
+        var last = this.messageButtons.length - 1
+        if(this.messageButtons[last].text === undefined && last != 0) {
+          this.removeMessageButton(last)
+        }
+
+        // カレンダー選択
+        if(this.selected == 0) {
+          this.due_at =  new Date(this.state.date.getYear(), this.state.date.getMonth(), this.state.date.getDay(), 23, 59)
+        } else {
+          console.log(this.selected * 60)
+          this.due_at =  new Date(Date.now() + this.selected * 60000)
+        }
+
         this.$validator.validateAll().then(result => {
           if (result) {
             Api.Message.create(
@@ -66,8 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }).catch(() => {
           // something went wrong (non-validation related).
         });
-
-
       }
     }
   })

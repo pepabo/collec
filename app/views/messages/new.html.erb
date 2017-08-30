@@ -1,4 +1,3 @@
-<% # TODO: CDN経由ではなくパッケージインストールしたCSSを読み込むようにする %>
 <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.0.0/dist/vue-multiselect.min.css">
 <div id="message_create" v-show="is_loaded" style="display: none;: ">
 <%= form_for :message do |f| %>
@@ -7,9 +6,8 @@
     <div class="control">
       <%= f.text_area :message, class: 'textarea', 'v-model': 'message', 'v-validate': "'required'" %>
     </div>
-
     <p v-if="errors.has('message[message]')" class="help is-danger">
-      {{ errors.first('message[message]') }}
+    {{ errors.first('message[message]') }}
     </p>
   </div>
 
@@ -18,20 +16,23 @@
       <div class="field">
         <label class="label">Mentions</label>
         <multiselect
-            data-vv-name="mentions"
-            label="name"
-            :multiple="true"
-            :options="this.slack_users"
-            v-validate="'required'"
-            v-model="selected_slack_users"
+           data-vv-name="mentions"
+           label="name"
+           :multiple="true"
+           :options="this.slack_users"
+           :close-on-select="false"
+           :tab-select="true"
+           placeholder="@example"
+           v-validate="'required'"
+           v-model="selected_slack_users"
         >
         </multiselect>
         <p v-if="errors.has('mentions')" class="help is-danger">
           {{ errors.first('mentions') }}
-        </p>
+          </p>
+        </div>
       </div>
     </div>
-  </div>
 
   <div class="field">
     <label class="label">Button Type</label>
@@ -53,51 +54,62 @@
         <div class="columns">
           <div class="column is-11">
             <input
-              :name="'message_button' + key "
-              v-model="messageButton.text"
-              v-validate="'required'"
-              type="text" class="input">
+               :name="'message_button' + key "
+               v-model="messageButton.text"
+               @keyup="keyupButtonText(key)"
+               type="text" class="input"
+                           placeholder="Yes! I like Pizza!"
+                           >
           </div>
-          <div class="column is-11">
-            <a class="delete is-large" @click.prevent="removeMessageButton(key)"></a>
-          </div>
+            <div class="column is-11">
+              <a class="delete is-large" @click.prevent="removeMessageButton(key)"></a>
+            </div>
         </div>
         <p v-if="errors.has('message_button' + key)" class="help is-danger">
-          {{ errors.first('message_button' + key) }}
+        {{ errors.first('message_button' + key) }}
         </p>
-    </template>
-    <button class="button" @click.prevent="addMessageButton">追加する</button>
-  </div>
+      </template>
+    </div>
 
-  <!--
-  <div class="field">
-    <p>
+    <!--
+      <div class="field">
+      <p>
       <%= check_box_tag :require_confirm, 0, false, 'v-model': 'require_confirm'%>
       <%= label_tag :require_confirm, '確認用ポップアップを表示する' %>
-    </p>
-  </div>
-  -->
+      </p>
+      </div>
+    -->
+    <div class="field">
+      <label class="label">Reply deadline</label>
 
-  <div class="field">
-    <div class="control">
-      <%= select_year(Date.today, { start_year: 2017, end_year: 2019}, { 'v-model': 'due_at_year' }) %>
-      <%= select_month(Date.today, { use_month_numbers: true }, { 'v-model': 'due_at_month' }) %>
-      <%= select_day(Date.today, {}, { 'v-model': 'due_at_day' }) %>
-      <%= select_hour(Date.today, {}, { 'v-model': 'due_at_hour' }) %>
-      <%= select_minute(Date.today, {}, { 'v-model': 'due_at_minute' }) %>
+      <nav class="level">
+        <!-- Left side -->
+        <div class="level">
+          <div class="level-item">
+            <select v-model="selected" v-on:change="onRemindChange">
+              <option v-for="option in options" v-bind:value="option.value">
+              {{ option.text }}
+              </option>
+            </select>
+          </div>
+          <div class="level-item" style="margin-left: 5px">
+            <div class="field">
+              <datepicker :disabled-picker="state.disabled" :value="state.date" :format="customFormatter"></datepicker>
+            </div>
+          </div>
+        </div>
+      </nav>
     </div>
-  </div>
-
-  <div class="field is-grouped">
-    <div class="control">
-      <button @click.prevent="register()" class="button is-primary">
-        Create</button>
+    <div class="field is-grouped">
+      <div class="control">
+        <button @click.prevent="register()" class="button is-primary">
+          Create</button>
+      </div>
+      <div class="control">
+        <a href="/" class="button is-link">Cancel</a>
+      </div>
     </div>
-    <div class="control">
-      <a href="/" class="button is-link">Cancel</a>
-    </div>
-  </div>
-<% end %>
 </div>
+<% end %>
 
 <%= javascript_pack_tag "messages/new" %>
