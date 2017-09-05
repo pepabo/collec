@@ -6,9 +6,7 @@ RSpec.describe "Messages", type: :request do
     let!(:message) { create(:message, user: user) }
     let(:parse_response) { json_parse.first }
 
-    before do
-      get api_v1_messages_path
-    end
+    before { get api_v1_messages_path }
 
     it 'response success', autodoc: true do
       expect(response).to be_success
