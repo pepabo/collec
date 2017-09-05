@@ -1,6 +1,8 @@
 class Api::V1::MessagesController < ApplicationController
   def index
-    @messages = Message.all
+    message_params = params.permit(:page)
+
+    @messages = Message.all.page(message_params[:page])
   end
 
   def show

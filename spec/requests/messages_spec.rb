@@ -3,19 +3,62 @@ require 'rails_helper'
 RSpec.describe "Messages", type: :request do
   describe "GET /api/v1/messages" do
     let!(:user) { create(:user) }
-    let!(:message) { create(:message, user: user) }
-    let(:parse_response) { json_parse.first }
 
-    before { get api_v1_messages_path }
+    context 'when has no pagination parameter' do
+      let!(:message) { create(:message, user: user) }
+      let(:parse_response) { json_parse.first }
 
-    it 'response success', autodoc: true do
-      expect(response).to be_success
-      expect(response.status).to eq 200
-      expect(json_parse.count).to eq 1
-      expect(parse_response['user_id']).to eq user.id
-      expect(parse_response['message']).to eq message.message
-      expect(parse_response['due_at']).to eq message.due_at.as_json
-      expect(parse_response['require_confirm']).to eq message.require_confirm
+      before { get api_v1_messages_path }
+
+      it 'response success', autodoc: true do
+        expect(response).to be_success
+        expect(response.status).to eq 200
+        expect(json_parse.count).to eq 1
+        expect(parse_response['user_id']).to eq user.id
+        expect(parse_response['message']).to eq message.message
+        expect(parse_response['due_at']).to eq message.due_at.as_json
+        expect(parse_response['require_confirm']).to eq message.require_confirm
+      end
+    end
+
+    context 'when has 26 messages and no page parameter' do
+      before do
+        26.times { create(:message, user: user) }
+        get api_v1_messages_path
+      end
+
+      it 'response success' do
+        expect(response).to be_success
+        expect(response.status).to eq 200
+        expect(json_parse.count).to eq 25
+      end
+    end
+
+    context 'when has 26 messages and fetch page 1' do
+      before do
+        26.times { create(:message, user: user) }
+        get api_v1_messages_path, params: { page: 1 }
+      end
+
+      it 'response success' do
+        expect(response).to be_success
+        expect(response.status).to eq 200
+        expect(json_parse.count).to eq 25
+      end
+    end
+
+
+    context 'when has 26 messages and fetch page 2' do
+      before do
+        26.times { create(:message, user: user) }
+        get api_v1_messages_path, params: { page: 2 }
+      end
+
+      it 'response success' do
+        expect(response).to be_success
+        expect(response.status).to eq 200
+        expect(json_parse.count).to eq 1
+      end
     end
   end
 
