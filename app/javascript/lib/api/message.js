@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 export default {
-  list: () => {
-    return axios.get('/api/v1/messages');
+  list: (page) => {
+    return axios.get('/api/v1/messages', { params: { page: page } });
   },
   detail: (message_id) => {
     return axios.get('/api/v1/messages/' + message_id);

@@ -23,12 +23,16 @@
       </tbody>
     </table>
 
-    <!--
     <nav class="pagination is-centered">
-      <a class="pagination-previous">Previous</a>
-      <a class="pagination-next">Next page</a>
+      <a class="pagination-previous"
+         v-if="this.paging.current_page > 1"
+         @click="fetchPreviousMessages()"
+      >Previous</a>
+      <a class="pagination-next"
+         v-if="this.paging.has_next"
+         @click="fetchNextMessages()"
+      >Next page</a>
     </nav>
-    -->
   </div>
 
   <message_detail :selected_message="selected_message"></message_detail>

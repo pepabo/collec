@@ -15,21 +15,31 @@ document.addEventListener('DOMContentLoaded', () => {
     data: {
       selected_message: null,
       is_loaded: false,
-      messages: []
+      messages: [],
+      paging: null
     },
     created() {
       this.fetchMessageList()
     },
     methods: {
-      fetchMessageList() {
-        Api.Message.list().then((response) => {
-          this.messages = _.map(response.data, (message) => {
+      fetchMessageList(page = null) {
+        Api.Message.list(page).then((response) => {
+          this.messages = _.map(response.data.messages, (message) => {
             message.due_at_for_view = moment(message.due_at).format('MM/DD HH:mm')
             this.is_loaded = true
             return message
           })
+          this.paging = response.data.paging
         })
       },
+      fetchNextMessages() {
+        let next_page = this.paging.current_page + 1
+        this.fetchMessageList(next_page)
+      },
+      fetchPreviousMessages() {
+        let previous_page = this.paging.current_page - 1
+        this.fetchMessageList(previous_page)
+      }
     }
   })
 })
