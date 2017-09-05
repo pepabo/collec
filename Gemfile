@@ -18,6 +18,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jbuilder', '~> 2.5'
 gem 'bootstrap_form'
 gem 'webpacker', '~> 2.0'
+gem 'kaminari'
 
 group :production do
   gem 'pg'
