@@ -11,7 +11,7 @@ class SlackMessageWorker
       {
         callback_id: message.callback_id,
         channel: mention.slack_id,
-        text: message.message,
+        text: message_text(message),
         message_buttons: message.message_buttons
       }
     )
@@ -20,7 +20,7 @@ class SlackMessageWorker
         {
           callback_id: message.callback_id,
           channel: mention.slack_id,
-          text: message.message,
+          text: message_text(message),
           message_buttons: message.message_buttons
         }
       )
@@ -35,5 +35,9 @@ class SlackMessageWorker
     mention.save!
 
     response
+  end
+
+  def message_text(message)
+    "#{message.message} by @#{message.user[:name]} deadline #{message[:due_at]}"
   end
 end
