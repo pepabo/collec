@@ -3,6 +3,9 @@ class Api::V1::MessagesController < ApplicationController
     message_params = params.permit(:page)
 
     @messages = Message.all.page(message_params[:page])
+
+    @current_page = Message.all.page(message_params[:page]).current_page
+    @has_next = Message.all.page(message_params[:page]).next_page.present?
   end
 
   def show

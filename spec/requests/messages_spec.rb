@@ -6,14 +6,16 @@ RSpec.describe "Messages", type: :request do
 
     context 'when has no pagination parameter' do
       let!(:message) { create(:message, user: user) }
-      let(:parse_response) { json_parse.first }
+      let(:parse_response) { json_parse['messages'].first }
 
       before { get api_v1_messages_path }
 
       it 'response success', autodoc: true do
         expect(response).to be_success
         expect(response.status).to eq 200
-        expect(json_parse.count).to eq 1
+        expect(json_parse['messages'].count).to eq 1
+        expect(json_parse['paging']['current_page']).to eq 1
+        expect(json_parse['paging']['has_next']).to eq false
         expect(parse_response['user_id']).to eq user.id
         expect(parse_response['message']).to eq message.message
         expect(parse_response['due_at']).to eq message.due_at.as_json
@@ -30,7 +32,9 @@ RSpec.describe "Messages", type: :request do
       it 'response success' do
         expect(response).to be_success
         expect(response.status).to eq 200
-        expect(json_parse.count).to eq 25
+        expect(json_parse['messages'].count).to eq 25
+        expect(json_parse['paging']['current_page']).to eq 1
+        expect(json_parse['paging']['has_next']).to eq true
       end
     end
 
@@ -43,7 +47,9 @@ RSpec.describe "Messages", type: :request do
       it 'response success' do
         expect(response).to be_success
         expect(response.status).to eq 200
-        expect(json_parse.count).to eq 25
+        expect(json_parse['messages'].count).to eq 25
+        expect(json_parse['paging']['current_page']).to eq 1
+        expect(json_parse['paging']['has_next']).to eq true
       end
     end
 
@@ -57,7 +63,9 @@ RSpec.describe "Messages", type: :request do
       it 'response success' do
         expect(response).to be_success
         expect(response.status).to eq 200
-        expect(json_parse.count).to eq 1
+        expect(json_parse['messages'].count).to eq 1
+        expect(json_parse['paging']['current_page']).to eq 2
+        expect(json_parse['paging']['has_next']).to eq false
       end
     end
   end
