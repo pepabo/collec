@@ -4,8 +4,8 @@ class Api::V1::MessagesController < ApplicationController
 
     @messages = Message.all.page(message_params[:page])
 
-    @current_page = Message.all.page(message_params[:page]).current_page
-    @has_next = Message.all.page(message_params[:page]).next_page.present?
+    @previous = api_v1_messages_path + '/?page=' + Message.all.page(message_params[:page]).prev_page.to_s if Message.all.page(message_params[:page]).prev_page.present?
+    @next = api_v1_messages_path + '/?page=' + Message.all.page(message_params[:page]).next_page.to_s if Message.all.page(message_params[:page]).next_page.present?
   end
 
   def show

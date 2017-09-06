@@ -16,6 +16,6 @@ json.messages do
 end
 
 json.paging do
-  json.current_page @current_page
-  json.has_next @has_next
+  json.previous @previous
+  json.next @next
 end

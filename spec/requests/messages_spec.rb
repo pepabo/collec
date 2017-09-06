@@ -14,8 +14,8 @@ RSpec.describe "Messages", type: :request do
         expect(response).to be_success
         expect(response.status).to eq 200
         expect(json_parse['messages'].count).to eq 1
-        expect(json_parse['paging']['current_page']).to eq 1
-        expect(json_parse['paging']['has_next']).to eq false
+        expect(json_parse['paging']['previous']).to eq nil
+        expect(json_parse['paging']['next']).to eq nil
         expect(parse_response['user_id']).to eq user.id
         expect(parse_response['message']).to eq message.message
         expect(parse_response['due_at']).to eq message.due_at.as_json
@@ -33,8 +33,8 @@ RSpec.describe "Messages", type: :request do
         expect(response).to be_success
         expect(response.status).to eq 200
         expect(json_parse['messages'].count).to eq 25
-        expect(json_parse['paging']['current_page']).to eq 1
-        expect(json_parse['paging']['has_next']).to eq true
+        expect(json_parse['paging']['previous']).to eq nil
+        expect(json_parse['paging']['next']).to eq '/api/v1/messages/?page=2'
       end
     end
 
@@ -48,8 +48,8 @@ RSpec.describe "Messages", type: :request do
         expect(response).to be_success
         expect(response.status).to eq 200
         expect(json_parse['messages'].count).to eq 25
-        expect(json_parse['paging']['current_page']).to eq 1
-        expect(json_parse['paging']['has_next']).to eq true
+        expect(json_parse['paging']['previous']).to eq nil
+        expect(json_parse['paging']['next']).to eq '/api/v1/messages/?page=2'
       end
     end
 
@@ -64,8 +64,8 @@ RSpec.describe "Messages", type: :request do
         expect(response).to be_success
         expect(response.status).to eq 200
         expect(json_parse['messages'].count).to eq 1
-        expect(json_parse['paging']['current_page']).to eq 2
-        expect(json_parse['paging']['has_next']).to eq false
+        expect(json_parse['paging']['previous']).to eq '/api/v1/messages/?page=1'
+        expect(json_parse['paging']['next']).to eq nil
       end
     end
   end
