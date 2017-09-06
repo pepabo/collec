@@ -25,12 +25,12 @@
 
     <nav class="pagination is-centered">
       <a class="pagination-previous"
-         v-if="this.paging.current_page > 1"
-         @click="fetchPreviousMessages()"
+         v-if="this.paging.previous"
+         @click="fetchMessageList(paging.previous)"
       >Previous</a>
       <a class="pagination-next"
-         v-if="this.paging.has_next"
-         @click="fetchNextMessages()"
+         v-if="this.paging.next"
+         @click="fetchMessageList(paging.next)"
       >Next page</a>
     </nav>
   </div>

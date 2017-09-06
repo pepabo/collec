@@ -16,14 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
       selected_message: null,
       is_loaded: false,
       messages: [],
-      paging: null
+      paging: { previous: null, next: null }
     },
     created() {
       this.fetchMessageList()
     },
     methods: {
-      fetchMessageList(page = null) {
-        Api.Message.list(page).then((response) => {
+      fetchMessageList(uri) {
+        Api.Message.paginate(uri).then((response) => {
           this.messages = _.map(response.data.messages, (message) => {
             message.due_at_for_view = moment(message.due_at).format('MM/DD HH:mm')
             this.is_loaded = true
@@ -32,14 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
           this.paging = response.data.paging
         })
       },
-      fetchNextMessages() {
-        let next_page = this.paging.current_page + 1
-        this.fetchMessageList(next_page)
-      },
-      fetchPreviousMessages() {
-        let previous_page = this.paging.current_page - 1
-        this.fetchMessageList(previous_page)
-      }
     }
   })
 })
