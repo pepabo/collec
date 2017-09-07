@@ -1,8 +1,6 @@
 class Api::V1::MessagesController < ApplicationController
   def index
-    message_params = params.permit(:page)
-
-    @messages = Message.all.page(message_params[:page])
+    @messages = Message.all.page(params[:page])
 
     @previous = api_v1_messages_path + '/?page=' + @messages.prev_page.to_s if @messages.prev_page.present?
     @next = api_v1_messages_path + '/?page=' + @messages.next_page.to_s if @messages.next_page.present?
