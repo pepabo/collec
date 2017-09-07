@@ -1,9 +1,9 @@
 {
   "name": "answer",
   "description": "(WIP) send message and remind app on slack",
-  "website": "https://github.com/honeymoon-answer/answer",
-  "repository": "https://github.com/honeymoon-answer/answer",
-  "logo": "https://github.com/honeymoon-answer/answer/blob/master/logo.png",
+  "website": "https://github.com/pepabo/answer",
+  "repository": "https://github.com/pepabo/answer",
+  "logo": "https://github.com/pepabo/answer/blob/master/logo.png",
   "success_url": "/",
   "keywords": [
     "answer",
