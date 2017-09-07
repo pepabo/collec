@@ -7,7 +7,7 @@
       </span>
       <span>Create</span>
     <% end %>
-    <table class="table" v-show="is_loaded" style="display: none;">
+    <table class="table" v-show="is_loaded" style="width: 100%; display: none;">
       <thead>
       <tr>
         <th>State</th>
@@ -25,11 +25,11 @@
 
     <nav class="pagination is-centered">
       <a class="pagination-previous"
-         v-if="this.paging.previous"
+         :disabled="!this.paging.previous"
          @click="fetchMessageList(paging.previous)"
       >Previous</a>
       <a class="pagination-next"
-         v-if="this.paging.next"
+         :disabled="!this.paging.next"
          @click="fetchMessageList(paging.next)"
       >Next page</a>
     </nav>
