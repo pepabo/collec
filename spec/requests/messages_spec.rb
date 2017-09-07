@@ -4,7 +4,7 @@ RSpec.describe "Messages", type: :request do
   describe "GET /api/v1/messages" do
     let!(:user) { create(:user) }
 
-    context 'when has no pagination parameter' do
+    context 'when less than 25 messages' do
       let!(:message) { create(:message, user: user) }
       let(:parse_response) { json_parse['messages'].first }
 
@@ -23,49 +23,58 @@ RSpec.describe "Messages", type: :request do
       end
     end
 
-    context 'when has 26 messages and no page parameter' do
+    context 'when greater than 26 messages' do
       before do
         26.times { create(:message, user: user) }
-        get api_v1_messages_path
+        @message = Message.first
       end
 
-      it 'response success' do
-        expect(response).to be_success
-        expect(response.status).to eq 200
-        expect(json_parse['messages'].count).to eq 25
-        expect(json_parse['paging']['previous']).to eq nil
-        expect(json_parse['paging']['next']).to eq '/api/v1/messages/?page=2'
-      end
-    end
+      context 'no page parameter' do
+        before { get api_v1_messages_path }
 
-    context 'when has 26 messages and fetch page 1', autodoc: true do
-      before do
-        26.times { create(:message, user: user) }
-        get api_v1_messages_path, params: { page: 1 }
-      end
-
-      it 'response success' do
-        expect(response).to be_success
-        expect(response.status).to eq 200
-        expect(json_parse['messages'].count).to eq 25
-        expect(json_parse['paging']['previous']).to eq nil
-        expect(json_parse['paging']['next']).to eq '/api/v1/messages/?page=2'
-      end
-    end
-
-
-    context 'when has 26 messages and fetch page 2' do
-      before do
-        26.times { create(:message, user: user) }
-        get api_v1_messages_path, params: { page: 2 }
+        it 'response success' do
+          expect(response).to be_success
+          expect(response.status).to eq 200
+          expect(json_parse['messages'].count).to eq 25
+          expect(json_parse['messages'][0]['user_id']).to eq @message.user.id
+          expect(json_parse['messages'][0]['message']).to eq @message.message
+          expect(json_parse['messages'][0]['due_at']).to eq @message.due_at.as_json
+          expect(json_parse['messages'][0]['require_confirm']).to eq @message.require_confirm
+          expect(json_parse['paging']['previous']).to eq nil
+          expect(json_parse['paging']['next']).to eq '/api/v1/messages/?page=2'
+        end
       end
 
-      it 'response success' do
-        expect(response).to be_success
-        expect(response.status).to eq 200
-        expect(json_parse['messages'].count).to eq 1
-        expect(json_parse['paging']['previous']).to eq '/api/v1/messages/?page=1'
-        expect(json_parse['paging']['next']).to eq nil
+      context 'fetch page 1', autodoc: true do
+        before { get api_v1_messages_path, params: { page: 1 } }
+
+        it 'response success' do
+          expect(response).to be_success
+          expect(response.status).to eq 200
+          expect(json_parse['messages'].count).to eq 25
+          expect(json_parse['messages'][0]['user_id']).to eq @message.user.id
+          expect(json_parse['messages'][0]['message']).to eq @message.message
+          expect(json_parse['messages'][0]['due_at']).to eq @message.due_at.as_json
+          expect(json_parse['messages'][0]['require_confirm']).to eq @message.require_confirm
+          expect(json_parse['paging']['previous']).to eq nil
+          expect(json_parse['paging']['next']).to eq '/api/v1/messages/?page=2'
+        end
+      end
+
+      context 'fetch page 2' do
+        before { get api_v1_messages_path, params: { page: 2 } }
+
+        it 'response success' do
+          expect(response).to be_success
+          expect(response.status).to eq 200
+          expect(json_parse['messages'].count).to eq 1
+          expect(json_parse['messages'][0]['user_id']).to eq @message.user.id
+          expect(json_parse['messages'][0]['message']).to eq @message.message
+          expect(json_parse['messages'][0]['due_at']).to eq @message.due_at.as_json
+          expect(json_parse['messages'][0]['require_confirm']).to eq @message.require_confirm
+          expect(json_parse['paging']['previous']).to eq '/api/v1/messages/?page=1'
+          expect(json_parse['paging']['next']).to eq nil
+        end
       end
     end
   end
