@@ -10,7 +10,7 @@ RSpec.describe "Messages", type: :request do
 
       before { get api_v1_messages_path }
 
-      it 'response success', autodoc: true do
+      it 'response success' do
         expect(response).to be_success
         expect(response.status).to eq 200
         expect(json_parse['messages'].count).to eq 1
@@ -38,7 +38,7 @@ RSpec.describe "Messages", type: :request do
       end
     end
 
-    context 'when has 26 messages and fetch page 1' do
+    context 'when has 26 messages and fetch page 1', autodoc: true do
       before do
         26.times { create(:message, user: user) }
         get api_v1_messages_path, params: { page: 1 }
