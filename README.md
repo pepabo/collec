@@ -1,6 +1,6 @@
 # README
 
-[![Build Status](https://travis-ci.org/honeymoon-answer/answer.svg?branch=master)](https://travis-ci.org/honeymoon-answer/answer)
+[![Build Status](https://travis-ci.org/pepabo/answer.svg?branch=master)](https://travis-ci.org/pepabo/answer)
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
