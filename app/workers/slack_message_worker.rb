@@ -38,6 +38,10 @@ class SlackMessageWorker
   end
 
   def message_text(message)
-    "#{message.message} by @#{message.user[:name]} deadline #{message[:due_at]}"
+    <<-EOF
+Hey! You've got a message from @#{message.user[:name]}. Please answer the question blow #{message[:due_at]} !
+---
+#{message.message}
+    EOF
   end
 end
