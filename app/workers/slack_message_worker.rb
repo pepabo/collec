@@ -11,7 +11,7 @@ class SlackMessageWorker
       {
         callback_id: message.callback_id,
         channel: mention.slack_id,
-        text: message.message,
+        text: message_text(message),
         message_buttons: message.message_buttons
       }
     )
@@ -20,7 +20,7 @@ class SlackMessageWorker
         {
           callback_id: message.callback_id,
           channel: mention.slack_id,
-          text: message.message,
+          text: message_text(message),
           message_buttons: message.message_buttons
         }
       )
@@ -35,5 +35,15 @@ class SlackMessageWorker
     mention.save!
 
     response
+  end
+
+  def message_text(message)
+    due_at = Time.parse(message[:due_at].to_s).strftime("%F %R")
+
+    <<-EOF
+Hey! You've got a message from @#{message.user[:name]}. Please answer the question blow by #{due_at} !
+---
+#{message.message}
+    EOF
   end
 end
