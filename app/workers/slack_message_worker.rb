@@ -38,8 +38,10 @@ class SlackMessageWorker
   end
 
   def message_text(message)
+    due_at = Time.parse(message[:due_at].to_s).strftime("%F %R")
+
     <<-EOF
-Hey! You've got a message by @#{message.user[:name]}. Please answer the question blow #{message[:due_at]} !
+Hey! You've got a message by @#{message.user[:name]}. Please answer the question blow #{due_at} !
 ---
 #{message.message}
     EOF
