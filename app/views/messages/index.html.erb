@@ -7,7 +7,7 @@
       </span>
       <span>Create</span>
     <% end %>
-    <table class="table" v-show="is_loaded" style="display: none;">
+    <table class="table" v-show="is_loaded" style="width: 100%; display: none;">
       <thead>
       <tr>
         <th>State</th>
@@ -23,12 +23,16 @@
       </tbody>
     </table>
 
-    <!--
     <nav class="pagination is-centered">
-      <a class="pagination-previous">Previous</a>
-      <a class="pagination-next">Next page</a>
+      <a class="pagination-previous"
+         :disabled="!this.paging.previous"
+         @click="fetchMessageList(paging.previous)"
+      >Previous</a>
+      <a class="pagination-next"
+         :disabled="!this.paging.next"
+         @click="fetchMessageList(paging.next)"
+      >Next page</a>
     </nav>
-    -->
   </div>
 
   <message_detail :selected_message="selected_message"></message_detail>

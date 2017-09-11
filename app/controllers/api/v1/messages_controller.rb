@@ -1,6 +1,9 @@
 class Api::V1::MessagesController < ApplicationController
   def index
-    @messages = Message.all.order('created_at desc')
+    @messages = Message.all.order('created_at desc').page(params[:page] || 1)
+
+    @previous = api_v1_messages_path + '/?page=' + @messages.prev_page.to_s if @messages.prev_page.present?
+    @next = api_v1_messages_path + '/?page=' + @messages.next_page.to_s if @messages.next_page.present?
   end
 
   def show
