@@ -6,7 +6,7 @@ class SlackMessageWorker
 
     mention = Mention.find(mention_id)
     # 回答済みの場合は送信しない
-    return if mentions.message_answer.size > 0
+    return if mention.message_answers.size > 0
 
     message = mention.message
     Rails.logger.debug(

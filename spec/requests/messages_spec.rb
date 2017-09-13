@@ -158,7 +158,7 @@ RSpec.describe "Messages", type: :request do
     end
 
     it 'enqueue remind job' do
-      expect(RemindWorker.jobs.size).to eq 1
+      expect(RemindWorker.jobs.size).to eq 0
       expect(RemindWorker.jobs.first['args'].first).to eq parse_response["mentions"].first["id"]
     end
   end
