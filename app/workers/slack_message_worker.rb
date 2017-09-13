@@ -5,8 +5,10 @@ class SlackMessageWorker
     message_button = Slack::MessageButton.new
 
     mention = Mention.find(mention_id)
-    message = mention.message
+    # 回答済みの場合は送信しない
+    return if mention.message_answers.size > 0
 
+    message = mention.message
     Rails.logger.debug(
       {
         callback_id: message.callback_id,

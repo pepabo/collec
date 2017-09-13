@@ -51,7 +51,7 @@ class Api::V1::MessagesController < ApplicationController
       SlackMessageWorker.perform_async m.id
       remind_day = message.due_at - 1.day
       wait = Time.new(remind_day.year, remind_day.month, remind_day.day, REMIND_HOUR, REMIND_MINUTE) - Time.now
-      RemindWorker.perform_at(wait, m.id)
+      RemindWorker.perform_at(wait, m.id) if Date.today + 2 < message.due_at
     end
 
     render json: message.to_json(include: %w(message_buttons mentions) ), status: :created
