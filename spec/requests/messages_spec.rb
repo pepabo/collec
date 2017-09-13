@@ -115,50 +115,65 @@ RSpec.describe "Messages", type: :request do
   describe "POST /api/v1/messages" do
     let(:parse_response) { json_parse }
 
-    before do
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(create(:user))
-      params = {
-         message: 'hoge',
-         require_confirm: 0,
-         due_at: '2017-08-15 10:00:00',
-         button_type: 'single',
-         message_buttons: [
-           { text: 'button01' },
-         ],
-         mentions: [
-           { slack_id: 'UHOGEHOGE', name: 'fuga', profile_picture_url: 'http://hoge.com/fuga.jpg' }
-         ]
-      }
+    shared_examples "post_with_enqueue" do
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(create(:user))
+        params = {
+           message: 'hoge',
+           require_confirm: 0,
+           due_at: due_at,
+           button_type: 'single',
+           message_buttons: [
+             { text: 'button01' },
+           ],
+           mentions: [
+             { slack_id: 'UHOGEHOGE', name: 'fuga', profile_picture_url: 'http://hoge.com/fuga.jpg' }
+           ]
+        }
 
-      post api_v1_messages_path, params: params
+        post api_v1_messages_path, params: params
+      end
+
+      it 'resposne created', autodoc: true do
+        expect(response).to be_success
+        expect(response.status).to eq 201
+        expect(parse_response["message"]).to eq 'hoge'
+        expect(parse_response["require_confirm"]).to eq false
+        expect(Time.parse(parse_response["due_at"]).to_i).to eq due_at.to_i
+        expect(parse_response["button_type"]).to eq 'single'
+        expect(parse_response["callback_id"]).not_to be_empty
+
+        expect(parse_response["message_buttons"].first["name"]).not_to be_empty
+        expect(parse_response["message_buttons"].first["text"]).to eq 'button01'
+
+        expect(parse_response["mentions"].first["slack_id"]).to eq 'UHOGEHOGE'
+        expect(parse_response["mentions"].first["name"]).to eq 'fuga'
+        expect(parse_response["mentions"].first["profile_picture_url"]).to eq 'http://hoge.com/fuga.jpg'
+        expect(parse_response["mentions"].first["text"]).to eq 'hoge'
+      end
+
+      it 'enqueue sidekiq' do
+        expect(SlackMessageWorker.jobs.size).to eq message_queue
+        expect(SlackMessageWorker.jobs.first['args'].first).to eq parse_response["mentions"].first["id"]
+      end
+
+      it 'enqueue remind job' do
+        expect(RemindWorker.jobs.size).to eq remind_queue
+      end
     end
 
-    it 'resposne created', autodoc: true do
-      expect(response).to be_success
-      expect(response.status).to eq 201
-
-      expect(parse_response["message"]).to eq 'hoge'
-      expect(parse_response["require_confirm"]).to eq false
-      expect(Time.new(parse_response["due_at"])).to eq Time.new('2017-08-15 10:00:00')
-      expect(parse_response["button_type"]).to eq 'single'
-      expect(parse_response["callback_id"]).not_to be_empty
-
-      expect(parse_response["message_buttons"].first["name"]).not_to be_empty
-      expect(parse_response["message_buttons"].first["text"]).to eq 'button01'
-
-      expect(parse_response["mentions"].first["slack_id"]).to eq 'UHOGEHOGE'
-      expect(parse_response["mentions"].first["name"]).to eq 'fuga'
-      expect(parse_response["mentions"].first["profile_picture_url"]).to eq 'http://hoge.com/fuga.jpg'
-      expect(parse_response["mentions"].first["text"]).to eq 'hoge'
+    context "no remind required" do
+      let(:message_queue) { 1 }
+      let(:remind_queue) { 0 }
+      let(:due_at) { Time.now }
+      include_examples "post_with_enqueue"
     end
 
-    it 'enqueue sidekiq' do
-      expect(SlackMessageWorker.jobs.size).to eq 1
-      expect(SlackMessageWorker.jobs.first['args'].first).to eq parse_response["mentions"].first["id"]
-    end
-
-    it 'enqueue remind job' do
-      expect(RemindWorker.jobs.size).to eq 0
+    context "remind required" do
+      let(:message_queue) { 1 }
+      let(:remind_queue) { 1 }
+      let(:due_at) {Time.now + 3.days}
+      include_examples "post_with_enqueue"
     end
   end
 end
