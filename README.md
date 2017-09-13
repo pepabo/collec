@@ -25,16 +25,10 @@ $ yarn install
 $ brew services start redis
 ```
 
-* Database creation
+* Setup database
 
 ```bash
-$ bin/rake db:create
-```
-
-* Database initialization
-
-```bash
-$ bin/rake db:migrate
+$ bin/rails db:setup
 ```
 
 * API Document
