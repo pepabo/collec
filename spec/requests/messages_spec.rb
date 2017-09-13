@@ -3,6 +3,9 @@ require 'rails_helper'
 RSpec.describe "Messages", type: :request do
   describe "GET /api/v1/messages" do
     let!(:user) { create(:user) }
+    before do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    end
 
     context 'when less than 25 messages' do
       let!(:message) { create(:message, user: user) }
