@@ -5,4 +5,8 @@ class Message < ApplicationRecord
   has_many :message_answers
 
   enum button_type: %w(single multi)
+
+  def self.calc_percentage(num, total)
+    ( num / total.to_f) * 100
+  end
 end

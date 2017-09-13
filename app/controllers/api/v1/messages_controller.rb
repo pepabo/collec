@@ -12,7 +12,7 @@ class Api::V1::MessagesController < ApplicationController
       {
         text: b.text,
         count: b.message_answers.size,
-        percentage: (b.message_answers.size.to_f / @message.message_answers.size) * 100
+        percentage: Message.calc_percentage(@message.message_answers.size, b.message_answers.size)
       }
     end
   end
