@@ -90,9 +90,7 @@ RSpec.describe "Messages", type: :request do
     let!(:answer) { create(:message_answer, message: message, message_button: button, mention: mention) }
     let(:parse_response) { json_parse }
 
-    before do
-      get api_v1_message_path message.id
-    end
+    before { get api_v1_message_path message.id }
 
     it 'response success', autodoc: true do
       expect(response).to be_success
