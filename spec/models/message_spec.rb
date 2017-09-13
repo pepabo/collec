@@ -9,7 +9,7 @@ describe Message, type: :model do
 
     context 'Not divisible' do
       before { @result = Message.calc_percentage(4, 11) }
-      it { expect(@result).to eq 36.36363636363637 }
+      it { expect(@result).to eq 36 }
     end
   end
 end
