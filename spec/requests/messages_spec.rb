@@ -102,8 +102,8 @@ RSpec.describe "Messages", type: :request do
         expect(parse_response['require_confirm']).to eq message.require_confirm
 
         expect(parse_response['report']['answers'].first['text']).to eq button.text
-        expect(parse_response['report']['answers'].first['count']).to eq 1
-        expect(parse_response['report']['answers'].first['percentage']).to eq 100
+        expect(parse_response['report']['answers'].first['count']).to eq 0
+        expect(parse_response['report']['answers'].first['percentage']).to eq 0
 
         expect(parse_response['report']['mentioned'].first['name']).to eq mention.name
         expect(parse_response['report']['mentioned'].first['profile_picture_url']).to eq mention.profile_picture_url
