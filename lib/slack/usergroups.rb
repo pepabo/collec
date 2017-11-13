@@ -8,10 +8,9 @@ module Slack
       end
       usergroups.map do |u|
         {
-          team_id: u['team_id'],
-          name: u['name'],
+          user_group_id: u['id'],
+          name: u['handle'],
           description: u['description'],
-          handle: u['handle']
         }
       end
     end
