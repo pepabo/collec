@@ -33,10 +33,19 @@ class Api::V1::MessagesController < ApplicationController
       end
 
       ms.mentions = mentions_params[:mentions].map do |m|
-        Mention.new(m).tap do |mention|
-          mention.text = ms.message
+        if m["user_group_id"]
+          Slack::Web::Client.new.usergroups_users_list({ usergroup: m["user_group_id"]})["users"].map do |u|
+            Mention.new(m).tap do |mention|
+              mention.slack_id = u
+              mention.text = ms.message
+            end
+          end
+        else
+          Mention.new(m).tap do |mention|
+            mention.text = ms.message
+          end
         end
-      end
+      end.flatten
     end
 
     Message.transaction do
