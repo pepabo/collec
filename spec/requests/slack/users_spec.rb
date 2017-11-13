@@ -3,15 +3,15 @@ require 'rails_helper'
 RSpec.describe "Users", type: :request do
   describe "GET /api/v1/slack/users" do
     before do
-      data = [
+      expect_any_instance_of(Slack::User).to receive(:list).and_return([
         {
           slack_id: "U03XXXXXX",
           name: "testuser",
           real_name: "テスト ユーザー Test User (テス)",
           avatar_url: "http://hoge.io/001.jpg"
         }
-      ]
-      expect_any_instance_of(Slack::User).to receive(:list).and_return(data)
+      ])
+      expect_any_instance_of(Slack::Usergroups).to receive(:list).and_return([])
       get '/api/v1/slack/users'
     end
 
