@@ -34,9 +34,19 @@ class Api::V1::MessagesController < ApplicationController
 
       ms.mentions = mentions_params[:mentions].map do |m|
         if m["user_group_id"]
-          Slack::Web::Client.new.usergroups_users_list({ usergroup: m["user_group_id"]})["users"].map do |u|
+
+          user_groups = Rails.cache.fetch(m["user_group_id"]) do
+            Slack::Web::Client.new.usergroups_users_list({ usergroup: m["user_group_id"]})
+          end
+
+          user_groups["users"].map do |u|
+            user = Rails.cache.fetch(u) do
+              Slack::Web::Client.new.users_info(user: u)
+            end
+
             Mention.new(m).tap do |mention|
               mention.slack_id = u
+              mention.name = user["user"]["name"]
               mention.text = ms.message
             end
           end
