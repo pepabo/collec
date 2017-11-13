@@ -30,5 +30,5 @@ Devise.setup do |config|
   #   manager.default_strategies(scope: :user).unshift :some_external_strategy
   # end
 
-  config.omniauth :slack, ENV['SLACK_API_KEY'], ENV['SLACK_API_SECRET'], scope: 'team:read,users:read,users:read.email,identify'
+  config.omniauth :slack, ENV['SLACK_API_KEY'], ENV['SLACK_API_SECRET'], scope: 'team:read,users:read,usergroups:read,users:read.email,identify'
 end
