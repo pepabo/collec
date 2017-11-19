@@ -1,6 +1,6 @@
 # README
 
-[![Build Status](https://travis-ci.org/pepabo/answer.svg?branch=master)](https://travis-ci.org/pepabo/answer)
+[![Build Status](https://travis-ci.org/pepabo/collec.svg?branch=master)](https://travis-ci.org/pepabo/collec)
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
