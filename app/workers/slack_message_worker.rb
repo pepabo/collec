@@ -9,7 +9,7 @@ class SlackMessageWorker
     return if mention.message_answers.size > 0
 
     message = mention.message
-    Rails.logger.debug(
+    Rails.logger.info(
       {
         callback_id: message.callback_id,
         channel: mention.slack_id,
@@ -17,6 +17,7 @@ class SlackMessageWorker
         message_buttons: message.message_buttons
       }
     )
+
     begin
       response = message_button.post(
         {

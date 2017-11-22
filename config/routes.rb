@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       resources :messages, only: [:index, :show, :create]
       namespace :slack do
         resources :users, only: [:index]
+        resources :usergroups, only: [:index]
       end
     end
   end
