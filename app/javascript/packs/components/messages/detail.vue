@@ -86,7 +86,6 @@ export default {
     },
     fetchMessage(message) {
       Api.Message.detail(message.id).then((response) => {
-        console.log(JSON.stringify(response.data))
         this.message = response.data
         this.chart_data = this.createChartData(response.data.report.answers)
       })

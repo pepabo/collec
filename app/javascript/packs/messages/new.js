@@ -84,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if(this.selected == 0) {
           this.due_at =  new Date(this.state.date.getYear(), this.state.date.getMonth(), this.state.date.getDay(), 23, 59)
         } else {
-          console.log(this.selected * 60)
           this.due_at =  new Date(Date.now() + this.selected * 60000)
         }
 
