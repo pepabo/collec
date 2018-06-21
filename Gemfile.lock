@@ -47,7 +47,7 @@ GEM
       activesupport (>= 3.0.0)
       rspec
     awesome_print (1.8.0)
-    bcrypt (3.1.11)
+    bcrypt (3.1.12)
     bindex (0.5.0)
     bootstrap-social-rails (4.12.0)
       railties (>= 3.1)
@@ -81,10 +81,10 @@ GEM
       safe_yaml (~> 1.0.0)
     crass (1.0.4)
     deep_merge (1.2.1)
-    devise (4.3.0)
+    devise (4.4.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
-      railties (>= 4.1.0, < 5.2)
+      railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
     diff-lcs (1.3)
