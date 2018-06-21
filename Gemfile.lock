@@ -334,7 +334,7 @@ GEM
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (>= 3.3.4, < 5)
-    slack-ruby-client (0.11.0)
+    slack-ruby-client (0.11.1)
       activesupport
       faraday (>= 0.9)
       faraday_middleware
