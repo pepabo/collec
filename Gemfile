@@ -10,7 +10,6 @@ end
 gem 'rake'
 gem 'rubocop', require: false
 gem 'rails', '~> 5.1.2'
-gem 'mysql2'
 gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -25,6 +24,7 @@ group :production do
 end
 
 group :development, :test do
+  gem 'mysql2'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', '~> 3.2'
   gem 'selenium-webdriver'
