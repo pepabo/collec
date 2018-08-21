@@ -136,7 +136,7 @@ GEM
       faraday (>= 0.7.4, < 1.0)
     ffi (1.9.25)
     formatador (0.2.5)
-    gli (2.17.1)
+    gli (2.17.2)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     guard (2.14.1)
@@ -345,7 +345,7 @@ GEM
       connection_pool (~> 2.2, >= 2.2.2)
       rack-protection (>= 1.5.0)
       redis (>= 3.3.5, < 5)
-    slack-ruby-client (0.11.1)
+    slack-ruby-client (0.12.0)
       activesupport
       faraday (>= 0.9)
       faraday_middleware
