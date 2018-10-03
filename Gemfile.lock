@@ -58,7 +58,7 @@ GEM
     bootstrap_form (2.7.0)
     builder (3.2.3)
     byebug (10.0.2)
-    capybara (3.8.2)
+    capybara (3.9.0)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
@@ -404,7 +404,7 @@ DEPENDENCIES
   bootstrap-social-rails
   bootstrap_form
   byebug
-  capybara (~> 3.8)
+  capybara (~> 3.9)
   coffee-rails (~> 4.2)
   config
   devise
