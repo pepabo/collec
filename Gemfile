@@ -26,7 +26,7 @@ end
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'capybara', '~> 3.13'
+  gem 'capybara', '~> 3.14'
   gem 'selenium-webdriver'
   gem 'dotenv-rails'
 end
