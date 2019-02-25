@@ -134,7 +134,7 @@ GEM
       railties (>= 3.0.0)
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
-    faraday_middleware (0.12.2)
+    faraday_middleware (0.13.1)
       faraday (>= 0.7.4, < 1.0)
     ffi (1.9.25)
     formatador (0.2.5)
@@ -351,7 +351,7 @@ GEM
       rack (>= 1.5.0)
       rack-protection (>= 1.5.0)
       redis (>= 3.3.5, < 5)
-    slack-ruby-client (0.13.1)
+    slack-ruby-client (0.14.0)
       activesupport
       faraday (>= 0.9)
       faraday_middleware
