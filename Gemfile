@@ -58,7 +58,7 @@ group :test do
 end
 
 gem 'devise'
-gem 'omniauth'
+gem 'omniauth-rails_csrf_protection'
 gem 'omniauth-slack'
 gem 'slack-ruby-client'
 gem 'redis-rails'
