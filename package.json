@@ -21,6 +21,7 @@
     "jquery": "^3.4.0",
     "js-yaml": "^3.13.1",
     "moment": "^2.19.3",
+    "nan": "^2.14.0",
     "node-sass": "^4.5.3",
     "path-complete-extname": "^0.1.0",
     "postcss-loader": "^2.0.6",
