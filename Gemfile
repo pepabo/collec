@@ -8,7 +8,7 @@ end
 
 gem 'rake'
 gem 'rubocop', require: false
-gem 'rails', '~> 5.2.3'
+gem 'rails', '~> 6.0.2'
 gem 'mysql2'
 gem 'puma', '~> 4.2'
 gem 'sass-rails', '~> 6.0'
