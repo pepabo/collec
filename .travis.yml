@@ -6,6 +6,7 @@ services:
 bundler_args: "--without production --deployment --path vendor/bundle"
 cache: bundler
 before_install:
+  - gem install bundler:1.15.4
   - nvm install 6.11.2
   - npm config set spin false
   - npm install -g yarn
